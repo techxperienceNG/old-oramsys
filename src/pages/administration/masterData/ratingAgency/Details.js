@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -29,21 +29,10 @@ const Details = ({ hendelNext, hendelCancel, getData }) => {
     const dispatch = useDispatch()
     
     const handleChange = (event) => {
-        const name = event.target.name;
-        let postcode = /^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i;
-        if (name === "postcode") {
-            if (postcode.test(event.target.value)) {
-                setState({
-                    ...state,
-                    [name]: event.target.value
-                });
-            }
-        } else {
-            setState({
-                ...state,
-                [name]: event.target.value
-            });
-        }
+        setState({
+            ...state,
+            [event.target.name]: event.target.value
+          });
     };
 
     const [countryOption, setcountryOption] = useState([])
@@ -101,7 +90,7 @@ const Details = ({ hendelNext, hendelCancel, getData }) => {
     const validation = () => {
         let param = false
         let error = {}
-        let postcode = /^[0-9]{5}(?:-[0-9]{4})?$/
+        let postcode = /^\d{6}$/
         if (!state.name) {
             param = true
             error.name = "Please enter name!"
@@ -280,3 +269,5 @@ const Details = ({ hendelNext, hendelCancel, getData }) => {
         </div>
     )
 }
+
+export default Details

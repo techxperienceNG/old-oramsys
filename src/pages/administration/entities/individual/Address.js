@@ -82,7 +82,7 @@ const IndividualAddress = ({
     } else {
       dispatch(countrieAction("all"))
     }
-  }, [country])
+  }, [dispatch, country])
 
   useEffect(() => {
     if (entityGetById && entityGetById.data && entityGetById.status === 200) {
@@ -314,7 +314,50 @@ const IndividualAddress = ({
     return flag
   }
 
-  // const save = () => {
+  const Save = () => {
+    if (validation()) {
+      return
+    }
+    delete sendDetailData._id
+    delete ResidentialState._id
+    delete ProfessionalState._id
+    const body = {
+      detail: sendDetailData,
+      email: common.email,
+      password: common.password,
+      type: common.type,
+      addresses: [ResidentialState, ProfessionalState],
+    }
+    dispatch(entityAddAction(body))
+  }
+
+  useEffect(() => {
+    if (entityAddData && entityAddData.status === 200) {
+      navigate("/entities")
+      dispatch({
+        type: ENTITY_ADD,
+        payload: [],
+      })
+      
+      toast.success(entityAddData.message)
+    }
+  }, [dispatch, navigate, entityAddData])
+
+  const edit = () => {
+    if (validation()) {
+      return
+    }
+    const body = {
+      detail: sendDetailData,
+      email: common?.email,
+      password: common?.password,
+      type: common?.type,
+      addresses: [ResidentialState, ProfessionalState],
+    }
+    dispatch(editEntityAction(id, body))
+  }
+
+  // const saveData = () => {
   //   if (validation()) {
   //     return
   //   }
@@ -328,54 +371,12 @@ const IndividualAddress = ({
   //     type: common?.type,
   //     addresses: [ResidentialState, ProfessionalState],
   //   }
-  //   dispatch(entityAddAction(final))
-  // }
-
-  useEffect(() => {
-    if (entityAddData && entityAddData.status === 200) {
-      dispatch({
-        type: ENTITY_ADD,
-        payload: [],
-      })
-      navigate("/entities")
-      toast.success(entityAddData.message)
-    }
-  }, [entityAddData])
-
-  // const edit = () => {
-  //   if (validation()) {
-  //     return
+  //   if (id) {
+  //     dispatch(editEntityAction(id, final))
+  //   } else {
+  //     dispatch(entityAddAction(final))
   //   }
-  //   let final = {
-  //     detail: sendDetailData,
-  //     email: common?.email,
-  //     password: common?.password,
-  //     type: common?.type,
-  //     addresses: [ResidentialState, ProfessionalState],
-  //   }
-  //   dispatch(editEntityAction(id, final))
   // }
-
-  const saveData = () => {
-    if (validation()) {
-      return
-    }
-    delete sendDetailData._id
-    delete ResidentialState._id
-    delete ProfessionalState._id
-    let final = {
-      detail: sendDetailData,
-      email: common?.email,
-      password: common?.password,
-      type: common?.type,
-      addresses: [ResidentialState, ProfessionalState],
-    }
-    if (id) {
-      dispatch(editEntityAction(id, final))
-    } else {
-      dispatch(entityAddAction(final))
-    }
-  }
   
   useEffect(() => {
     if (editEntityData && editEntityData.status === 200) {
@@ -394,7 +395,7 @@ const IndividualAddress = ({
       })
       toast.success(editEntityData.message)
     }
-  }, [editEntityData])
+  }, [dispatch, navigate, editEntityData])
 
   return (
     <>
@@ -856,12 +857,11 @@ const IndividualAddress = ({
         >
           cancel
         </button>
-        {!isView && (
-            <button onClick={() => saveData()} className='footer_next_btn'>
-              {" "}
-              {id ? "Edit" : "Save"}
-            </button>
-        )}
+       
+        <button onClick={() => id ? edit() : Save()} className={`footer_next_btn ${isView ? 'd-none' : 'd-block'}`}>
+          {" "}
+          {id ? "Edit" : "Save"}
+        </button>
       </div>
     </>
   )

@@ -200,7 +200,7 @@ const Add_Edit_Entities = () => {
                                 {activeStep + 1 === 6 && <Roles hendelNext={handleNext} hendelCancel={handleBack} />}
                             </React.Fragment> :
                             <React.Fragment>
-                                {activeStep + 1 === 1 && <IndividualDetail hendelNext={handleNext} getDetailData={getIndividualDetailData} getCommonData={setCommon} entityType={entityType} />}
+                                {activeStep + 1 === 1 && <IndividualDetail hendelNext={handleNext} hendelCancel={handleBack}  getDetailData={getIndividualDetailData} getCommonData={setCommon} entityType={entityType} />}
                                 {activeStep + 1 === 2 && <IndividualAddress hendelNext={handleNext} hendelCancel={handleBack} sendDetailData={individualDetailData} common={common} />}
                             </React.Fragment>
                         }

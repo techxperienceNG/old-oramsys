@@ -1,7 +1,7 @@
-import { FormControl, InputLabel, Select, TextField } from "@material-ui/core"
+// import { FormControl, InputLabel, Select, TextField } from "@material-ui/core"
 import React, { useState } from "react"
-import { Col, Container, Row } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
+// import { Col, Container, Row } from "react-bootstrap"
+// import { useNavigate } from "react-router-dom"
 import Details from "./Details"
 
 import Box from "@material-ui/core/Box"
@@ -14,15 +14,15 @@ import Ratingschemes from "./Ratingschemes"
 
 const steps = ["Details", "Rating agencies"]
 const RatingAgenciesEdit = () => {
-  const navigate = useNavigate()
-  const [page, setPage] = useState("Details")
+//   const navigate = useNavigate()
+//   const [page, setPage] = useState("Details")
   const [details, setDetails] = useState({})
 
   const [activeStep, setActiveStep] = React.useState(0)
 
-  const isStepOptional = (step) => {
-    return step === 1
-  }
+//   const isStepOptional = (step) => {
+//     return step === 1
+//   }
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
   }

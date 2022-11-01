@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table';
 // import RatingSchemesCard from '../../../../component/RatingSchemesCard'
 import RatingSchemesModal from "../../../../component/Modal/RatingSchemesModal";
-import { Col, Row } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router-dom'
-import RatingSchemesCard from '../../../../component/RatingSchemesCard'
-import TextEditerModal from '../../../../component/Modal/TextEditerModal';
+// import RatingSchemesCard from '../../../../component/RatingSchemesCard'
+// import TextEditerModal from '../../../../component/Modal/TextEditerModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { RATINGAGENCIES, RATINGAGENCIES_GET_BY_ID, RATINGAGENCY_UPDATE } from '../../../../redux/types';
 import { toast } from 'react-toastify'
-import { ratingAgencyAddAction, ratingAgencyGetByIdAction, ratingAgencyUpdateAction } from '../../../../redux/actions/ratingAgenciesAction';
+import { ratingAgencyAddAction, ratingAgencyUpdateAction } from '../../../../redux/actions/ratingAgenciesAction';
 
 const Ratingschemes = ({ hendelCancel, hendelNext, detailData }) => {
 
@@ -29,44 +28,44 @@ const Ratingschemes = ({ hendelCancel, hendelNext, detailData }) => {
   const [editModal, setEditModal] = useState(false)
   const [isView, setIsView] = useState(false)
 
-  const ratingSchemesCard = [
-    {
-      grade: '',
-      value: "AAA",
-      acceptable: 'No',
-      comments: ''
-    },
-    {
-      grade: '',
-      value: "AAA",
-      acceptable: 'No',
-      comments: ''
-    },
-    {
-      grade: '',
-      value: "AAA",
-      acceptable: 'No',
-      comments: ''
-    },
-    {
-      grade: '',
-      value: "AAA",
-      acceptable: 'No',
-      comments: ''
-    },
-    {
-      grade: '',
-      value: "AAA",
-      acceptable: 'No',
-      comments: ''
-    },
-    {
-      grade: '',
-      value: "AAA",
-      acceptable: 'No',
-      comments: ''
-    }
-  ]
+  // const ratingSchemesCard = [
+  //   {
+  //     grade: '',
+  //     value: "AAA",
+  //     acceptable: 'No',
+  //     comments: ''
+  //   },
+  //   {
+  //     grade: '',
+  //     value: "AAA",
+  //     acceptable: 'No',
+  //     comments: ''
+  //   },
+  //   {
+  //     grade: '',
+  //     value: "AAA",
+  //     acceptable: 'No',
+  //     comments: ''
+  //   },
+  //   {
+  //     grade: '',
+  //     value: "AAA",
+  //     acceptable: 'No',
+  //     comments: ''
+  //   },
+  //   {
+  //     grade: '',
+  //     value: "AAA",
+  //     acceptable: 'No',
+  //     comments: ''
+  //   },
+  //   {
+  //     grade: '',
+  //     value: "AAA",
+  //     acceptable: 'No',
+  //     comments: ''
+  //   }
+  // ]
 
   useEffect(() => {
     setRatingAgencyData(ratingAgencyAdd)
@@ -83,7 +82,7 @@ const Ratingschemes = ({ hendelCancel, hendelNext, detailData }) => {
           payload: null
       })
     })
-  }, [])
+  }, [dispatch])
 
   // useEffect(() => {
   //   console.log('detailData?.ratingSchema', detailData?.ratingSchema)
@@ -111,7 +110,7 @@ const Ratingschemes = ({ hendelCancel, hendelNext, detailData }) => {
       })
       navigate('/rating-agencies')
     }
-  }, [ratingAgencyUpdate])
+  }, [dispatch, navigate, ratingAgencyUpdate])
 
   useEffect(() => {
     if (ratingAgencyData && ratingAgencyData.status === 200) {
@@ -122,7 +121,7 @@ const Ratingschemes = ({ hendelCancel, hendelNext, detailData }) => {
       })
       navigate('/rating-agencies')
     }
-  }, [ratingAgencyData])
+  }, [dispatch, navigate, ratingAgencyData])
 
   const save = () => {
     // if (validation()) {

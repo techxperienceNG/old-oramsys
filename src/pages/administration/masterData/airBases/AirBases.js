@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { Col, Row } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
-import CountriesCard from "../../../../component/CountriesCard"
-import { countrieAction } from "../../../../redux/actions/countrieAction"
+// import CountriesCard from "../../../../component/CountriesCard"
+// import { countrieAction } from "../../../../redux/actions/countrieAction"
 import MaterialTable from "material-table"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { Backdrop, Fade, Modal, TextField } from "@material-ui/core"
-import axios from "axios"
-import { ApiPost, BaseURL } from "../../../../helper/API/ApiData"
+// import axios from "axios"
+import { ApiPost} from "../../../../helper/API/ApiData"
 import { airPortsAction } from "../../../../redux/actions/portsAction"
 import { toast } from "react-toastify"
 
@@ -15,13 +15,13 @@ const AirBases = ({ showSidebar, setSidebar }) => {
   const [show, setShow] = useState(false)
   const [airPortData, setAirPortData] = useState()
   const [airPortForEdit, setAirPortForEdit] = useState()
-  const [search, setSearch] = useState("")
+  const [search] = useState("")
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(airPortsAction(search ? search : "all"))
     // console.log('search===============??', search)
-  }, [search])
+  }, [dispatch, search])
 
   const airPort = useSelector((state) => state.airPorts.airPort)
   useEffect(() => {
@@ -43,7 +43,7 @@ const AirBases = ({ showSidebar, setSidebar }) => {
     })
   }
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   return (
     <>
@@ -117,7 +117,7 @@ const AirBases = ({ showSidebar, setSidebar }) => {
           <div className='modal-content'>
             <div className='d-flex justify-content-end'>
               <img
-                src='../../assets/img/my-img/Close.png'
+                src='../../assets/img/my-img/Close.png' alt="text"
                 onClick={() => setShow(false)}
                 style={{ cursor: "pointer", width: "24px", height: "24px" }}
               />

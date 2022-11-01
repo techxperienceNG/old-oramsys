@@ -4,8 +4,8 @@ import { Col, Row } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { countrieAction } from '../../../../redux/actions/countrieAction';
-import { ratingAgencyAddAction, ratingAgencyGetByIdAction, ratingAgencyUpdateAction } from '../../../../redux/actions/ratingAgenciesAction';
-import { toast } from 'react-toastify'
+import { ratingAgencyGetByIdAction } from '../../../../redux/actions/ratingAgenciesAction';
+// import { toast } from 'react-toastify'
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { RATINGAGENCIES_GET_BY_ID } from '../../../../redux/types';
 
@@ -43,7 +43,7 @@ const Details = ({ hendelNext, hendelCancel, getData }) => {
 
     useEffect(() => {
         dispatch(countrieAction("all"))
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         if (countryOptions && countryOptions.data) {
@@ -55,7 +55,7 @@ const Details = ({ hendelNext, hendelCancel, getData }) => {
         if (id) {
             dispatch(ratingAgencyGetByIdAction(id))
         }
-    }, [id])
+    }, [dispatch, id])
 
     // useEffect(() => {
     //   return(() => {
@@ -84,7 +84,7 @@ const Details = ({ hendelNext, hendelCancel, getData }) => {
 
     useEffect(() => {
         dispatch(countrieAction('all'))
-    }, [])
+    }, [dispatch])
 
 
     const validation = () => {

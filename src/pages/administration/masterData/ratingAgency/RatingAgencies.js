@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import MaterialTable from 'material-table';
-import { useDispatch, useSelector } from 'react-redux';
-import { ratingAgenciesAction } from '../../../../redux/actions/ratingAgenciesAction';
-import { countrieAction } from '../../../../redux/actions/countrieAction';
+import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import MaterialTable from "material-table"
+import { useDispatch, useSelector } from "react-redux"
+import { ratingAgenciesAction } from "../../../../redux/actions/ratingAgenciesAction"
+import { countrieAction } from "../../../../redux/actions/countrieAction"
 
 const RatingAgencies = () => {
-
   const [ratingData, setratingData] = useState([])
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const ratingAgenciesDatas = useSelector(state => state.ratingAgenciesData?.ratingAgencies)
-  const countryOptions = useSelector(state => state.countryData.country)
-
+  const ratingAgenciesDatas = useSelector(
+    (state) => state.ratingAgenciesData?.ratingAgencies
+  )
+  const countryOptions = useSelector((state) => state.countryData.country)
 
   useEffect(() => {
     dispatch(countrieAction("all"))
@@ -22,39 +22,39 @@ const RatingAgencies = () => {
   // useEffect(() => {
   //   setratingData(ratingAgenciesDatas)
   // }, [ratingAgenciesDatas])
-  
 
   useEffect(() => {
     // console.log('ratingAgenciesDatas', ratingAgenciesDatas.data)
 
     if (ratingAgenciesDatas.data) {
-      setratingData(ratingAgenciesDatas.data?.map((item) => {
-        return {
-          name: item.name,
-          city: item.city,
-          street: item.street,
-          postcode: item.postcode,
-          country: countryOptions.data?.find((ele) => ele._id === item.country)?.name,
-          id: item._id,
-        }
-      }))
+      setratingData(
+        ratingAgenciesDatas.data?.map((item) => {
+          return {
+            name: item.name,
+            city: item.city,
+            street: item.street,
+            postcode: item.postcode,
+            country: countryOptions.data?.find(
+              (ele) => ele._id === item.country
+            )?.name,
+            id: item._id,
+          }
+        })
+      )
     }
   }, [ratingAgenciesDatas])
-
-
 
   useEffect(() => {
     dispatch(ratingAgenciesAction())
   }, [])
-
 
   const ratingSchemesCard = [
     {
       name: "s&p",
       city: "TIMBUKTU",
       street: "abc",
-      postcode: 'abc',
-      country: 'abc'
+      postcode: "abc",
+      country: "abc",
     },
     {
       name: "s&p",
@@ -90,7 +90,7 @@ const RatingAgencies = () => {
       street: "pqr",
       postcode: "pqr",
       country: "pqr",
-    }
+    },
   ]
 
   return (
@@ -98,29 +98,42 @@ const RatingAgencies = () => {
       <div className='product'>
         <div className='mb-3 d-flex justify-content-between align-items-center'>
           <h2 className='m-0'>Rating agencies</h2>
-          <button className='add_btn me-3' onClick={() => navigate("/rating-agencies-edit")}> <img src='../../assets/img/about/plus.png' className='me-2' />Add</button>
+          <button
+            className='add_btn me-3'
+            onClick={() => navigate("/rating-agencies-edit")}
+          >
+            {" "}
+            <img src='../../assets/img/about/plus.png' className='me-2' />
+            Add
+          </button>
         </div>
         <MaterialTable
-          title=""
+          title=''
           columns={[
-            { title: 'Name', field: 'name' },
-            { title: 'City', field: 'city' },
-            { title: 'Street', field: 'street' },
-            { title: 'Postcode', field: 'postcode' },
-            { title: 'Country', field: 'country' },
+            { title: "Name", field: "name" },
+            { title: "City", field: "city" },
+            { title: "Street", field: "street" },
+            { title: "Postcode", field: "postcode" },
+            { title: "Country", field: "country" },
           ]}
           data={ratingData}
           actions={[
             {
-              icon: 'edit',
-              tooltip: 'Edit RatingAgencie',
-              onClick: (e, rowData) => { navigate(`/rating-agencies-edit?id=${rowData?.id}`); console.log('rowData', rowData) }
+              icon: "edit",
+              tooltip: "Edit RatingAgencie",
+              onClick: (e, rowData) => {
+                navigate(`/rating-agencies-edit?id=${rowData?.id}`)
+                console.log("rowData", rowData)
+              },
             },
             {
-              icon: 'preview',
-              tooltip: 'View RatingAgencie',
-              onClick: (e, rowData) => navigate(`/rating-agencies-edit?id=${rowData?.id}`, { state: { isView: true } })
-            }
+              icon: "preview",
+              tooltip: "View RatingAgencie",
+              onClick: (e, rowData) =>
+                navigate(`/rating-agencies-edit?id=${rowData?.id}`, {
+                  state: { isView: true },
+                }),
+            },
           ]}
           options={{
             filtering: true,

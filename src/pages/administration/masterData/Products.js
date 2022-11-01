@@ -1,6 +1,6 @@
-import React from 'react';
-import { Row,Col } from 'react-bootstrap';
-import ProductCard from '../../../component/ProductCard';
+import React from "react"
+import { Row, Col } from "react-bootstrap"
+import ProductCard from "../../../component/ProductCard"
 const Products = () => {
   return (
     <>

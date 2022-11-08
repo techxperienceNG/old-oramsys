@@ -1122,7 +1122,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
                   color='warning'
                   name='netMetric'
                   value={productDetails.metric}
-                  onChange={(e) => handleChnage(e, "metric", "productDetails")}
+                  onChange={(e) => handleChnage(e, "metric")}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position='start'>

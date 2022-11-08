@@ -1,6 +1,5 @@
-import React from 'react'
-import { ApiGet, ApiPost, ApiPut } from '../../helper/API/ApiData'
-import { USER_ADD, USER_ADD_LOADING, USER_ADD_ERROR, GET_USER_DATA, GET_USER_DATA_ERROR, GET_USER_DATA_LOADING, IS_LOADING, USER_GET_BY_ID, USER_GET_BY_ID_ERROR, USER_UPDATE, USER_UPDATE_ERROR } from '../types'
+import { ApiGet, ApiPost } from '../../helper/API/ApiData'
+import { USER_ADD, USER_ADD_LOADING, USER_ADD_ERROR, GET_USER_DATA, GET_USER_DATA_ERROR, GET_USER_DATA_LOADING, IS_LOADING, USER_GET_BY_ID, USER_GET_BY_ID_ERROR, USER_UPDATE, USER_UPDATE_LOADING, USER_UPDATE_ERROR } from '../types'
 
 export const userGetAction = () => async (dispatch) => {
     try {
@@ -153,7 +152,7 @@ export const userUpdateAction = (userUpdate, id) => async (dispatch) => {
             payload: true
         })
         dispatch({
-            type: GET_USER_DATA_LOADING,
+            type: USER_UPDATE_LOADING,
             payload: true
         })
         await ApiPost(`user/edit/${id}`, userUpdate)
@@ -167,7 +166,7 @@ export const userUpdateAction = (userUpdate, id) => async (dispatch) => {
                 console.log(error);
             })
         dispatch({
-            type: GET_USER_DATA_LOADING,
+            type: USER_UPDATE_LOADING,
             payload: false
         })
 
@@ -183,7 +182,7 @@ export const userUpdateAction = (userUpdate, id) => async (dispatch) => {
         })
 
         dispatch({
-            type: GET_USER_DATA_LOADING,
+            type: USER_UPDATE_LOADING,
             payload: false
         })
 

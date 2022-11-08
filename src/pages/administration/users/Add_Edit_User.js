@@ -45,39 +45,6 @@ const Add_Edit_User = () => {
   }, [id])
 
   useEffect(() => {
-    return () => {
-      dispatch({
-        type: USER_GET_BY_ID,
-        payload: null,
-      })
-    }
-  }, [])
-
-  useEffect(() => {
-    // console.log('userEdit=======/=========', userEdit)
-    if (userEdit && userEdit.data) {
-      setState({
-        ...state,
-        name: userEdit.data.name,
-        email: userEdit.data.email,
-        department: userEdit.data.department,
-        profile: userEdit.data.profile,
-      })
-    }
-  }, [userEdit])
-
-  useEffect(() => {
-    if (userUpdated && userUpdated.status === 200) {
-      toast.success(userUpdated.message)
-      dispatch({
-        type: USER_UPDATE,
-        payload: [],
-      })
-      navigate("/users")
-    }
-  }, [userUpdated])
-
-  useEffect(() => {
     if (userAddData && userAddData.status === 200) {
       dispatch({
         type: USER_ADD,
@@ -87,6 +54,42 @@ const Add_Edit_User = () => {
       toast.success(userAddData.message)
     }
   }, [userAddData])
+
+
+  useEffect(() => {
+    return () => {
+      dispatch({
+        type: USER_GET_BY_ID,
+        payload: null,
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log('userEdit=======/=========', userEdit)
+    if (userEdit?.data && id) {
+        setState({
+            ...state,
+            name: userEdit.data?.name,
+            email: userEdit.data?.email,
+            department: userEdit.data?.department,
+            profile: userEdit.data?.profile,
+        })
+    }
+}, [userEdit])
+
+  useEffect(() => {
+    if (userUpdated && userUpdated.status === 200) {
+        toast.success(userUpdated.message)
+        dispatch({
+            type: USER_UPDATE,
+            payload: []
+        })
+        navigate('/users')
+    }
+    console.log('userUpdated', userUpdated)
+}, [userUpdated])
+
 
   useEffect(() => {
     console.log("state", state)
@@ -283,12 +286,8 @@ const Add_Edit_User = () => {
           >
             cancel
           </button>
-          {!isView && (
-            <button onClick={() => saveData()} className='footer_next_btn'>
-              {" "}
-              {id ? "Edit" : "Save"}
-            </button>
-          )}
+          <button onClick={() => saveData()} className={`footer_next_btn ${isView ? 'd-none' : 'd-block'}`}>{id ? "Edit" : "Save"}</button>
+
         </div>
       </div>
     </>

@@ -356,7 +356,7 @@ const IndividualAddress = ({
   //   dispatch(editEntityAction(id, final))
   // }
 
-  const saveData = () => {
+  const save = () => {
     if (validation()) {
       return
     }
@@ -370,12 +370,24 @@ const IndividualAddress = ({
       type: common?.type,
       addresses: [ResidentialState, ProfessionalState],
     }
-    if (id) {
-      dispatch(editEntityAction(id, final))
-    } else {
+    
       dispatch(entityAddAction(final))
-    }
   }
+
+  const edit = () => {
+    if (validation()) {
+        return;
+    }
+      let final = { 
+        detail: sendDetailData, 
+        email: common?.email, 
+        password: common?.password, 
+        type: common?.type, 
+        addresses: [ResidentialState, ProfessionalState] 
+      }
+    dispatch(editEntityAction(id, final))
+}
+
   
   useEffect(() => {
     if (editEntityData && editEntityData.status === 200) {
@@ -856,12 +868,8 @@ const IndividualAddress = ({
         >
           cancel
         </button>
-        {!isView && (
-            <button onClick={() => saveData()} className='footer_next_btn'>
-              {" "}
-              {id ? "Edit" : "Save"}
-            </button>
-        )}
+        <button onClick={() => { id ? edit() : save()} } className={`footer_next_btn ${isView ? 'd-none' : 'd-block'}`}>{id ? "Edit" : "Save"}</button>
+
       </div>
     </>
   )

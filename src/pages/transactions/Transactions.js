@@ -236,6 +236,8 @@ const Transactions = () => {
                         { title: 'Applicant', field: 'borrower_Applicant' },
                         { title: 'Lenders', field: 'lenders' },
                         { title: 'Product', field: 'details.productDetails.name.name' },
+                        { title: 'Commodity Type', field: 'details.productDetails.commodityType' },
+                        { title: 'Commodity-Sub-Type', field: 'details.productDetails.commoditySubType' },
                         { title: 'Value', field: 'details.contractDetails.value' },
                         // { title: 'Origination Port', field: 'details.shippingOptions.portOfOrigin.name' },
                         // { title: 'Destination Port', field: 'details.shippingOptions.destinationPort.name' },

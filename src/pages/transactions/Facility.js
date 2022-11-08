@@ -203,7 +203,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
     const interestPeriodOptions = [
         'Weekly',
         'Monthly',
-        'Querterly',
+        'Quarterly',
         'Bi-annual',
         'Annual',
     ]

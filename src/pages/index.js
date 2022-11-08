@@ -4,6 +4,7 @@ import AuthStorage from '../helper/AuthStorage';
 import AuthLayOut from '../layout/AuthLayOut';
 import Layout from '../layout/Layout'
 import Home from './home/Home'
+import HomeLanding from './home/HomeLanding';
 import SignIn from './signIn/SignIn';
 import SignUp from './signUp/SignUp';
 import { useDispatch } from 'react-redux';
@@ -31,7 +32,7 @@ import { ApiGet, ApiPost } from '../helper/API/ApiData';
 
 const pathForLayout = ['/', '/signup', '/home', '/admin-login', '/fa-login']
 const Index = () => {
-    const pathForAuthLayout = ['/product', '/add-product', '/edit-product', "/entities", "/countries", "/products", "/airports", "/rating-agencies", "/users", "/add-edit-entities", "/add-user", '/edit-user', "/rating-agencies-edit", "/transactions", '/risk-assessment', "/add-individual", '/edit-transactions']
+    const pathForAuthLayout = ['/product', '/home', 'homeLanding', '/add-product', '/edit-product', "/entities", "/countries", "/products", "/airports", "/rating-agencies", "/users", "/add-edit-entities", "/add-edit-user", "/rating-agencies-edit", "/transactions", '/risk-assessment', "/add-individual", '/edit-transactions']
 
     const location = useLocation()
     const token = AuthStorage.getToken()
@@ -71,6 +72,10 @@ const Index = () => {
         }
     ]
     const superAdminRoutes = [
+        {
+            path: "homeLanding",
+            component: HomeLanding,
+        },
         {
             path: "add-product",
             component: Add_Edit_Product,
@@ -113,11 +118,7 @@ const Index = () => {
             component: RatingAgenciesEdit,
         },
         {
-            path: "add-user",
-            component: Add_Edit_User,
-        },
-        {
-            path: "edit-user",
+            path: "add-edit-user",
             component: Add_Edit_User,
         },
         {
@@ -150,7 +151,7 @@ const Index = () => {
                     if (res.status === 200) {
                         console.log('res', res)
                         if (AuthStorage.getStorageData(STORAGEKEY.roles) === "superAdmin") {
-                            navigate("/products")
+                            navigate("/homeLanding")
                         } else if (AuthStorage.getStorageData(STORAGEKEY.roles) === "admin") {
                             navigate("/entities")
                         } else if (AuthStorage.getStorageData(STORAGEKEY.roles) === "user") {
@@ -175,7 +176,7 @@ const Index = () => {
             }
         } else {
             if (AuthStorage.isUserAuthenticated()) {
-                navigate("/products")
+                navigate("/homeLanding")
             } else {
                 navigate("/")
             }
@@ -238,7 +239,7 @@ const PublicRoutes = () => {
                 navigate("/")
             )
         ) : (
-            pathForLayout.includes(location.pathname) ? navigate(-1) : location.pathname === "/" ? navigate("/products") : navigate('/')
+            pathForLayout.includes(location.pathname) ? navigate(-1) : location.pathname === "/" ? navigate("/homeLanding") : navigate('/')
         );
     }, [isAuthenticated]);
 

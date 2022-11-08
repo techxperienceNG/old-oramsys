@@ -1120,10 +1120,17 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
                   label='Product unit'
                   variant='standard'
                   color='warning'
-                  name='metric'
+                  name='netMetric'
                   value={productDetails.metric}
-                  onChange={(e) => handleChnages(e)}
-                  disabled={isView || productDetails.metric}
+                  onChange={(e) => handleChnage(e, "metric", "productDetails")}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position='start'>
+                        {productDetails.metric}
+                      </InputAdornment>
+                    ),
+                  }}
+                  disabled={isView}
                 />
                 {error?.metric && (
                   <span

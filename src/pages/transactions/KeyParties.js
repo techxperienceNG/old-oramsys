@@ -21,6 +21,9 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType }) => {
     const location = useLocation()
     const isView = location?.state[2]?.isView
     const [view, setView] = useState()
+    const [borrower_Applicant, setBorrower_Applicant] = useState()
+    const [lenders, setLenders] = useState("")
+    const [error, setError] = useState({})
 
     const transactionData = useSelector((state) => state.transactionData.transactionData)
     const getTransactionByIdData = useSelector((state) => state.transactionData.getTransactionById)
@@ -34,6 +37,8 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType }) => {
                 }
             }))
             setEditId(getTransactionByIdData?.data?.keyParties[0]?._id)
+            setBorrower_Applicant(getTransactionByIdData.data?.borrower_Applicant)
+            setLenders(getTransactionByIdData.data?.lenders)
         }
     }, [getTransactionByIdData])
 
@@ -79,6 +84,56 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType }) => {
     return (
         <>
             <div className='product'>
+            <div className='form'>
+                    <Row>
+                        <Col lg={6}>
+                        <TextField
+                            label='Borrower/Applicant Name'
+                            variant='standard'
+                            color='warning'
+                            name='borrower_Applicant'
+                            className='mb-3'
+                            onChange={(e) => setBorrower_Applicant(e.target.value)}
+                            value={borrower_Applicant}
+                            disabled={isView || borrower_Applicant?.length > 0}
+                        />
+                        {error && error?.borrower_Applicant && (
+                            <span
+                            style={{
+                                color: "#da251e",
+                                width: "100%",
+                                textAlign: "start",
+                            }}
+                            >
+                            {error.borrower_Applicant}
+                            </span>
+                        )}
+                        </Col>
+                        <Col lg={6}>
+                        <TextField
+                            label='lenders'
+                            variant='standard'
+                            color='warning'
+                            name='lenders'
+                            className='mb-3'
+                            onChange={(e) => setLenders(e.target.value)}
+                            value={lenders}
+                            disabled={isView || borrower_Applicant?.length > 0}
+                        />
+                        {error && error?.lenders && (
+                            <span
+                            style={{
+                                color: "#da251e",
+                                width: "100%",
+                                textAlign: "start",
+                            }}
+                            >
+                            {error.lenders}
+                            </span>
+                        )}
+                        </Col>
+                    </Row>
+            </div>
                 <div className='mb-3 d-flex justify-content-between align-items-center'>
                     <h5 className="title-color">Parties</h5>
                     <button className={`add_btn me-3 ${isView ? 'd-none' : 'd-block'}`} onClick={() => { setShowEditModal(!showEditModal) }}> <img src='../../assets/img/about/plus.png' className='me-2' />Add</button>

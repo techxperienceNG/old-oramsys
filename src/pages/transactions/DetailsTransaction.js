@@ -20,7 +20,7 @@ import { airPortsAction, portsAction } from "../../redux/actions/portsAction"
 const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
   const navigate = useNavigate()
 
-  let numberReg = /^[0-9\b]+$/
+  let numberReg = /^[1-7]\d{0,7}$/
 
   const [productDetails, setProductDetails] = useState({
     nature: "",
@@ -204,8 +204,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
     if (productName.length > 0 && productDetails.name) {
       setProductDetails({
         ...productDetails,
-        metric: productName.find((ele) => ele._id === productDetails.name)
-          .matric,
+        metric: productName.find((ele) => ele._id === productDetails.name).matric,
       })
     }
   }, [productDetails.name, productName])
@@ -234,9 +233,10 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
         quantity:
           getTransactionByIdData.data?.details?.productDetails?.quantity,
         metric: getTransactionByIdData.data?.details?.productDetails?.metric,
+      
         quality: getTransactionByIdData.data?.details?.productDetails?.quality,
       })
-
+      
       setContractDetails({
         currency:
           getTransactionByIdData.data?.details?.contractDetails?.currency,
@@ -270,7 +270,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
         shipmentTerms:
           getTransactionByIdData.data?.details?.shippingOptions?.shipmentTerms,
         shippedWeights:
-          getTransactionByIdData.data?.details?.shippingOptions?.shippedWeights,
+          getTransactionByIdData.data?.details?.shippingOptions?.shippedWeights.toLocaleString(),
         countryOfOrigin:
           getTransactionByIdData.data?.details?.shippingOptions?.countryOfOrigin
             ?._id,
@@ -338,7 +338,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
         pricingType:
           getTransactionByIdData.data?.details?.pricingDetails?.pricingType,
         pricingAmount:
-          getTransactionByIdData.data?.details?.pricingDetails?.pricingAmount,
+          getTransactionByIdData.data?.details?.pricingDetails?.pricingAmount.toLocaleString(),
         pricingUnit:
           getTransactionByIdData.data?.details?.pricingDetails?.pricingUnit,
         previousDayClosingAmount:
@@ -379,7 +379,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
       ? ["Agricultural", "Energy"]
       : []
 
-  const metricOption = ["Tons"]
+  const metricOption = ["Tonnes", "lbs", "CT Weight", "Kg/m²", "Per Ton",]
 
   const productQualityOption = ["Exchange traded", "Non Exchange traded"]
 
@@ -443,15 +443,25 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
           setProductDetails({ ...productDetails, [name]: e.target.value })
         }
       }
-    } else if (type === "contractDetails") {
+    } else if (type === "productDetails") {
+      if (name === "metric") {
+        if (e.target.value === "" || numberReg.test(e.target.value)) {
+          setProductDetails({ ...productDetails, [name]: e.target.value })
+        }
+      }
+    }else if (type === "contractDetails") {
       if (name === "value") {
+        
         if (e.target.value === "" || numberReg.test(e.target.value)) {
           setContractDetails({ ...contractDetails, [name]: e.target.value })
         }
-      }
+      }else if (name === "contractDate") {
+          setContractDetails({...contractDetails, [name]: e.target.value})
+      } 
     } else if (type === "shippingOptions") {
       if (name === "shippedWeights") {
-        if (e.target.value === "" || numberReg.test(e.target.value)) {
+        const shippedReg = /^[1-4]\d{0,4}$/
+        if (e.target.value === "" || shippedReg.test(e.target.value)) {
           setShippingOptions({ ...shippingOptions, [name]: e.target.value })
         }
       }
@@ -470,8 +480,10 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
       }
     } else if (type === "pricingDetails") {
       if (name === "pricingAmount" || name === "previousDayClosingAmount") {
+        const limit = 9
+
         if (e.target.value === "" || numberReg.test(e.target.value)) {
-          setPricingDetails({ ...pricingDetails, [name]: e.target.value })
+          setPricingDetails({ ...pricingDetails, [name]: e.target.value.slice(0, limit) })
         }
       }
     }
@@ -480,7 +492,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
   const handleChnages = (e) => {
     setContractDetails({
       ...contractDetails,
-      [e.target.name]: e.target.value,
+      [e.target.name]: numberReg.test(e.target.value),
     })
   }
 
@@ -607,7 +619,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
 
     if (!shippingOptions.shippedWeights) {
       flag = true
-      error.shippedWeights = "Please enter net shipped weights!"
+      error.shippedWeights = "Please enter proipped weights!"
     }
 
     if (!shippingOptions.destinationCountry) {
@@ -814,6 +826,9 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
     dispatch(transactionDataAction(body))
     hendelNext()
   }
+  const num = 123456789;
+  const formattedNumber = num.toLocaleString();
+  console.log(formattedNumber)
 
   return (
     <>
@@ -1092,29 +1107,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
                   </span>
                 )}
               </Col>
-              <Col
-                lg={
-                  productType === "Non-Physical"
-                    ? 3
-                    : productDetails.type
-                    ? 3
-                    : 6
-                }
-                className='mb-3'
-              >
-                {/* <Autocomplete
-                                    label="Metric"
-                                    id="disable-clearable"
-                                    onChange={(e, newVal) => setProductDetails({ ...productDetails, metric: newVal })}
-                                    getOptionLabel={(option) => option}
-                                    options={matricOptions}
-                                    disableClearable
-                                    renderInput={(params) => (
-                                        <TextField {...params} label="Metric" variant="standard" />
-                                    )}
-                                    value={(metricOption.length > 0 && productDetails.metric) && metricOption.find((ele) => ele === productDetails.metric)}
-                                    disabled={isView}
-                                /> */}
+              <Col lg={3} className='mb-3'>
 
                 <TextField
                   label='Product unit'
@@ -1122,15 +1115,8 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
                   color='warning'
                   name='netMetric'
                   value={productDetails.metric}
-                  onChange={(e) => handleChnage(e, "metric")}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position='start'>
-                        {productDetails.metric}
-                      </InputAdornment>
-                    ),
-                  }}
-                  disabled={isView}
+                  onChange={(e) => handleChnage(e, "metric", "productDetails")}
+                  disabled={true}
                 />
                 {error?.metric && (
                   <span
@@ -1193,41 +1179,32 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
             <Row>
               <Col lg={3}>
                 <Autocomplete
-                  label='Contract currency'
+                  options={CurrencyOptions}
+                  getOptionLabel={(option) => option.label}
                   id='disable-clearable'
+                  label='Contract currency'
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label='Contract currency'
+                      variant='standard'/> 
+                      )}
                   onChange={(e, newVal) =>
                     setContractDetails({
                       ...contractDetails,
                       currency: newVal.label,
                     })
                   }
-                  getOptionLabel={(option) => option.label}
-                  options={CurrencyOptions}
+                  value={CurrencyOptions && contractDetails?.currency && CurrencyOptions.find(
+                      (ele) => ele.label === contractDetails.currency)}
                   disableClearable
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label='Contract currency'
-                      variant='standard'
-                    />
-                  )}
-                  value={
-                    CurrencyOptions &&
-                    contractDetails?.currency &&
-                    CurrencyOptions.find(
-                      (ele) => ele.label === contractDetails.currency
-                    )
-                  }
                   disabled={isView}
                 />
-                {error?.currency && (
-                  <span
-                    style={{
+                {error?.currency && ( <span style={{
                       color: "#da251e",
                       width: "100%",
                       textAlign: "start",
-                    }}
-                  >
+                    }}>
                     {error?.currency}
                   </span>
                 )}
@@ -1238,12 +1215,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
                   variant='standard'
                   color='warning'
                   value={contractDetails.value}
-                  onChange={(e) =>
-                    setContractDetails({
-                      ...contractDetails,
-                      value: e.target.value,
-                    })
-                  }
+                  onChange={(e) => handleChnage(e, "value", "contractDetails")}
                   disabled={isView}
                 />
                 {error?.value && (
@@ -1269,15 +1241,16 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
                     InputLabelProps={{
                       shrink: true,
                     }}
-                    inputProps={{
-                      min: new Date().toISOString().split("T")[0],
-                    }}
-                    onChange={(e) =>
-                      setContractDetails({
-                        ...contractDetails,
-                        contractDate: e.target.value,
-                      })
-                    }
+                    onChange={(e) => handleChnage(e, "contractDate", "contractDetails")}
+                    // inputProps={{
+                    //   min: new Date().toISOString().split("T")[0],
+                    // }}
+                    // onChange={(e) =>
+                    //   setContractDetails({
+                    //     ...contractDetails,
+                    //     contractDate: e.target.value,
+                    //   })
+                    // }
                     disabled={isView}
                     required
                   />

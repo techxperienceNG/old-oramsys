@@ -17,6 +17,7 @@ import { ADD_TRANSACTION, EDIT_TRANSACTION, GET_TRANSACTION_BY_ID } from '../../
 import { toast } from 'react-toastify'
 import moment from "moment"
 import { productGetAction } from '../../redux/actions/productAction'
+import { companydataAction } from '../../redux/actions/companydataAction'
 
 const Facility = ({ hendelCancel, hendelNext }) => {
 
@@ -97,6 +98,9 @@ const Facility = ({ hendelCancel, hendelNext }) => {
     const [editRowData, setEditRowData] = useState('')
     const [view, setView] = useState()
 
+    const companyData = useSelector((state) => state.companydata.companydata)
+
+
     const transactionData = useSelector((state) => state.transactionData.transactionData)
     const addTransactionData = useSelector((state) => state.transactionData.addTransaction)
     const getTransactionByIdData = useSelector((state) => state.transactionData.getTransactionById)
@@ -141,7 +145,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                 lateInterestCharges: getTransactionByIdData.data?.facility?.lateInterestCharges,
                 prePayment: getTransactionByIdData.data?.facility?.prePayment,
                 type: getTransactionByIdData.data?.facility?.type,
-                amount: getTransactionByIdData.data?.facility?.amount,
+                amount: getTransactionByIdData.data?.facility?.amount.toLocaleString(),
                 loanPurposJustification: getTransactionByIdData.data?.facility?.loanPurposeValidity,
                 finalMaturity: getTransactionByIdData.data?.facility?.finalMaturity && moment(getTransactionByIdData.data?.facility?.finalMaturity).format("YYYY-MM-DD"),
                 availabilityPeriod: getTransactionByIdData.data?.facility?.availabilityPeriod,
@@ -249,7 +253,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
             if (e.target.value === "" || numberPointReg.test(e.target.value)) {
                 if (e.target.value) {
                     var t = e.target.value;
-                    e.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) < 100 ? t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3) : t.substr(0, t.indexOf("."))) : t
+                    e.target.value = (t.indexOf(".") >= 0``) ? (t.substr(0, t.indexOf(".")) < 100 ? t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3) : t.substr(0, t.indexOf("."))) : t
                 }
                 setFacility({ ...facility, [name]: e.target.value })
             }
@@ -745,6 +749,24 @@ const Facility = ({ hendelCancel, hendelNext }) => {
             setAddCurrencyHedge([...addCurrencyHedge, data])
         }
     }
+    useEffect(() => {
+        if (companyData && companyData.addCurrencyHedges && transactionData?.data) {
+            setAddCurrencyHedge(companyData.addCurrencyHedges.map((ele) => {
+                return {
+                    hedgingMethod: transactionData.data.find((item) => item._id === ele.addCurrencyHedges)?.name,
+                    counterParty: ele.counterParty.label
+                }
+            }))
+        }
+    }, [companyData, transactionData])
+    
+    const Delete = (data) => {
+        const body = {
+            ...companyData,
+            addCurrencyHedges: companyData && companyData.addCurrencyHedges.filter((e, i) => i !== data.tableData.id)
+        }
+        dispatch(companydataAction(body))
+    }
 
     return (
         <>
@@ -1023,7 +1045,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                             setFacility({ ...facility, currency: newValue?.label });
                                         }}
                                         disableClearable
-                                        disabled={isView || facility.currency.length > 0}
+                                        disabled={isView || facility.currency?.length > 0}
                                         value={(CurrencyOptions.length > 0 && facility.currency) && CurrencyOptions.find((ele) => ele.label === facility.currency)}
                                     />
                                     {error && error?.currency && <span style={{ color: 'red' }}>{error.currency}</span>}
@@ -1116,6 +1138,11 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                                     icon: 'preview',
                                                     tooltip: 'View Currency hedge details',
                                                     onClick: (event, rowData) => { setCurrencyHedgeDetailsModal(true); setEditRowData(rowData) }
+                                                },
+                                                {
+                                                    icon: 'delete',
+                                                    tooltip: 'Delete currency hedge details',
+                                                    onClick: (e, data) => { Delete(data) }
                                                 }
                                             ]}
                                             options={{
@@ -1777,7 +1804,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                 <div className='footer_'>
                     <button onClick={() => { hendelCancel() }} className="footer_cancel_btn">cancel</button>
                     <button onClick={() => { navigate('/transactions') }} className={`footer_next_btn ${isView ? 'd-block' : 'd-none'}`}>Exit</button>
-                    <button onClick={() => { id ? edit() : save() }} className={`footer_next_btn ${isView && 'd-none'}`}>{id ? "Close" : "Save"}</button>
+                    <button onClick={() => { id ? edit() : save() }} className={`footer_next_btn ${isView && 'd-none'}`}>{id ? "Save Edit" : "Save"}</button>
                 </div>
             </div>
             {addSourceOfRepayment && <AddSourceOfRepayment show={addSourceOfRepayment} onHide={() => { setAddSourceOfRepayment(false); setRowEditData('') }} getModalData={(e) => setSourceOfRepayment([...sourceOfRepayment, e])} data={rowEditData} getEditData={(e) => propsEditData(e)} isView={view} />}

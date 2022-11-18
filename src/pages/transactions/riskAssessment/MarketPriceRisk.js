@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import LoanPurposeRiskModal from '../../../component/Modal/LoanPurposeRiskModal'
 import CurrencyHedgeDetailsModal from '../../../component/Modal/CurrencyHedgeDetailsModal'
 import FinancingSufficientlyModal from '../../../component/Modal/FinancingSufficientlyModal'
-import { addRiskAssessment, riskAssessmentAction } from '../../../redux/actions/riskAssessmentAction'
+import { addRiskAssessment, getRiskAssessment, riskAssessmentAction } from '../../../redux/actions/riskAssessmentAction'
 import { ADD_RISK_ASSESSMENT } from '../../../redux/types'
 
 
@@ -36,18 +36,31 @@ const MarketPriceRisk = ({ hendelNext, hendelCancel }) => {
 
     const riskAssessment = useSelector(state => state.riskAssessmentData.riskAssessment)
     const addRiskAssessmentData = useSelector(state => state.riskAssessmentData.addRiskAssessment)
+    const getRiskAssessmentId = useSelector(state => state.riskAssessmentData.getRiskAssessment)
 
     useEffect(() => {
         if (addRiskAssessmentData && addRiskAssessmentData.status === 200) {
-            toast.success(addRiskAssessmentData.message)
-            navigate('/transactions')
             dispatch({
                 type: ADD_RISK_ASSESSMENT,
                 payload: []
             })
+
+            navigate('/transactions')
+            toast.success(addRiskAssessmentData.message)
+            
         }
     }, [addRiskAssessmentData])
 
+    useEffect(() => {
+        if(getRiskAssessment && getRiskAssessment.data && getRiskAssessment.status === 200) {
+            setMarketPriceRisk({
+                ...marketPriceRisk,
+                contractsBasis: getRiskAssessment.data.details?.contractsBasis,
+                priceHedge: getRiskAssessment.data.details?.priceHedge,
+                financingSufficiently: getRiskAssessment.data.details?.financingSufficiently,
+            })
+        }
+    }, [getRiskAssessment])
     useEffect(() => {
         if (riskAssessment) {
             setMarketPriceRisk(riskAssessment)
@@ -83,8 +96,9 @@ const MarketPriceRisk = ({ hendelNext, hendelCancel }) => {
                 financingSufficiently: marketPriceRisk.financingSufficiently,
                 transactionId: id
             }
-            console.log('body', body)
             dispatch(addRiskAssessment(body))
+            console.log('body', body)
+            
         }
     }
 

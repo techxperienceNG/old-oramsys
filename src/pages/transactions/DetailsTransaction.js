@@ -379,7 +379,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
       ? ["Agricultural", "Energy"]
       : []
 
-  const metricOption = ["Tonnes", "lbs", "CT Weight", "Kg/m²", "Per Ton",]
+  const metricOption = ["Ton"]
 
   const productQualityOption = ["Exchange traded", "Non Exchange traded"]
 
@@ -826,9 +826,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
     dispatch(transactionDataAction(body))
     hendelNext()
   }
-  const num = 123456789;
-  const formattedNumber = num.toLocaleString();
-  console.log(formattedNumber)
+
 
   return (
     <>

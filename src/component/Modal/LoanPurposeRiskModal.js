@@ -1,6 +1,7 @@
 import { Backdrop, Fade, Modal, TextField } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Col } from "react-bootstrap";
+import { useSelector } from 'react-redux';
 import TextEditerModal from './TextEditerModal';
 
 const LoanPurposeRiskModal = ({ show, onHide, getModalData, types }) => {
@@ -8,6 +9,17 @@ const LoanPurposeRiskModal = ({ show, onHide, getModalData, types }) => {
     const [loanPurposeRisk, setLoanPurposeRisk] = useState({
         justification: ""
     })
+    const getTransactionByIdData = useSelector((state) => state.transactionData.getTransactionById)
+
+    useEffect(() => {
+        if (getTransactionByIdData && getTransactionByIdData.data) {
+            console.log("getTransactionByIdData=====", getTransactionByIdData.data)
+            setLoanPurposeRisk({
+                justification: getTransactionByIdData.data?.loanPurposeRisk?.justification,
+
+            })
+        }  
+    }, [getTransactionByIdData])
 
     const [commentModal, setCommentModal] = useState(false)
     const [type, setType] = useState('')
@@ -66,7 +78,8 @@ const LoanPurposeRiskModal = ({ show, onHide, getModalData, types }) => {
                                             value={loanPurposeRisk.justification}
                                             multiline
                                             maxRows={3}
-                                            onChange={(e) => handleChnage(e)}
+                                            onChange={(event, newValue) => setLoanPurposeRisk({ ...loanPurposeRisk, justification: newValue })
+                                        }
                                         // onClick={() => { setCommentModal(true); setType('Justification'); setSelectedName('justification') }}
                                         />
                                         {/* {error && error?.justification && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.justification}</span>} */}

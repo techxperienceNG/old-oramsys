@@ -130,6 +130,7 @@ const Transactions = () => {
             let data = res.data.data
             var blob;
             blob = converBase64toBlob(data, 'application/pdf');
+            console.log(blob)
 
         }
         ).catch(e => console.log(e))

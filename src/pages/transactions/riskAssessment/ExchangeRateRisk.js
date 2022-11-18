@@ -65,17 +65,21 @@ const ExchangeRateRisk = ({ hendelNext, hendelCancel }) => {
                         <p className='success'>Risks are acceptable due to mitigants</p> :
                         <p className='error'>The below risks require your attention</p>
                     }
+                    {}
+
                 </div>
                 <div className='form'>
                     <h2 className='mb-3'>Exchange rate risk</h2>
                     
-                    {data.currencyHedge && data.marginFinancing ? <p>No risk</p> :
-                        <div>
-                            
-                            <div className='risk-tab disabled' onClick={() => { setcurrencyHedgeModal(true); setSelected("currencyHedge") }}>
+                    {data.currencyHedge ? <p>No risk</p> :
+                    <div>
+                        <div className='risk-tab' onClick={() => { setcurrencyHedgeModal(true); setSelected("currencyHedge") }}>
                                 <h3>Enter a currency hedge</h3>
                                 <img src={`../../../assets/img/about/${data.currencyHedge ? "correct-success.png" : "correct (1).png"}`} />
-                            </div>
+                        </div>
+                    </div> } 
+                    {data.marginFinancing ? <p>No risk</p> :
+                        <div>
                             <div className='risk-tab' onClick={() => {setfinancingSufficientlyModal(true); setSelected("marginFinancing")}}>
                                 <h3>Margin the financing sufficiently</h3>
                                 <img src={`../../../assets/img/about/${data.marginFinancing ? "correct-success.png" : "correct (1).png"}`} />

@@ -4,10 +4,7 @@ import { Col, Row } from "react-bootstrap"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { countrieAction } from "../../../../redux/actions/countrieAction"
-import {
-  editEntityAction,
-  entityAddAction,
-} from "../../../../redux/actions/entityAction"
+import { editEntityAction, entityAddAction } from "../../../../redux/actions/entityAction"
 import { Autocomplete } from "@material-ui/lab"
 import {
   COMPANY_DATA,

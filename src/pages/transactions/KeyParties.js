@@ -22,7 +22,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType }) => {
     const location = useLocation()
     const isView = location?.state[2]?.isView
     const [view, setView] = useState()
-    const [borrower_Applicant, setBorrower_Applicant] = useState()
+    const [borrower_Applicant, setBorrower_Applicant] = useState("")
     const [lenders, setLenders] = useState("")
     const [error, setError] = useState({})
     const [keyParties, setkeyParties] = useState({

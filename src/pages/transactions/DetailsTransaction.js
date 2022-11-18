@@ -492,7 +492,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType }) => {
   const handleChnages = (e) => {
     setContractDetails({
       ...contractDetails,
-      [e.target.name]: numberReg.test(e.target.value),
+      [e.target.name]: e.target.value,
     })
   }
 

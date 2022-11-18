@@ -20,6 +20,7 @@ const ExchangeRateRisk = ({ hendelNext, hendelCancel }) => {
         currencyHedge: "",
         marginFinancing: ""
     })
+    const [isOpen, setIsOpen] = useState(false)
 
     const riskAssessment = useSelector(state => state.riskAssessmentData.riskAssessment)
     const dispatch = useDispatch()
@@ -73,14 +74,14 @@ const ExchangeRateRisk = ({ hendelNext, hendelCancel }) => {
                     
                     {data.currencyHedge ? <p>No risk</p> :
                     <div>
-                        <div className='risk-tab' onClick={() => { setcurrencyHedgeModal(true); setSelected("currencyHedge") }}>
+                        <div className='risk-tab disabled' onClick={() => { setcurrencyHedgeModal(true); setSelected("currencyHedge") }}>
                                 <h3>Enter a currency hedge</h3>
                                 <img src={`../../../assets/img/about/${data.currencyHedge ? "correct-success.png" : "correct (1).png"}`} />
                         </div>
                     </div> } 
                     {data.marginFinancing ? <p>No risk</p> :
                         <div>
-                            <div className='risk-tab' onClick={() => {setfinancingSufficientlyModal(true); setSelected("marginFinancing")}}>
+                            <div className='risk-tab disabled' onClick={() => {setfinancingSufficientlyModal(true); setSelected("marginFinancing")}}>
                                 <h3>Margin the financing sufficiently</h3>
                                 <img src={`../../../assets/img/about/${data.marginFinancing ? "correct-success.png" : "correct (1).png"}`} />
                             </div>

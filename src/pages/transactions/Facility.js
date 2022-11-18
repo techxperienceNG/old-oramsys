@@ -145,7 +145,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                 lateInterestCharges: getTransactionByIdData.data?.facility?.lateInterestCharges,
                 prePayment: getTransactionByIdData.data?.facility?.prePayment,
                 type: getTransactionByIdData.data?.facility?.type,
-                amount: getTransactionByIdData.data?.facility?.amount.toLocaleString(),
+                amount: getTransactionByIdData.data?.facility?.amount,
                 loanPurposJustification: getTransactionByIdData.data?.facility?.loanPurposeValidity,
                 finalMaturity: getTransactionByIdData.data?.facility?.finalMaturity && moment(getTransactionByIdData.data?.facility?.finalMaturity).format("YYYY-MM-DD"),
                 availabilityPeriod: getTransactionByIdData.data?.facility?.availabilityPeriod,
@@ -249,20 +249,20 @@ const Facility = ({ hendelCancel, hendelNext }) => {
         let numberReg = /^[0-9\b]+$/;
         let numberPointReg = /\b((100)|[1-9]\d?)\b/
         console.log('e.target.value', e.target.value)
-        if (name === "interestRate" || name === "managementFee" || name === "drawdownFee" || name === "commitmentFee" || name === "lateInterestCharges" || name === "prePayment" || name === "cancellationFee") {
+        if (name === "interestRate" || name ==="tenor" || name === "managementFee" || name === "drawdownFee" || name === "commitmentFee" || name === "lateInterestCharges" || name === "prePayment" || name === "cancellationFee") {
             if (e.target.value === "" || numberPointReg.test(e.target.value)) {
                 if (e.target.value) {
                     var t = e.target.value;
-                    e.target.value = (t.indexOf(".") >= 0``) ? (t.substr(0, t.indexOf(".")) < 100 ? t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3) : t.substr(0, t.indexOf("."))) : t
+                    e.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) < 100 ? t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3) : t.substr(0, t.indexOf("."))) : t
                 }
                 setFacility({ ...facility, [name]: e.target.value })
             }
         }
-        else if (name === "tenor") {
-            if (e.target.value === "" || numberReg.test(e.target.value)) {
-                setFacility({ ...facility, [name]: e.target.value })
-            }
-        }
+        // else if (name === "tenor") {
+        //     if (e.target.value === "" || numberReg.test(e.target.value)) {
+        //         setFacility({ ...facility, [name]: e.target.value })
+        //     }
+        // }
         else if (name === "margin") {
             if (e.target.value === "" || numberReg.test(e.target.value)) {
                 setFacility({ ...facility, [name]: e.target.value })
@@ -850,7 +850,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                     id="standard-start-adornment"
                                     name='managementFee'
                                     value={facility.managementFee}
-                                    onChange={(e) => handleChangeNumber(e, 'managementFee')}
+                                    onChange={(e) => handleChangeNumber(e, 'managementFee', 'facility')}
                                     InputProps={{
                                         endAdornment: <InputAdornment position="start">%</InputAdornment>,
                                     }}
@@ -1042,7 +1042,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                             <TextField {...params} label="Currency" variant="standard" />
                                         )}
                                         onChange={(event, newValue) => {
-                                            setFacility({ ...facility, currency: newValue?.label });
+                                            setFacility({ ...facility, currency: newValue.label });
                                         }}
                                         disableClearable
                                         disabled={isView || facility.currency?.length > 0}

@@ -68,7 +68,7 @@ export const ratingAgencyAddAction = (ratingAgencyAdd) => async (dispatch) => {
                 })
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error.response.data)
             })
         dispatch({
             type: RATINGAGENCIES_ADD_LOADING,
@@ -116,7 +116,7 @@ export const ratingAgencyGetByIdAction = (id) => async (dispatch) => {
                 })
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error.response.data) 
             })
         dispatch({
             type: RATINGAGENCIES_GET_BY_ID_LOADING,

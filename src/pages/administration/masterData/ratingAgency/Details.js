@@ -29,10 +29,23 @@ const Details = ({ hendelNext, hendelCancel, getData }) => {
     const dispatch = useDispatch()
     
     const handleChange = (event) => {
-        setState({
-            ...state,
-            [event.target.name]: event.target.value
-          });
+        const name = event.target.name;
+        let postcode = /^[0-9\b]*$/;
+        if (name === "postcode") {
+            console.log('event.target.value', event.target.value)
+            console.log('postcode.test(event.target.value)', postcode.test(event.target.value))
+            if (event.target.value.length <= 6 && postcode.test(event.target.value)) {
+                setState({
+                    ...state,
+                    [name]: event.target.value
+                });
+            }
+        } else {
+            setState({
+                ...state,
+                [name]: event.target.value
+            });
+        }
     };
 
     const [countryOption, setcountryOption] = useState([])
@@ -90,7 +103,7 @@ const Details = ({ hendelNext, hendelCancel, getData }) => {
     const validation = () => {
         let param = false
         let error = {}
-        let postcode = /^\d{6}$/
+        let postcode =  /^[1-6]\d{0,6}$/
         if (!state.name) {
             param = true
             error.name = "Please enter name!"

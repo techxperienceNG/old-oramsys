@@ -106,7 +106,7 @@ const Users = (e) => {
       <div className='product'>
         <div className='mb-3 d-flex justify-content-between align-items-center'>
           <h2 className='m-0'>Users</h2>
-          <button className='add_btn me-3' onClick={() => navigate("/add-edit-user")}> <img src='../../assets/img/about/plus.png' className='me-2' />Add</button>
+          <button className='add_btn me-3' onClick={() => navigate("/add-user")}> <img src='../../assets/img/about/plus.png' className='me-2' />Add</button>
         </div>
         {/* <Row>
           {
@@ -130,12 +130,12 @@ const Users = (e) => {
             {
               icon: 'edit',
               tooltip: 'Edit Users',
-              onClick: (e, rowData) => navigate(`/add-edit-user?id=${rowData?._id}`)
+              onClick: (e, rowData) => navigate(`/edit-user?id=${rowData?._id}`)
             },
             {
               icon: 'preview',
               tooltip: 'View Users',
-              onClick: (e, rowData) => navigate(`/add-edit-user?id=${rowData?._id}`, { state: { isView: true } })
+              onClick: (e, rowData) => navigate(`/add-user?id=${rowData?._id}`, { state: { isView: true } })
             }
           ]}
           options={{

@@ -8,6 +8,7 @@ const HomeLanding = () => {
      <section className="financo-activities-wrap1">
         <div className="container">
           <div className="row no-gutters">
+            
             <div className="col-lg-4 col-md-6">
               <div className="financo-activities-box1">
                 <div className="item-img-round">

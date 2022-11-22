@@ -48,51 +48,6 @@ const RatingAgencies = () => {
     dispatch(ratingAgenciesAction())
   }, [dispatch])
 
-  // const ratingSchemesCard = [
-  //   {
-  //     name: "s&p",
-  //     city: "TIMBUKTU",
-  //     street: "abc",
-  //     postcode: "abc",
-  //     country: "abc",
-  //   },
-  //   {
-  //     name: "s&p",
-  //     city: "TIMBUKTU",
-  //     street: "def",
-  //     postcode: "def",
-  //     country: "def",
-  //   },
-  //   {
-  //     name: "s&p",
-  //     city: "TIMBUKTU",
-  //     street: "ghi",
-  //     postcode: "ghi",
-  //     country: "ghi",
-  //   },
-  //   {
-  //     name: "s&p",
-  //     city: "TIMBUKTU",
-  //     street: "jkl",
-  //     postcode: "jkl",
-  //     country: "jkl",
-  //   },
-  //   {
-  //     name: "s&p",
-  //     city: "TIMBUKTU",
-  //     street: "mno",
-  //     postcode: "mno",
-  //     country: "mno",
-  //   },
-  //   {
-  //     name: "s&p",
-  //     city: "TIMBUKTU",
-  //     street: "pqr",
-  //     postcode: "pqr",
-  //     country: "pqr",
-  //   },
-  // ]
-
   return (
     <>
       <div className='product'>
@@ -122,7 +77,8 @@ const RatingAgencies = () => {
               icon: "edit",
               tooltip: "Edit RatingAgencie",
               onClick: (e, rowData) => {
-                navigate(`/rating-agencies-edit?id=${rowData?.id}`)
+                navigate(`/rating-agencies-edit?id=${rowData?.id}`, {
+                  state: { isView: false }})
                 console.log("rowData", rowData)
               },
             },

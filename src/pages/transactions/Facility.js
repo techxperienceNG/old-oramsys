@@ -243,8 +243,6 @@ const Facility = ({ hendelCancel, hendelNext }) => {
         console.log('securityDocuments.length===', securityDocuments)
     }, [securityDocuments])
 
-
-
     const handleChangeNumber = (e, name) => {
         let numberReg = /^[0-9\b]+$/;
         let numberPointReg = /\b((100)|[1-9]\d?)\b/

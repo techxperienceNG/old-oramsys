@@ -73,7 +73,9 @@ const RoleEditModal = ({ onHide, show, mode, editData }) => {
     }
 
     const hadleChangeModal = (e) => {
-        setRoles({ ...roles, justification: e.value })
+        setRoles({ 
+            ...roles, 
+            justification: e.value })
     }
 
     const save = () => {

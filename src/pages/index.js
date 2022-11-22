@@ -32,7 +32,7 @@ import { ApiGet, ApiPost } from '../helper/API/ApiData';
 
 const pathForLayout = ['/', '/signup', '/home', '/admin-login', '/fa-login']
 const Index = () => {
-    const pathForAuthLayout = ['/product', '/home', 'homeLanding', '/add-product', '/edit-product', "/entities", "/countries", "/products", "/airports", "/rating-agencies", "/users", "/add-edit-entities", "/add-edit-user", "/rating-agencies-edit", "/transactions", '/risk-assessment', "/add-individual", '/edit-transactions']
+    const pathForAuthLayout = ['/product', '/home', 'homeLanding', '/add-product', '/edit-product', "/entities", "/countries", "/products", "/airports", "/rating-agencies", "/users", "/add-edit-entities",  "/add-user", '/edit-user', "/rating-agencies-edit", "/transactions", '/risk-assessment', "/add-individual", '/edit-transactions']
 
     const location = useLocation()
     const token = AuthStorage.getToken()
@@ -118,7 +118,11 @@ const Index = () => {
             component: RatingAgenciesEdit,
         },
         {
-            path: "add-edit-user",
+            path: "add-user",
+            component: Add_Edit_User,
+        },
+        {
+            path: "edit-user",
             component: Add_Edit_User,
         },
         {

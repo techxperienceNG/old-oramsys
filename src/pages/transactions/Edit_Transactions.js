@@ -100,7 +100,7 @@ const Edit_Transactions = () => {
                                             :
                                             <>
                                                 <div style={{ height: "88vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                                    <p style={{ fontSize: '48px', fontWeight: "bold" }}>Product not yet avaialble. Coming soon</p>
+                                                    <p style={{ fontSize: '48px', fontWeight: "bold" }}>Product not yet available. Coming soon.</p>
                                                 </div>
                                             </>
                                     }
@@ -108,7 +108,7 @@ const Edit_Transactions = () => {
                                     :
                                     <React.Fragment>
                                         <div style={{ height: "88vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                            <p style={{ fontSize: '48px', fontWeight: "bold" }}>Product not yet avaialble. Coming soon.</p>
+                                            <p style={{ fontSize: '48px', fontWeight: "bold" }}>Product not yet available. Coming soon.</p>
                                         </div>
                                         {/* {console.log('activeStep', activeStep)}
                                         {activeStep + 1 === 1 && <KeyParties hendelNext={handleNext} hendelCancel={handleBack} transactionType={transactionType}/>}

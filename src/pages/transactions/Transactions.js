@@ -26,6 +26,7 @@ const Transactions = () => {
     const [transaction, setTransaction] = useState([])
 
     const getAlltransactionData = useSelector((state) => state.transactionData.getAllTransaction)
+    console.log('getAll', getAlltransactionData)
     const riskAssessment = useSelector((state) => state.riskAssessmentData.getRiskAssessment)
 
     useEffect(() => {

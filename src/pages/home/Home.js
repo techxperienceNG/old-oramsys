@@ -33,74 +33,76 @@ const Home = () => {
 
   return (
     <>
-      {/* <div ClassName="slider-area slider-layout1">
-        <div ClassName="slider-bg-img1" data-sal="zoom-in" data-sal-duration="1500" data-sal-delay="300">
-          <img src="./assets/img/figure/figure96.png" alt="figure" />
-        </div>
-        <div ClassName="slider-bg-img2">
-          <img src="./assets/img/figure/figure97.png" alt="figure" data-sal="slide-up" data-sal-duration="1300" data-sal-delay="700" />
-        </div>
-        <div ClassName="bend niceties preview-1">
-          <div id="ensign-nivoslider-1" ClassName="slides">
-            <img src="./assets/img/my-img/bn.png" alt="slider" width="1920" height="720" title="#slider-direction-1" />
-            <img src="./assets/img/slider/slider2.png" alt="slider" width="1920" height="720" title="#slider-direction-2" />
-            <img src="./assets/img/slider/slider1.png" alt="slider" width="1920" height="720" title="#slider-direction-3" />
+        {/* <div ClassName="slider-area slider-layout1">
+          <div ClassName="slider-bg-img1" data-sal="zoom-in" data-sal-duration="1500" data-sal-delay="300">
+            <img src="./assets/img/figure/figure96.png" alt="figure" />
           </div>
-          <div id="slider-direction-1" ClassName="t-cn slider-direction">
-            <div ClassName="slider-content s-tb slide-1">
-              <div ClassName="text-left title-container s-tb-c">
-                <div ClassName="container">
-                  <p ClassName="item-subtitle">Lorem ipsum dolor</p>
-                  <h2 ClassName="item-title">dolor sit amet consectetur adipisicing.</h2>
-                  <div ClassName="item-paragraph">Bhen an unknown printer took a galley of type and scrambled ype specimen book. It has survived .</div>
-                  <ul ClassName="item-btn">
-                    <li><a href="#" style={{ textDecoration: "none" }}>Free Consulting
-                      <i ClassName="fas fa-long-arrow-alt-right"></i>
-                    </a></li>
-                    <li><a href="#" ClassName="circle-btn"><span ClassName="circle-icon">
-                      <i ClassName="fas fa-play-circle"></i>
-                      Watch The Video</span></a></li>
-                  </ul>
+          <div ClassName="slider-bg-img2">
+            <img src="./assets/img/figure/figure97.png" alt="figure" data-sal="slide-up" data-sal-duration="1300" data-sal-delay="700" />
+          </div>
+          <div ClassName="bend niceties preview-1">
+            <div id="ensign-nivoslider-1" ClassName="slides">
+              <img src="./assets/img/my-img/bn.png" alt="slider" width="1920" height="720" title="#slider-direction-1" />
+              <img src="./assets/img/slider/slider2.png" alt="slider" width="1920" height="720" title="#slider-direction-2" />
+              <img src="./assets/img/slider/slider1.png" alt="slider" width="1920" height="720" title="#slider-direction-3" />
+            </div>
+            <div id="slider-direction-1" ClassName="t-cn slider-direction">
+              <div ClassName="slider-content s-tb slide-1">
+                <div ClassName="text-left title-container s-tb-c">
+                  <div ClassName="container">
+                    <p ClassName="item-subtitle">Lorem ipsum dolor</p>
+                    <h2 ClassName="item-title">dolor sit amet consectetur adipisicing.</h2>
+                    <div ClassName="item-paragraph">Bhen an unknown printer took a galley of type and scrambled ype specimen book. It has survived .</div>
+                    <ul ClassName="item-btn">
+                      <li><a href="#" style={{ textDecoration: "none" }}>Free Consulting
+                        <i ClassName="fas fa-long-arrow-alt-right"></i>
+                      </a></li>
+                      <li><a href="#" ClassName="circle-btn"><span ClassName="circle-icon">
+                        <i ClassName="fas fa-play-circle"></i>
+                        Watch The Video</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="slider-direction-2" className="t-cn slider-direction">
+              <div className="slider-content s-tb slide-2">
+                <div className="text-left title-container s-tb-c">
+                  <div className="container">
+                    <p className="item-subtitle">Lorem ipsum dolor</p>
+                    <h2 className="item-title">dolor sit amet consectetur adipisicing.</h2>
+                    <div className="item-paragraph">Bhen an unknown printer took a galley of type and scrambled ype specimen book. It has survived .</div>
+                    <ul className="item-btn">
+                      <li><a href="#">Free Consulting<i className="fas fa-long-arrow-alt-right"></i></a></li>
+                      <li><a href="#" className="circle-btn"><span className="circle-icon"><i className="fas fa-play-circle"></i>Watch The Video</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="slider-direction-3" className="t-cn slider-direction">
+              <div className="slider-content s-tb slide-3">
+                <div className="text-left title-container s-tb-c">
+                  <div className="container">
+                    <p className="item-subtitle">Lorem ipsum dolor</p>
+                    <h2 className="item-title">dolor sit amet consectetur adipisicing.</h2>
+                    <div className="item-paragraph">Bhen an unknown printer took a galley of type and scrambled ype specimen book. It has survived .</div>
+                    <ul className="item-btn">
+                      <li><a href="#">Free Consulting<i className="fas fa-long-arrow-alt-right"></i></a></li>
+                      <li><a href="#" className="circle-btn"><span className="circle-icon"><i className="fas fa-play-circle"></i>Watch The Video</span></a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div id="slider-direction-2" className="t-cn slider-direction">
-            <div className="slider-content s-tb slide-2">
-              <div className="text-left title-container s-tb-c">
-                <div className="container">
-                  <p className="item-subtitle">Lorem ipsum dolor</p>
-                  <h2 className="item-title">dolor sit amet consectetur adipisicing.</h2>
-                  <div className="item-paragraph">Bhen an unknown printer took a galley of type and scrambled ype specimen book. It has survived .</div>
-                  <ul className="item-btn">
-                    <li><a href="#">Free Consulting<i className="fas fa-long-arrow-alt-right"></i></a></li>
-                    <li><a href="#" className="circle-btn"><span className="circle-icon"><i className="fas fa-play-circle"></i>Watch The Video</span></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="slider-direction-3" className="t-cn slider-direction">
-            <div className="slider-content s-tb slide-3">
-              <div className="text-left title-container s-tb-c">
-                <div className="container">
-                  <p className="item-subtitle">Lorem ipsum dolor</p>
-                  <h2 className="item-title">dolor sit amet consectetur adipisicing.</h2>
-                  <div className="item-paragraph">Bhen an unknown printer took a galley of type and scrambled ype specimen book. It has survived .</div>
-                  <ul className="item-btn">
-                    <li><a href="#">Free Consulting<i className="fas fa-long-arrow-alt-right"></i></a></li>
-                    <li><a href="#" className="circle-btn"><span className="circle-icon"><i className="fas fa-play-circle"></i>Watch The Video</span></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
+        </div> */}
 
       <section className="financo-activities-wrap1">
         <div className="container">
           <div className="row no-gutters">
+
+            
             <div className="col-lg-4 col-md-6">
               <div className="financo-activities-box1">
                 <div className="item-img-round">
@@ -116,6 +118,8 @@ const Home = () => {
                 </div>
               </div>
             </div>
+
+
             <div className="col-lg-4 col-md-6">
               <div className="financo-activities-box1">
                 <div className="item-img-round">
@@ -131,6 +135,8 @@ const Home = () => {
                 </div>
               </div>
             </div>
+
+
             <div className="col-lg-4 col-md-6">
               <div className="financo-activities-box1 financo-activities-box3">
                 <div className="item-img-round">

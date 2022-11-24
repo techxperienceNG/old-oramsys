@@ -15,7 +15,7 @@ const Products = () => {
   const [search, setSearch] = useState('')
 
   const productGetDatas = useSelector(state => state.product.product)
-
+  console.log('getAllProducts', productGetDatas)
 
 
   useEffect(() => {

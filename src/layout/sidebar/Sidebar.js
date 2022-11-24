@@ -177,8 +177,8 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
           <Navbar>
             <div style={{ width: "100%" }}>
               {
-                navbarData.map((item) => (
-                  <div className={`${item.text === "Jobs" ? "d-block navbar-body" : 'navbar-body'}`}>
+                navbarData.map((item, i) => (
+                  <div key={i} className={`${item.text === "Jobs" ? "d-block navbar-body" : 'navbar-body'}`}>
                     <div className='d-flex align-items-center ps-3 gap-5 mx-2 my-4'>
                       <img src={item.img} className="" alt="" width="16px" />
                       <Nav.Link className='sidebar-link p-0' onClick={() => ShowSubItem({ text: item.text, path: item.path })}>{item.text} {item.text === "Administration" ? <img src='../../../../../assets/img/about/down-filled-triangular-arrow.png' className={`${showItem === "Administration" ? 'img-roted' : 'img-roted_unset'}`} /> : ""}</Nav.Link>

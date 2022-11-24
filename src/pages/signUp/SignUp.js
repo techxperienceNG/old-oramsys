@@ -46,12 +46,12 @@ const SignUp = () => {
             param = true
             error.password = "Please enter password!"
         }
-        if (!registerData.conformPassword) {
+        if (!registerData.confirmPassword) {
             param = true
-            error.conformPassword = "Please enter conform password!"
-        } else if (registerData.password !== registerData.conformPassword) {
+            error.confirmPassword = "Please enter confirm password!"
+        } else if (registerData.password !== registerData.confirmPassword) {
             param = true
-            error.conformPassword = "Please enter same password!"
+            error.confirmPassword = "Please enter same password!"
         }
         setRegisterError(error);
         return param
@@ -63,7 +63,7 @@ const SignUp = () => {
         if (validation()) {
             return
         }
-        delete registerData.conformPassword
+        delete registerData.confirmPassword
         dispatch(registerAction(registerData))
     }
     return (
@@ -88,8 +88,8 @@ const SignUp = () => {
                                 {registerError.email && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{registerError.email}</span>}
                                 <input type="password" placeholder="Password" name='password' onChange={(e) => handelChange(e)} />
                                 {registerError.password && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{registerError.password}</span>}
-                                <input type="password" placeholder="Conform password" name='conformPassword' onChange={(e) => handelChange(e)} />
-                                {registerError.conformPassword && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{registerError.conformPassword}</span>}
+                                <input type="password" placeholder="Confirm password" name='confirmPassword' onChange={(e) => handelChange(e)} />
+                                {registerError.confirmPassword && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{registerError.confirmPassword}</span>}
                                 <button onClick={(e) => register(e)}>Sign Up</button>
                             </div>
                         </div>

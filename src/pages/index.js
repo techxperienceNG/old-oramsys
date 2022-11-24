@@ -206,8 +206,8 @@ const Index = () => {
                     <Route path="/fa-login" element={<FunctionalAdmin />} />
                 </Route>
                 <Route element={<RouteProtecter />}>
-                    {primaryLinks?.map(item =>
-                        < Route path={`/${item?.path}`} element={<item.component />} />
+                    {primaryLinks?.map((item, i) =>
+                        < Route path={`/${item?.path}`} key={i} element={<item.component />} />
                     )
                     }
                 </Route>

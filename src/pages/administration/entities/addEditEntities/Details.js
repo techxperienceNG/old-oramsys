@@ -673,8 +673,8 @@ const Details = ({ hendelNext, entityType }) => {
                                     label="Flat number"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.flatNumber}
-                                    onChange={(e) => handleChange(e, 'flatNumber', 'shipping')}
+                                    value={bilingAddress.flatNumber}
+                                    
                                     disabled={isView}
                                 />
                                 {formErrors && formErrors.Shipping?.flatNumber && <span style={{ color: 'red' }}>{formErrors.Shipping.flatNumber}</span>}
@@ -684,8 +684,8 @@ const Details = ({ hendelNext, entityType }) => {
                                     label="Line 1"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.addressLine1}
-                                    onChange={(e) => handleChange(e, 'addressLine1', 'shipping')}
+                                    value={bilingAddress.addressLine1}
+                                   
                                     disabled={isView}
                                 />
                                 {formErrors && formErrors.Shipping?.addressLine1 && <span style={{ color: 'red' }}>{formErrors.Shipping.addressLine1}</span>}
@@ -695,8 +695,7 @@ const Details = ({ hendelNext, entityType }) => {
                                     label="Line 2"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.addressLine2}
-                                    onChange={(e) => handleChange(e, 'addressLine2', 'shipping')}
+                                    value={bilingAddress.addressLine2}
                                     disabled={isView}
                                 />
                                 {formErrors && formErrors.Shipping?.addressLine2 && <span style={{ color: 'red' }}>{formErrors.Shipping.addressLine2}</span>}
@@ -706,8 +705,8 @@ const Details = ({ hendelNext, entityType }) => {
                                     label="Line 3"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.addressLine3}
-                                    onChange={(e) => handleChange(e, 'addressLine3', 'shipping')}
+                                    value={bilingAddress.addressLine3}
+                                    
                                     disabled={isView}
                                 />
                                 {formErrors && formErrors.Shipping?.addressLine3 && <span style={{ color: 'red' }}>{formErrors.Shipping.addressLine3}</span>}
@@ -717,8 +716,8 @@ const Details = ({ hendelNext, entityType }) => {
                                     label="Postcode"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.postcode}
-                                    onChange={(e) => handleChange(e, 'postcode', 'shipping')}
+                                    value={bilingAddress.postcode}
+                                    
                                     disabled={isView}
                                 />
                                 {formErrors && formErrors.Shipping?.postcode && <span style={{ color: 'red' }}>{formErrors.Shipping.postcode}</span>}
@@ -728,8 +727,7 @@ const Details = ({ hendelNext, entityType }) => {
                                     label="State/Province"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.state}
-                                    onChange={(e) => handleChange(e, 'state', 'shipping')}
+                                    value={bilingAddress.state}
                                     disabled={isView}
                                 />
                                 {formErrors && formErrors.Shipping?.state && <span style={{ color: 'red' }}>{formErrors.Shipping.state}</span>}
@@ -739,8 +737,7 @@ const Details = ({ hendelNext, entityType }) => {
                                     label="City"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.city}
-                                    onChange={(e) => handleChange(e, 'city', 'shipping')}
+                                    value={bilingAddress.city}
                                     disabled={isView}
                                 />
                                 {formErrors && formErrors.Shipping?.city && <span style={{ color: 'red' }}>{formErrors.Shipping.city}</span>}
@@ -749,61 +746,58 @@ const Details = ({ hendelNext, entityType }) => {
                                 <Autocomplete
                                     label="Country"
                                     id="disable-clearable"
-                                    onChange={(e, newVal) => setShippingAddress({ ...shippingAddress, country: newVal._id })}
+                                    
                                     getOptionLabel={(option) => option.name}
                                     options={countryData}
                                     disableClearable
                                     renderInput={(params) => (
                                         <TextField {...params} label="Country" variant="standard" />
                                     )}
-                                    value={(countryData.length && shippingAddress.country) ? countryData.find(item => item._id === shippingAddress?.country) : {}}
+                                    value={(countryData.length && bilingAddress.country) ? countryData.find(item => item._id === bilingAddress?.country) : {}}
                                     disabled={isView}
                                 />
-                                {formErrors && formErrors.Shipping?.country && <span style={{ color: 'red' }}>{formErrors.Shipping.country}</span>}
+                                {formErrors && formErrors.Biling?.country && <span style={{ color: 'red' }}>{formErrors.Biling.country}</span>}
                             </Col>
                             <Col xxl={3} xl={4} lg={6} md={4} sm={6} className='mb-3'>
                                 <TextField
                                     label="Mobile #"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.mobile}
-                                    onChange={(e) => handleChange(e, 'mobile', 'shipping')}
+                                    value={bilingAddress.mobile}
+                                    
                                     disabled={isView}
                                 />
-                                {formErrors && formErrors.Shipping?.mobile && <span style={{ color: 'red' }}>{formErrors.Shipping.mobile}</span>}
+                                {formErrors && formErrors.Biling?.mobile && <span style={{ color: 'red' }}>{formErrors.Biling.mobile}</span>}
                             </Col>
                             <Col xxl={3} xl={4} lg={6} md={4} sm={6} className='mb-3'>
                                 <TextField
                                     label="Telephone #"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.telephone}
-                                    onChange={(e) => handleChange(e, 'telephone', 'shipping')}
+                                    value={bilingAddress.telephone}
                                     disabled={isView}
                                 />
-                                {formErrors && formErrors.Shipping?.telephone && <span style={{ color: 'red' }}>{formErrors.Shipping.telephone}</span>}
+                                {formErrors && formErrors.Biling?.telephone && <span style={{ color: 'red' }}>{formErrors.Biling.telephone}</span>}
                             </Col>
                             <Col xxl={3} xl={4} lg={6} md={4} sm={6} className='mb-3'>
                                 <TextField
                                     label="Fax"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.fax}
-                                    onChange={(e) => handleChange(e, 'fax', 'shipping')}
+                                    value={bilingAddress.fax}
                                     disabled={isView}
                                 />
-                                {formErrors && formErrors.Shipping?.fax && <span style={{ color: 'red' }}>{formErrors.Shipping.fax}</span>}
+                                {formErrors && formErrors.Biling?.fax && <span style={{ color: 'red' }}>{formErrors.Biling.fax}</span>}
                             </Col>
                             <Col xxl={3} xl={4} lg={6} md={4} sm={6} className='mb-3'>
                                 <TextField
                                     label="Email"
                                     variant="standard"
                                     color="warning"
-                                    value={shippingAddress.email}
-                                    onChange={(e) => handleChange(e, 'email', 'shipping')}
+                                    value={bilingAddress.email}
                                     disabled={isView}
                                 />
-                                {formErrors && formErrors.Shipping?.email && <span style={{ color: 'red' }}>{formErrors.Shipping.email}</span>}
+                                {formErrors && formErrors.Biling?.email && <span style={{ color: 'red' }}>{formErrors.Biling.email}</span>}
                             </Col>
                         </Row>
                     </div>

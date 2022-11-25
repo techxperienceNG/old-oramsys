@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRightLong, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import AuthStorage from '../../helper/AuthStorage';
+import STORAGEKEY from '../../config/APP/app.config';
 
 const HomeLanding = () => {
+  const token = AuthStorage.getToken()
 
   const cards = [
     {
@@ -50,8 +51,8 @@ const HomeLanding = () => {
             <div className='container dash-head'>
                 <h1 className='m-4'>Dashboard</h1>
                 <div className='row no-gutters'>
-                    {
-                      cards.map((card, i) => (
+                  {AuthStorage.getStorageData(STORAGEKEY.roles) === "superAdmin" && (
+                    cards.map((card, i) => (
                         <div key={i} className="col-lg-4 col-md-6">
                         <div className="financo-activities-box1">
                           <div className="item-img-round">
@@ -68,8 +69,36 @@ const HomeLanding = () => {
                         </div>
                       </div>
                       ))
-                    }
+                  )}
+                    {AuthStorage.getStorageData(STORAGEKEY.roles) === "user" && (
+                      
+                        <div className="col-lg-4 col-md-6">
+                        <div className="financo-activities-box1">
+                          <div className="item-img-round">
+                            <img src="./assets/img/figure/figure39.png" alt="figure" height="81" width="81" />
+                            <div className="item-img">
+                              <img src="./assets/img/figure/figure41.png"  alt="figure" height="41" width="45" />
+                            </div>
+                          </div>
+                          <h2 className="heading-title"><a href="/" className="text-decoration-none">{getAlltransactionData?.length} {" "} Transactions</a>
+                          
+                          </h2>
+                          <p>loremLorem ipsum dolor sit, amet consectetur adipisicing Bookan unknown</p>
+            
+                        </div>
+                      </div>
+                   
+                    )}
                 </div>
+                <div className="background-shape6">
+          <img src="./assets/img/figure/figure32.png" alt="figure" width="404" height="216" />
+        </div>
+        <div className="background-shape7">
+          <img src="./assets/img/figure/figure29.png" alt="figure" width="747" height="256" />
+        </div>
+        <div className="background-shape8">
+          <img src="./assets/img/my-img/figure33.png" alt="figure" width="783" height="439" />
+        </div>
             </div>
       </section>
   </>

@@ -43,6 +43,10 @@ const Index = () => {
 
     const userRoutes = [
         {
+            path: "homeLanding",
+            component: HomeLanding,
+        },
+        {
             path: "transactions",
             component: Transactions,
         },
@@ -57,6 +61,10 @@ const Index = () => {
     ]
 
     const AdminRoutes = [
+        {
+            path: "homeLanding",
+            component: HomeLanding,
+        },
         {
             path: "entities",
             component: Entities,
@@ -159,7 +167,7 @@ const Index = () => {
                         } else if (AuthStorage.getStorageData(STORAGEKEY.roles) === "admin") {
                             navigate("/entities")
                         } else if (AuthStorage.getStorageData(STORAGEKEY.roles) === "user") {
-                            navigate("/transactions")
+                            navigate("/homeLanding")
                         }
                     } else {
                         localStorage.clear()

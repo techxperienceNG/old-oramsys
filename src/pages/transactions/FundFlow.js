@@ -335,11 +335,11 @@ const FundFlow = ({ hendelCancel, hendelNext }) => {
                                 onChange={(event, newValue) => {
                                     setFundFlow({ ...fundFlow, contractCurrency: newValue.label });
                                 }}
+                                value={(CurrencyOptions.length > 0 && fundFlow.contractCurrency) && CurrencyOptions.find((ele) => ele.label === fundFlow.contractCurrency)}
                                 disableClearable
                                 disabled={isView || fundFlow.contractCurrency?.length > 0}
-                                 value={(CurrencyOptions.length > 0 && fundFlow.contractCurrency) && CurrencyOptions.find((ele) => ele.label === fundFlow.contractCurrency)}
                             />
-                            {/* {error && error.contractCurrency && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.contractCurrency}</span>} */}
+                            {error && error.contractCurrency && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.contractCurrency}</span>}
                         </Col>
                         <Col lg={6}>
                             <TextField
@@ -351,7 +351,7 @@ const FundFlow = ({ hendelCancel, hendelNext }) => {
                                 onChange={handleChange}
                                 disabled={isView || fundFlow.contractValue?.length > 0}
                             />
-                            {/* {error && error.contractValue && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.contractValue}</span>} */}
+                            {error && error.contractValue && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.contractValue}</span>}
                         </Col>
                     </Row>
                 </div>

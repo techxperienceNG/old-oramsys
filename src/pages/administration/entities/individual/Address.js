@@ -636,6 +636,8 @@ const IndividualAddress = ({
           style={{ backgroundColor: "rgb(243, 243, 243)", border: "none" }}
         >
           <h2 className='mb-3'>Professional address</h2>
+          <button className='footer_next_btn mb-3' onClick={()=> setProfessionalState({...ResidentialState, type: "Professional"})}>Use Residential Address</button>
+
           <div>
             <Row>
               <Col lg={3}>

@@ -182,7 +182,21 @@ const Transactions = () => {
     //     link.click();
     }
 
-    const tableAction = [
+    const adminTableAction = [
+        {
+            icon: 'edit',
+            tooltip: 'Edit transaction',
+            onClick: (event, rowData) => navigate(`/edit-transactions?id=${rowData?._id}`, { state: [{ type: rowData.type }, { type: rowData?.details?.productDetails?.nature ? rowData.details.productDetails.nature : '' }, { isView: false }] })
+        },
+        {
+            icon: 'download',
+            tooltip: 'Download term sheet',
+            // onClick: (event, rowData) => navigate(`/edit-transactions?id=${rowData?._id}`, { state: [{ type: rowData.type }, { type: rowData?.details?.productDetails?.nature ? rowData.details.productDetails.nature : '' }, { isView: false }] })
+            onClick: (event, rowData) => { downloadTermSheet(rowData._id) }
+            // onClick: (event, rowData) => { rowData.termSheet === 'Not Signed' ? downloadTermSheet() : converBase64toBlob(rowData.termSheetUrl) }
+        },
+    ]
+    const userTableAction = [
         {
             icon: 'edit',
             tooltip: 'Edit transaction',
@@ -238,8 +252,6 @@ const Transactions = () => {
                         { title: 'Applicant', field: 'borrower_Applicant' },
                         { title: 'Lenders', field: 'lenders' },
                         { title: 'Product', field: 'details.productDetails.name.name' },
-                        { title: 'Commodity Type', field: 'details.productDetails.commodityType' },
-                        { title: 'Commodity-Sub-Type', field: 'details.productDetails.commoditySubType' },
                         { title: 'Value', field: 'details.contractDetails.value' },
                         // { title: 'Origination Port', field: 'details.shippingOptions.portOfOrigin.name' },
                         // { title: 'Destination Port', field: 'details.shippingOptions.destinationPort.name' },
@@ -249,7 +261,7 @@ const Transactions = () => {
                         // { title: 'Entities Involved', render: rowData => { return rowData?.keyParties.map(item => item?.parties.map(partyItem => partyItem?.name?.details?.name))?.map(data => <p>{data}</p>) } },
                     ]}
                     data={transaction}
-                    actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? tableAction : tableAction.slice(1, 2)}
+                    actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? adminTableAction : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? userTableAction : adminTableAction.slice(1, 2)}
                     options={{
                         filtering: true,
                         actionsColumnIndex: -1,

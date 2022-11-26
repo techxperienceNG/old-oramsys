@@ -9,17 +9,6 @@ const LoanPurposeRiskModal = ({ show, onHide, getModalData, types }) => {
     const [loanPurposeRisk, setLoanPurposeRisk] = useState({
         justification: ""
     })
-    const getTransactionByIdData = useSelector((state) => state.transactionData.getTransactionById)
-
-    useEffect(() => {
-        if (getTransactionByIdData && getTransactionByIdData.data) {
-            console.log("getTransactionByIdData=====", getTransactionByIdData.data)
-            setLoanPurposeRisk({
-                justification: getTransactionByIdData.data?.loanPurposeRisk?.justification,
-
-            })
-        }  
-    }, [getTransactionByIdData])
 
     const [commentModal, setCommentModal] = useState(false)
     const [type, setType] = useState('')

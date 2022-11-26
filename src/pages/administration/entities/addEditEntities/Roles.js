@@ -9,9 +9,11 @@ import { COMPANY_DATA, EDIT_ENTITY, ENTITY_ADD, ENTITY_GET_BY_ID } from '../../.
 import { toast } from 'react-toastify'
 import { useLocation, useNavigate } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
+import STORAGEKEY from '../../../../config/APP/app.config'
+import AuthStorage from '../../../../helper/AuthStorage'
 import { entitiesRoleAction } from '../../../../redux/actions/entitiesRoleAction';
 
-const Roles = ({ hendelNext, hendelCancel }) => {
+const Roles = ({ hendelNext, hendelCancel, sendDetailData }) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -100,10 +102,11 @@ const Roles = ({ hendelNext, hendelCancel }) => {
 
     const edit = () => {
         const body = {
+            
             email: companyData.email,
             password: companyData.password,
             type: companyData.type,
-            detail: companyData.detail,
+            detail: sendDetailData, 
             addresses: companyData.addresses,
             financial: companyData.financial,
             licenses: companyData.licenses,

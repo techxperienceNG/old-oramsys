@@ -668,13 +668,6 @@ const Details = ({ hendelNext, entityType }) => {
                 <div className='form'>
                     <h2 className='mb-3'>Shipping address</h2> 
                     <button className='footer_next_btn mb-3' onClick={()=> setShippingAddress({...bilingAddress, type: "Shipping"})}>Use Billing Address</button>
-
-                    {/* <div className="form-switch">
-                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked />
-                        <label className="form-check-label" for="flexCheckChecked">
-                            Checked checkbox
-                        </label>
-                        </div> */}
                     <div>
                         <Row>
                             <Col xxl={3} xl={4} lg={6} md={4} sm={6} className='mb-3'>
@@ -816,10 +809,6 @@ const Details = ({ hendelNext, entityType }) => {
                             </Col>
                         </Row>
                     </div>
-                    {/* <label>
-                    <input type="checkbox"  defaultChecked={checked} onChange={() => setChecked(!checked)}/>
-                    Check Me!
-                    </label> */}
                 </div>
             </div>
             <div className='footer_'>

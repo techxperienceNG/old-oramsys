@@ -110,7 +110,7 @@ const PaymentBuyerRisk = ({ hendelNext, hendelCancel }) => {
                                     <h3>Take acceptable guarantees (from Central Banks, Corporates, other reliable counterparties</h3>
                                     <img src={`../../../assets/img/about/${paymentBuyesrRisk.counterparties ? "correct-success.png" : "correct (1).png"}`} />
                                 </div>
-                                <div className='risk-tab' onClick={() => { setAcceptablePartyModal(true); setSelected('acceptableParty'); setOptions(acceptablePartyOptions) }}>
+                                <div className='risk-tab' onClick={() => { setCounterpartiesModal(true); setSelected('acceptableParty'); setOptions(acceptablePartyOptions) }}>
                                     <h3>Transfer payment risk to another acceptable party (make loan self-liquidating)</h3>
                                     <img src={`../../../assets/img/about/${paymentBuyesrRisk.acceptableParty ? "correct-success.png" : "correct (1).png"}`} />
                                 </div>

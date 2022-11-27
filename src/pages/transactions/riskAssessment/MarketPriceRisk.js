@@ -116,7 +116,7 @@ const MarketPriceRisk = ({ hendelNext, hendelCancel }) => {
                 <div className='form'>
                     <div>
                         <h2 className='mb-3'>Market/Price risk</h2>
-                        {marketPriceRisk.contractsBasis || marketPriceRisk.priceHedge || marketPriceRisk.financingSufficiently ? <p>No risk</p> :
+                        {marketPriceRisk.contractsBasis && marketPriceRisk.priceHedge && marketPriceRisk.financingSufficiently ? <p>No risk</p> :
                             <div>
                                 <div className='risk-tab' onClick={() => { setShowModal(true); setSelected('contractsBasis') }}>
                                     <h3>Finance only on Firm Fixed Price contracts basis</h3>

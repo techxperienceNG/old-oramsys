@@ -1,10 +1,12 @@
 import { Backdrop, Fade, FormControl, InputLabel, Modal, Select, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { entityGetAction } from '../../redux/actions/entityAction';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom'
+import { CurrencyOptions } from "../../helper/common"
+
 
 const LCPartiesModal = ({ show, onHide, addParties, data }) => {
 
@@ -99,7 +101,7 @@ const LCPartiesModal = ({ show, onHide, addParties, data }) => {
                                 <div className='form pt-2'>
                                     <h2>Contract value</h2>
                                     <Row>
-                                    <Col lg={3}>
+                                        <Col lg={3}>
                                             <Autocomplete
                                             options={CurrencyOptions}
                                             getOptionLabel={(option) => option.label}

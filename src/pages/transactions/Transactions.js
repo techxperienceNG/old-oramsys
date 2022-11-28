@@ -170,19 +170,19 @@ const Transactions = () => {
         // link.href = blobURL; // data url  
         // link.click();
         // }
-    //     var blob = new Blob(byteArrays, {
-    //         type: contentType
-    //     }); //statement which creates the blob
+        //     var blob = new Blob(byteArrays, {
+        //         type: contentType
+        //     }); //statement which creates the blob
 
-    //     var blobURL = URL.createObjectURL(blob);
+        //     var blobURL = URL.createObjectURL(blob);
 
-    //     let link = document.createElement('a');
-    //     link.download = 'TermSheet.docx';
-    //     link.href = blobURL; // data url  
-    //     link.click();
+        //     let link = document.createElement('a');
+        //     link.download = 'TermSheet.docx';
+        //     link.href = blobURL; // data url  
+        //     link.click();
     }
 
-    const adminTableAction = [
+    const userTableAction = [
         {
             icon: 'edit',
             tooltip: 'Edit transaction',
@@ -196,7 +196,7 @@ const Transactions = () => {
             // onClick: (event, rowData) => { rowData.termSheet === 'Not Signed' ? downloadTermSheet() : converBase64toBlob(rowData.termSheetUrl) }
         },
     ]
-    const userTableAction = [
+    const tableAction = [
         {
             icon: 'edit',
             tooltip: 'Edit transaction',
@@ -227,7 +227,6 @@ const Transactions = () => {
                 <div className='mb-3 d-flex justify-content-between align-items-center'>
                     <h2 className='m-0'>Transactions</h2>
                     {AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? <button className='add_btn me-3' onClick={() => setShowspan(!showspan)}> <img src='../../assets/img/about/plus.png' className='me-2' />Add</button> : <></>}
-
                     {
                         showspan &&
                         <div className='add_content' style={{ right: "50px", top: "131px" }}>
@@ -245,6 +244,7 @@ const Transactions = () => {
                         </div>
                     }
                 </div>
+                {console.log(tableAction)}
                 <MaterialTable
                     title=""
                     columns={[
@@ -262,7 +262,7 @@ const Transactions = () => {
                         // { title: 'Entities Involved', render: rowData => { return rowData?.keyParties.map(item => item?.parties.map(partyItem => partyItem?.name?.details?.name))?.map(data => <p>{data}</p>) } },
                     ]}
                     data={transaction}
-                    actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? adminTableAction : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? userTableAction : adminTableAction.slice(1, 2)}
+                    actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? (tableAction.splice(2, 1), tableAction) : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? tableAction : tableAction.slice(1, 2)}
                     options={{
                         filtering: true,
                         actionsColumnIndex: -1,

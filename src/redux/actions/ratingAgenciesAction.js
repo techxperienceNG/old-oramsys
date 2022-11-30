@@ -164,7 +164,7 @@ export const ratingAgencyUpdateAction = (ratingAgencyUpdate, id) => async (dispa
                 })
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error.response.data)
             })
         dispatch({
             type: RATINGAGENCIES_LOADING,

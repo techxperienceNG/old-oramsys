@@ -20,6 +20,7 @@ const Details = ({ hendelNext, entityType }) => {
     const isView = location.state[1]?.isView
 
     let numberReg = /^[0-9\b]+$/;
+    let nigReg = /^[1-10]\d{0,10}$/
     let emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     let faxReg = /^\+?[0-9]{6,}$/;
     let telephoneReg = /^[+]?(\d{1,2})?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
@@ -164,8 +165,12 @@ const Details = ({ hendelNext, entityType }) => {
         else if (type === 'biling') {
             if (name === "flatNumber" || name === "addressLine1" || name === "addressLine2" || name === "addressLine3" || name === "state" || name === "city" || name === "country" || name === "email") {
                 setBilingAddress({ ...bilingAddress, [name]: e.target.value })
-            } else if (name === "mobile" || name === "telephone" || name === "fax" || name === "postcode") {
+            } else if (name === "fax" || name === "postcode") {
                 if (e.target.value === '' || numberReg.test(e.target.value)) {
+                    setBilingAddress({ ...bilingAddress, [name]: e.target.value })
+                }
+            } else if(name === "mobile" || name === "telephone" ) {
+                if (e.target.value === '' || nigReg.test(e.target.value)) {
                     setBilingAddress({ ...bilingAddress, [name]: e.target.value })
                 }
             }
@@ -173,9 +178,14 @@ const Details = ({ hendelNext, entityType }) => {
         else if (type === 'shipping') {
             if (name === "flatNumber" || name === "addressLine1" || name === "addressLine2" || name === "addressLine3" || name === "state" || name === "city" || name === "country" || name === "email") {
                 setShippingAddress({ ...shippingAddress, [name]: e.target.value })
-            } else if (name === "postcode" || name === "mobile" || name === "telephone" || name === "fax") {
+            } else if (name === "postcode" || name === "fax") {
                 if (e.target.value === '' || numberReg.test(e.target.value)) {
                     setShippingAddress({ ...shippingAddress, [name]: e.target.value })
+                }
+            }
+            else if(name === "mobile" || name === "telephone" ) {
+                if (e.target.value === '' || nigReg.test(e.target.value)) {
+                    setBilingAddress({ ...bilingAddress, [name]: e.target.value })
                 }
             }
         }

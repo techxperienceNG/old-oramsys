@@ -114,10 +114,10 @@ const Details = ({ hendelNext, hendelCancel, getData }) => {
             error.street = "Please enter street!"
         }
 
-        // if (!state.addressLine2) {
-        //     param = true
-        //     error.addressLine2 = "Please enter Address line 2!"
-        // }
+        if (!state.addressLine2) {
+            param = true
+            error.addressLine2 = "Please enter Address line 2!"
+        }
 
         if (!state.city) {
             param = true

@@ -332,6 +332,7 @@ const FundFlow = ({ hendelCancel, hendelNext }) => {
         }
     }
 
+    console.log('cont', contractDetails)
 
 
     return (
@@ -351,8 +352,9 @@ const FundFlow = ({ hendelCancel, hendelNext }) => {
                                 )}
                                 onChange={(event, newValue) => {
                                     setContractDetails({ ...contractDetails, currency: newValue.label });
+                                    console.log(contractDetails)
                                 }}
-                                value={(CurrencyOptions.length > 0 && contractDetails.currency) && CurrencyOptions.find((ele) => ele.label === contractDetails.currency)}
+                                value={(CurrencyOptions.length > 0 && contractDetails.currency) && CurrencyOptions.find((ele) => ele.label === contractDetails.currency)?.label}
                                 disableClearable
                                 disabled={isView || contractDetails.currency?.length > 0}
                             />
@@ -391,7 +393,10 @@ const FundFlow = ({ hendelCancel, hendelNext }) => {
                                                 ...fundFlow,
                                                 paymentMethod: newValue,
                                                 openAccount: '',
+                                                terms: newValue === 'Cash against documents (CAD)' ? 'At sight' : fundFlow.terms
+
                                             });
+                                            console.log(newValue)
                                             setLettersOfCredit([])
                                         }}
                                         value={fundFlow.paymentMethod}
@@ -506,8 +511,10 @@ const FundFlow = ({ hendelCancel, hendelNext }) => {
                                 onChange={(event, newValue) => {
                                     setFundFlow({ ...fundFlow, terms: newValue });
                                 }}
-                                disabled={isView}
-                                value={(termsOptions.length > 0 && fundFlow.terms) && termsOptions.find((ele) => ele === fundFlow.terms)}
+                                disabled={fundFlow.paymentMethod === 'Cash against documents (CAD)' || isView}
+        
+                                value={fundFlow.terms}
+                                // value={(termsOptions.length > 0 && fundFlow.terms) && termsOptions.find((ele) => ele === fundFlow.terms)}
                                 disableClearable
                             />
                             {error && error.terms && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.terms}</span>}

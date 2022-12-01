@@ -332,21 +332,18 @@ const FundFlow = ({ hendelCancel, hendelNext }) => {
         }
     }
 
-    console.log('cont', contractDetails)
-
-
     return (
         <>
             <div className='add-edit-product'>
                 <div className='form'>
                     <h5 className="title-color">Contract value</h5>
                     <Row>
-                        <Col lg={6}>
-                            <Autocomplete
+                        {/* <Col lg={6}>
+                            <TextField
                                 options={CurrencyOptions}
                                 getOptionLabel={(option) => option.label}
                                 id="disable-clearable"
-                                label="Contract currency"
+                                label="bruno"
                                 renderInput={(params) => (
                                     <TextField {...params} label="Contract currency" variant="standard" />
                                 )}
@@ -354,11 +351,24 @@ const FundFlow = ({ hendelCancel, hendelNext }) => {
                                     setContractDetails({ ...contractDetails, currency: newValue.label });
                                     console.log(contractDetails)
                                 }}
-                                value={(CurrencyOptions.length > 0 && contractDetails.currency) && CurrencyOptions.find((ele) => ele.label === contractDetails.currency)?.label}
+                                // value={(CurrencyOptions.length > 0 && contractDetails.currency) && CurrencyOptions.find((ele) => ele.label === contractDetails.currency)?.label}
+                                value="Chinese Yuan"
                                 disableClearable
                                 disabled={isView || contractDetails.currency?.length > 0}
                             />
                             {error && error.currency && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.currency}</span>}
+                        </Col> */}
+                          <Col lg={6}>
+                            <TextField
+                                label="Contract currency"
+                                variant="standard"
+                                color="warning"
+                                value={contractDetails.currency}
+                                name="currency"
+                             
+                                disabled={isView || contractDetails.currency?.length > 0}
+                            />
+                            {error && error.value && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.value}</span>}
                         </Col>
                         <Col lg={6}>
                             <TextField

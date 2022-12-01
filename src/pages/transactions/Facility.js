@@ -17,7 +17,6 @@ import { ADD_TRANSACTION, EDIT_TRANSACTION, GET_TRANSACTION_BY_ID } from '../../
 import { toast } from 'react-toastify'
 import moment from "moment"
 import { productGetAction } from '../../redux/actions/productAction'
-import { companydataAction } from '../../redux/actions/companydataAction'
 
 const Facility = ({ hendelCancel, hendelNext }) => {
 
@@ -97,9 +96,6 @@ const Facility = ({ hendelCancel, hendelNext }) => {
     const [error, setError] = useState()
     const [editRowData, setEditRowData] = useState('')
     const [view, setView] = useState()
-
-    const companyData = useSelector((state) => state.companydata.companydata)
-
 
     const transactionData = useSelector((state) => state.transactionData.transactionData)
     const addTransactionData = useSelector((state) => state.transactionData.addTransaction)
@@ -243,11 +239,13 @@ const Facility = ({ hendelCancel, hendelNext }) => {
         console.log('securityDocuments.length===', securityDocuments)
     }, [securityDocuments])
 
+
+
     const handleChangeNumber = (e, name) => {
         let numberReg = /^[0-9\b]+$/;
-        let numberPointReg = /\b((100)|[1-9]\d?)\b/
+        let numberPointReg = /\b((100)|[0-9]\d?)\b/
         console.log('e.target.value', e.target.value)
-        if (name === "interestRate" || name ==="tenor" || name === "managementFee" || name === "drawdownFee" || name === "commitmentFee" || name === "lateInterestCharges" || name === "prePayment" || name === "cancellationFee") {
+        if (name === "interestRate" || name === "managementFee" || name === "drawdownFee" || name === "commitmentFee" || name === "lateInterestCharges" || name === "prePayment" || name === "cancellationFee" || name === "agencyFee" || name === "advisoryFee" || name === "defaultInterest") {
             if (e.target.value === "" || numberPointReg.test(e.target.value)) {
                 if (e.target.value) {
                     var t = e.target.value;
@@ -256,11 +254,11 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                 setFacility({ ...facility, [name]: e.target.value })
             }
         }
-        // else if (name === "tenor") {
-        //     if (e.target.value === "" || numberReg.test(e.target.value)) {
-        //         setFacility({ ...facility, [name]: e.target.value })
-        //     }
-        // }
+        else if (name === "tenor") {
+            if (e.target.value === "" || numberReg.test(e.target.value)) {
+                setFacility({ ...facility, [name]: e.target.value })
+            }
+        }
         else if (name === "margin") {
             if (e.target.value === "" || numberReg.test(e.target.value)) {
                 setFacility({ ...facility, [name]: e.target.value })
@@ -747,24 +745,6 @@ const Facility = ({ hendelCancel, hendelNext }) => {
             setAddCurrencyHedge([...addCurrencyHedge, data])
         }
     }
-    useEffect(() => {
-        if (companyData && companyData.addCurrencyHedges && transactionData?.data) {
-            setAddCurrencyHedge(companyData.addCurrencyHedges.map((ele) => {
-                return {
-                    hedgingMethod: transactionData.data.find((item) => item._id === ele.addCurrencyHedges)?.name,
-                    counterParty: ele.counterParty.label
-                }
-            }))
-        }
-    }, [companyData, transactionData])
-    
-    const Delete = (data) => {
-        const body = {
-            ...companyData,
-            addCurrencyHedges: companyData && companyData.addCurrencyHedges.filter((e, i) => i !== data.tableData.id)
-        }
-        dispatch(companydataAction(body))
-    }
 
     return (
         <>
@@ -848,7 +828,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                     id="standard-start-adornment"
                                     name='managementFee'
                                     value={facility.managementFee}
-                                    onChange={(e) => handleChangeNumber(e, 'managementFee', 'facility')}
+                                    onChange={(e) => handleChangeNumber(e, 'managementFee')}
                                     InputProps={{
                                         endAdornment: <InputAdornment position="start">%</InputAdornment>,
                                     }}
@@ -1030,7 +1010,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                     {error && error?.type && <span style={{ color: 'red' }}>{error.type}</span>}
                                 </Col>
 
-                                <Col lg={3}>
+                                {/* <Col lg={3}>
                                     <Autocomplete
                                         options={CurrencyOptions}
                                         getOptionLabel={(option) => option.label}
@@ -1040,13 +1020,25 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                             <TextField {...params} label="Currency" variant="standard" />
                                         )}
                                         onChange={(event, newValue) => {
-                                            setFacility({ ...facility, currency: newValue.label });
+                                            setFacility({ ...facility, currency: newValue?.label });
                                         }}
                                         disableClearable
-                                        disabled={isView || facility.currency?.length > 0}
+                                        disabled={isView || facility.currency.length > 0}
                                         value={(CurrencyOptions.length > 0 && facility.currency) && CurrencyOptions.find((ele) => ele.label === facility.currency)}
                                     />
                                     {error && error?.currency && <span style={{ color: 'red' }}>{error.currency}</span>}
+                                </Col> */}
+                                <Col lg={6}>
+                                    <TextField
+                                        label="Contract currency"
+                                        variant="standard"
+                                        color="warning"
+                                        value={facility.currency}
+                                        name="currency"
+                                    
+                                        disabled={isView || facility.currency?.length > 0}
+                                    />
+                                    {error && error.value && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.value}</span>}
                                 </Col>
                                 <Col lg={3}>
                                     <TextField
@@ -1136,11 +1128,6 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                                     icon: 'preview',
                                                     tooltip: 'View Currency hedge details',
                                                     onClick: (event, rowData) => { setCurrencyHedgeDetailsModal(true); setEditRowData(rowData) }
-                                                },
-                                                {
-                                                    icon: 'delete',
-                                                    tooltip: 'Delete currency hedge details',
-                                                    onClick: (e, data) => { Delete(data) }
                                                 }
                                             ]}
                                             options={{
@@ -1802,7 +1789,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                 <div className='footer_'>
                     <button onClick={() => { hendelCancel() }} className="footer_cancel_btn">cancel</button>
                     <button onClick={() => { navigate('/transactions') }} className={`footer_next_btn ${isView ? 'd-block' : 'd-none'}`}>Exit</button>
-                    <button onClick={() => { id ? edit() : save() }} className={`footer_next_btn ${isView && 'd-none'}`}>{id ? "Save Edit" : "Save"}</button>
+                    <button onClick={() => { id ? edit() : save() }} className={`footer_next_btn ${isView && 'd-none'}`}>{id ? "Close" : "Save"}</button>
                 </div>
             </div>
             {addSourceOfRepayment && <AddSourceOfRepayment show={addSourceOfRepayment} onHide={() => { setAddSourceOfRepayment(false); setRowEditData('') }} getModalData={(e) => setSourceOfRepayment([...sourceOfRepayment, e])} data={rowEditData} getEditData={(e) => propsEditData(e)} isView={view} />}

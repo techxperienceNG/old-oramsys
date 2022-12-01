@@ -1,9 +1,10 @@
 import { Backdrop, Fade, FormControl, InputLabel, Modal, Select, TextField } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
+import { DropzoneArea } from 'material-ui-dropzone';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-const AddSourceOfRepayment = ({ show, onHide, getModalData, data, getEditData, isView }) => {
+const AddSourceOfRepayment = ({ show, onHide, getModalData, data, mode, getEditData, isView }) => {
 
     const [sourceOfRepayment, setSourceOfRepayment] = useState({
         type: "",
@@ -17,6 +18,17 @@ const AddSourceOfRepayment = ({ show, onHide, getModalData, data, getEditData, i
         'Secondary',
         'Tertiary',
     ]
+
+    const handleChangeFile = (file) => {
+        if (file) {
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+          }).then((res) => setSourceOfRepayment({ ...sourceOfRepayment, evidence: res }));
+        }
+      }
 
     const options = [
         'Borrower Cash-flow',
@@ -104,7 +116,7 @@ const AddSourceOfRepayment = ({ show, onHide, getModalData, data, getEditData, i
                         <div className='add-edit-product p-0 mt-3' id="transition-modal-description" >
                             <div className='form'>
                                 <Row>
-                                    <Col lg={4}>
+                                    <Col lg={6}>
                                         <Autocomplete
                                             options={typeOptions}
                                             getOptionLabel={(option) => option}
@@ -122,7 +134,7 @@ const AddSourceOfRepayment = ({ show, onHide, getModalData, data, getEditData, i
                                         />
                                         {error && error.type && <span style={{ color: 'red' }}>{error.type}</span>}
                                     </Col>
-                                    <Col lg={4}>
+                                    <Col lg={6}>
                                         <Autocomplete
                                             // options={sourceOfRepayment.type ? options : [] || data.type && sourceOfRepayment.type}
                                             options={sourceOfRepayment.type ? options : []}
@@ -141,26 +153,29 @@ const AddSourceOfRepayment = ({ show, onHide, getModalData, data, getEditData, i
                                         />
                                         {error && error.instrument && <span style={{ color: 'red' }}>{error.instrument}</span>}
                                     </Col>
-                                    <Col lg={4}>
-                                        <Autocomplete
-                                            options={sourceOfRepayment.instrument ? options : []}
-                                            getOptionLabel={(option) => option}
-                                            id="disable-clearable"
-                                            label="Evidence"
-                                            renderInput={(params) => (
-                                                <TextField {...params} label="Evidence" variant="standard" />
-                                            )}
-                                            onChange={(event, newValue) => {
-                                                setSourceOfRepayment({ ...sourceOfRepayment, evidence: newValue });
-                                            }}
-                                            disableClearable
-                                            disabled={isView}
-                                            value={sourceOfRepayment.evidence}
+                                   
+                                </Row>
+                                
+                            </div>
+                            <Row>
+                                    <Col>
+                                    <div className='drag-and-drop add-evidence'>
+                                        <DropzoneArea
+                                        Icon="none"
+                                        filesLimit={1}
+                                        showPreviews={true}
+                                        showPreviewsInDropzone={true}
+                                        useChipsForPreview
+                                        previewGridProps={{ container: { spacing: 1, } }}
+                                        dropzoneText='Upload Evidence'
+                                        previewText=""
+                                        onChange={(e) => handleChangeFile(e[0])}
+                                        dropzoneProps={{ disabled: mode === "View" }}
                                         />
-                                        {error && error.evidence && <span style={{ color: 'red' }}>{error.evidence}</span>}
+                                        {error && error?.evidence && <span style={{ color: 'red' }}>{error.evidence}</span>}
+                                    </div>
                                     </Col>
                                 </Row>
-                            </div>
                             <div className='d-flex justify-content-between mt-4'>
                                 <button onClick={() => onHide()} className="footer_cancel_btn">cancel</button>
                                 <button onClick={() => { saveData() }} className={`footer_next_btn ${isView && 'd-none'}`}>{data ? 'Edit' : 'Save'}</button>

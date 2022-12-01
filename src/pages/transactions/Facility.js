@@ -1257,7 +1257,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                     title=""
                                     columns={[
                                         { title: 'Name', field: 'type' },
-                                        { title: 'Evidence', field: 'evidence' },
+                                        // { title: 'Evidence', field: 'evidence' },
                                         { title: 'Instrument', field: 'instrument' },
                                         // { title: 'Type', field: 'type' },
                                     ]}

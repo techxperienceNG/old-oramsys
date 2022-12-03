@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { TextField } from "@material-ui/core"
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -20,7 +19,6 @@ const ExchangeRateRisk = ({ hendelNext, hendelCancel }) => {
         currencyHedge: "",
         marginFinancing: ""
     })
-    const [isOpen, setIsOpen] = useState(false)
 
     const riskAssessment = useSelector(state => state.riskAssessmentData.riskAssessment)
     const dispatch = useDispatch()
@@ -69,7 +67,7 @@ const ExchangeRateRisk = ({ hendelNext, hendelCancel }) => {
                 </div>
                 <div className='form'>
                     <h2 className='mb-3'>Exchange rate risk</h2>
-                    {data.currencyHedge || data.marginFinancing ? <p>No risk</p> :
+                    {data.currencyHedge && data.marginFinancing ? <p>No risk</p> :
                         <div>
                             <div className='risk-tab' onClick={() => { setcurrencyHedgeModal(true); setSelected("currencyHedge") }}>
                                 <h3>Enter a currency hedge</h3>

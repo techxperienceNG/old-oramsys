@@ -5,11 +5,9 @@ import Fade from '@material-ui/core/Fade';
 import { Col, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify'
 import { FormControl, FormControlLabel, FormLabel, InputLabel, Radio, RadioGroup, Select, TextField } from '@material-ui/core';
-import { addRiskAssessment } from '../../redux/actions/riskAssessmentAction'
-import { useDispatch } from 'react-redux';
 
 const ApprovalRole = ({ onHide, show }) => {
-const dispatch = useDispatch()
+
     const approval = [
         {
             title: "Length of relationship with the Bank",
@@ -180,12 +178,6 @@ const dispatch = useDispatch()
         },
     ]
 
-    
-    const save = () => {
-        dispatch(addRiskAssessment(approval))
-        onHide()
-    }
-
     return (
         <div>
             <Modal
@@ -204,7 +196,7 @@ const dispatch = useDispatch()
                     {/* <Fade > */}
                     <div className='modal-content'>
                         <div className='d-flex justify-content-between'>
-                            <h2 id="transition-modal-title" className='modal-title'>Risk Assessment</h2>
+                            <h2 id="transition-modal-title" className='modal-title'>Performance Risk</h2>
                             <img src='../../assets/img/my-img/Close.png' onClick={() => onHide()} style={{ cursor: "pointer", width: "24px", height: "24px" }} />
                         </div>
                         <div className='add-edit-product approvalrolemodal p-0 mt-3' id="transition-modal-description" style={{ height: '80vh', overflow: 'auto' }}>
@@ -229,7 +221,7 @@ const dispatch = useDispatch()
                         </div>
                         <div className='d-flex justify-content-between mt-4'>
                             <button onClick={() => onHide()} className="footer_cancel_btn">cancel</button>
-                            <button onClick={() =>  save()} className='footer_next_btn'>Save</button>
+                            <button onClick={() => { }} className='footer_next_btn'>Save</button>
                         </div>
                     </div>
                 </Fade>

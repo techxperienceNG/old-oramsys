@@ -16,6 +16,9 @@ const FinancingSufficientlyModal = ({ show, onHide, getModalData }) => {
   })
   const location = useLocation()
   const isView = location.state?.isView
+  
+    const queryParams = new URLSearchParams(location.search)
+    const id = queryParams.get("id")
 
   const transactionData = useSelector((state) => state.transactionData.transactionData)
   const getTransactionByIdData = useSelector((state) => state.transactionData.getTransactionById)
@@ -34,8 +37,9 @@ const FinancingSufficientlyModal = ({ show, onHide, getModalData }) => {
         console.log("getTransactionByIdData=====", getTransactionByIdData.data)
         setFinancingSufficiently({
           ...financingSufficiently,
-          contractCurrency: getTransactionByIdData.data?.financingSufficiently?.contractCurrency,
-          contractValue: getTransactionByIdData.data?.financingSufficiently?.contractvalue
+          contractCurrency: getTransactionByIdData.data?.details?.contractDetails?.currency,
+          contractValue: getTransactionByIdData.data?.details?.contractDetails?.value,
+          // facilityCurrency: getTransactionByIdData.data.
       })
     }
 }, [getTransactionByIdData])

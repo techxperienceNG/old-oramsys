@@ -10,7 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CurrencyOptions } from "../../helper/common"
 import { transactionDataAction } from '../../redux/actions/transactionDataAction'
 
-const KeyParties = ({ hendelCancel, hendelNext, transactionType }) => {
+const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getBorrower }) => {
+    console.log(getLender)
+    console.log(getBorrower)
 
     const dispatch = useDispatch()
 
@@ -37,14 +39,12 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType }) => {
             setTableData(getTransactionByIdData.data.keyParties[0].parties.map((ele) => {
                 return {
                     name: { label: ele.name.details.name, value: ele.name._id },
-                    type: { label: ele.type.roleName, value: ele.type._id },
-                    borrower_Applicant: ele.borrower_Applicant,
-                    lenders: ele.lenders
+                    type: { label: ele.type.roleName, value: ele.type._id }
                 }
             }))
             setEditId(getTransactionByIdData?.data?.keyParties[0]?._id)
-            setBorrower_Applicant(getTransactionByIdData.data?.borrower_Applicant)
-            setLenders(getTransactionByIdData.data?.lenders)
+            setBorrower_Applicant(getLender.borrower_Applicant)
+            setLenders(getBorrower.lenders)
             setkeyParties(getTransactionByIdData.data?.documentRemittance)
         }
     }, [getTransactionByIdData])
@@ -101,7 +101,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType }) => {
     return (
         <>
             <div className='product'>
-                <div className='form'>
+            <div className='form'>
                     <Row>
                         <Col lg={6}>
                         <TextField
@@ -110,18 +110,11 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType }) => {
                             color='warning'
                             name='borrower_Applicant'
                             className='mb-3'
-                            onChange={(e) => setBorrower_Applicant(e.target.value)}
-                            value={borrower_Applicant}
-                            disabled={isView || borrower_Applicant?.length > 0}
+                            // onChange={(e) => setBorrower_Applicant(e.target.value)}
+                            value={getBorrower}
+                            disabled={true}
                         />
-                        {error && error?.borrower_Applicant && (
-                            <span
-                            style={{
-                                color: "#da251e",
-                                width: "100%",
-                                textAlign: "start",
-                            }}
-                            >
+                        {error && error?.borrower_Applicant && ( <span style={{color: "#da251e", width: "100%", textAlign: "start", }}>
                             {error.borrower_Applicant}
                             </span>
                         )}
@@ -133,21 +126,11 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType }) => {
                             color='warning'
                             name='lenders'
                             className='mb-3'
-                            onChange={(e) => setLenders(e.target.value)}
-                            value={lenders}
-                            disabled={isView || borrower_Applicant?.length > 0}
+                            // onChange={(e) => setLenders(e.target.value)}
+                            value={getLender}
+                            disabled={true}
                         />
-                        {error && error?.lenders && (
-                            <span
-                            style={{
-                                color: "#da251e",
-                                width: "100%",
-                                textAlign: "start",
-                            }}
-                            >
-                            {error.lenders}
-                            </span>
-                        )}
+                        {error && error?.lenders && (<span style={{ color: "#da251e", width: "100%", textAlign: "start"}}>{error.lenders}</span> )}
                         </Col>
                     </Row>
             </div>
@@ -161,10 +144,9 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType }) => {
                     columns={[
                         { title: 'Name', field: 'name.label' },
                         { title: 'Label', field: 'type.label' },
-                         { title: 'Applicant', field: 'borrower_Applicant' },
-                        { title: 'Lenders', field: 'lenders' },
                     ]}
                     data={tableData}
+
                     actions={isView ? [{
                         icon: 'preview',
                         tooltip: 'View Product',

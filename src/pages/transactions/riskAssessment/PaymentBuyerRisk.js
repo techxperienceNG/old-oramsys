@@ -101,10 +101,7 @@ const PaymentBuyerRisk = ({ hendelNext, hendelCancel }) => {
                         <h2 className='mb-3'>Payment/Buyer risk</h2>
                         {paymentBuyesrRisk.internationalCreditStanding && paymentBuyesrRisk.counterparties && paymentBuyesrRisk.acceptableParty && paymentBuyesrRisk.creditInsurers && paymentBuyesrRisk.localCreditStanding ? <p>No risk</p> :
                             <div>
-                                <div className='risk-tab' onClick={() => { setInternationalCreditStandingModal(true); setSelected('internationalCreditStanding') }}>
-                                    <h3>If international bank, use an on-lending model with a local bank with acceptable credit standing</h3>
-                                    <img src={`../../../assets/img/about/${paymentBuyesrRisk.internationalCreditStanding ? "correct-success.png" : "correct (1).png"}`} />
-                                </div>
+                               
                                 <div className='risk-tab' onClick={() => { setCounterpartiesModal(true); setSelected('counterparties'); setOptions(counterpartiesOptions) }}>
                                     <h3>Take acceptable guarantees (from Central Banks, Corporates, other reliable counterparties</h3>
                                     <img src={`../../../assets/img/about/${paymentBuyesrRisk.counterparties ? "correct-success.png" : "correct (1).png"}`} />

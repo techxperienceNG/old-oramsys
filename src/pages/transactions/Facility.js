@@ -745,14 +745,6 @@ const Facility = ({ hendelCancel, hendelNext }) => {
             setAddCurrencyHedge([...addCurrencyHedge, data])
         }
     }
-    
-    const Delete = (data) => {
-        // let body = {
-        //     ...companyData,
-        //     licenses: companyData.licenses.filter((ele, i) => i !== data.tableData.id)
-        // }
-        dispatch(companydataAction(body))
-    }
 
     return (
         <>
@@ -1169,11 +1161,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                                     tooltip: 'View Currency hedge details',
                                                     onClick: (event, rowData) => { setCurrencyHedgeDetailsModal(true); setEditRowData(rowData) }
                                                 },
-                                                {
-                                                    icon: 'delete',
-                                                    tooltip: 'Delete hedge details',
-                                                    onClick: (e, data) => { Delete(data) }
-                                                }
+                                            
                                             ]}
                                             options={{
                                                 filtering: true,

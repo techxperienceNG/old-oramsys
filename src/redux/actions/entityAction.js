@@ -206,7 +206,9 @@ export const editEntityAction = (id, body) => async (dispatch) => {
                     type: EDIT_ENTITY,
                     payload: res
                 })
-            )
+            ) .catch((error) => {
+                console.log(error.response.data)
+            })
         dispatch({
             type: EDIT_ENTITY_LOADING,
             payload: false

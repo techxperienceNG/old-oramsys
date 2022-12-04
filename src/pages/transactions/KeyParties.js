@@ -145,7 +145,37 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                         { title: 'Name', field: 'name.label' },
                         { title: 'Label', field: 'type.label' },
                     ]}
-                    data={tableData}
+                    data={ <Row>
+                        <Col lg={6}>
+                        <TextField
+                            label='Borrower/Applicant Name'
+                            variant='standard'
+                            color='warning'
+                            name='borrower_Applicant'
+                            className='mb-3'
+                            // onChange={(e) => setBorrower_Applicant(e.target.value)}
+                            value={getBorrower}
+                            disabled={true}
+                        />
+                        {error && error?.borrower_Applicant && ( <span style={{color: "#da251e", width: "100%", textAlign: "start", }}>
+                            {error.borrower_Applicant}
+                            </span>
+                        )}
+                        </Col>
+                        <Col lg={6}>
+                        <TextField
+                            label='lenders'
+                            variant='standard'
+                            color='warning'
+                            name='lenders'
+                            className='mb-3'
+                            // onChange={(e) => setLenders(e.target.value)}
+                            value={getLender}
+                            disabled={true}
+                        />
+                        {error && error?.lenders && (<span style={{ color: "#da251e", width: "100%", textAlign: "start"}}>{error.lenders}</span> )}
+                        </Col>
+                    </Row>}
 
                     actions={isView ? [{
                         icon: 'preview',

@@ -30,7 +30,7 @@ const Roles = ({ hendelNext, hendelCancel, sendDetailData }) => {
 
     const companyData = useSelector((state) => state.companydata.companydata)
     const entityAddData = useSelector((state) => state.entityData.entityAdd)
-    const editEntityData = useSelector((state) => state.entityData.editEntity)
+    const editEntityData = useSelector((state) => state.entityData.entityUpdate)
     const rolesData = useSelector(state => state.entityRoleData.entityRole)
 
     useEffect(() => {
@@ -102,17 +102,31 @@ const Roles = ({ hendelNext, hendelCancel, sendDetailData }) => {
 
     const edit = () => {
         const body = {
-            
             email: companyData.email,
             password: companyData.password,
             type: companyData.type,
-            detail: sendDetailData, 
-            addresses: companyData.addresses,
+            detail: companyData.detail,
+            addresses: companyData.addresses.map((ele) => {
+                delete ele._id
+                return ele
+            }),
             financial: companyData.financial,
-            licenses: companyData.licenses,
-            ratings: companyData.ratings,
-            warehouses: companyData.warehouses,
-            roles: companyData.roles,
+            licenses: companyData.licenses.map((ele) => {
+                delete ele._id
+                return ele
+            }),
+            ratings: companyData.ratings.map((ele) => {
+                delete ele._id
+                return ele
+            }),
+            warehouses: companyData.warehouses.map((ele) => {
+                delete ele._id
+                return ele
+            }),
+            roles: companyData.roles.map((ele) => {
+                delete ele._id
+                return ele
+            }),
         }
         dispatch(editEntityAction(id, body))
     }
@@ -124,14 +138,7 @@ const Roles = ({ hendelNext, hendelCancel, sendDetailData }) => {
                 type: EDIT_ENTITY,
                 payload: []
             })
-            dispatch({
-                type: ENTITY_GET_BY_ID,
-                payload: []
-            })
-            dispatch({
-                type: COMPANY_DATA,
-                payload: [],
-            });
+           
             toast.success(editEntityData.message);
         }
     }, [editEntityData])

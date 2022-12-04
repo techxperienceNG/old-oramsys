@@ -115,7 +115,7 @@ const PartiesEditModal = ({ show, onHide, getModalData, isView, editData }) => {
                                             options={types}
                                             getOptionLabel={(option) => option.roleName}
                                             id="disable-clearable"
-                                            label="Type"
+                                            label="Add Party type"
                                             renderInput={(params) => (
                                                 <TextField {...params} label="Type" variant="standard" />
                                             )}
@@ -133,7 +133,7 @@ const PartiesEditModal = ({ show, onHide, getModalData, isView, editData }) => {
                                             options={names}
                                             getOptionLabel={(option) => option.details ? option.details?.name : "unknown"}
                                             id="disable-clearable"
-                                            label="Name"
+                                            label="Entity Name"
                                             renderInput={(params) => (
                                                 <TextField {...params} label="Name" variant="standard" />
                                             )}

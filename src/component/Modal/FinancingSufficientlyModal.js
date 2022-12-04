@@ -23,14 +23,16 @@ const FinancingSufficientlyModal = ({ show, onHide, getModalData }) => {
   const transactionData = useSelector((state) => state.transactionData.transactionData)
   const getTransactionByIdData = useSelector((state) => state.transactionData.getTransactionById)
 
-  useEffect(() => {
-    console.log('transactionData', transactionData)
-    setFinancingSufficiently({
-        ...financingSufficiently,
-        contractCurrency: transactionData?.details?.contractDetails?.currency,
-        contractValue: transactionData?.details?.contractDetails?.value,
-    })
-}, [transactionData])
+//   useEffect(() => {
+//     console.log('transactionData', transactionData)
+//     setFinancingSufficiently({
+//         ...financingSufficiently,
+//         contractCurrency: transactionData?.details?.contractDetails?.currency,
+//         contractValue: transactionData?.details?.contractDetails?.value,
+//         facilityCurrency: transactionData.data.facility.currency,
+//         facilityAmount: transactionData.data.facility.amount
+//     })
+// }, [transactionData])
 
   useEffect(() => {
     if (getTransactionByIdData && getTransactionByIdData.data) {
@@ -39,7 +41,8 @@ const FinancingSufficientlyModal = ({ show, onHide, getModalData }) => {
           ...financingSufficiently,
           contractCurrency: getTransactionByIdData.data?.details?.contractDetails?.currency,
           contractValue: getTransactionByIdData.data?.details?.contractDetails?.value,
-          // facilityCurrency: getTransactionByIdData.data.
+          facilityCurrency: getTransactionByIdData.data.facility.currency,
+          facilityAmount: getTransactionByIdData.data.facility.amount
       })
     }
 }, [getTransactionByIdData])
@@ -137,11 +140,12 @@ const FinancingSufficientlyModal = ({ show, onHide, getModalData }) => {
                         <TextField {...params} label="Facility currency" variant="standard" />
                       )}
                       onChange={(event, newValue) => {
-                        setFinancingSufficiently({ ...financingSufficiently, facilityCurrency: newValue });
+                        setFinancingSufficiently({ ...financingSufficiently, facilityCurrency: newValue.label });
                       }}
                       disableClearable
                       name='facilityCurrency'
-                      value={financingSufficiently.facilityCurrency}
+                      disabled={isView || financingSufficiently.facilityCurrency?.length > 0}
+                      value={(CurrencyOptions.length > 0 && financingSufficiently.facilityCurrency) && CurrencyOptions.find((ele) => ele.label === financingSufficiently.facilityCurrency)}
                     />
                     {/* {error && error?.justification && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.justification}</span>} */}
                   </Col>
@@ -153,8 +157,38 @@ const FinancingSufficientlyModal = ({ show, onHide, getModalData }) => {
                       name='facilityAmount'
                       value={formateCurrencyValue(financingSufficiently.facilityAmount)}
                       onChange={handleChange}
+                      disabled={isView || financingSufficiently.facilityAmount?.length > 0}
                     />
                   </Col>
+
+                  {/* <Col lg={3}>
+                    <Autocomplete
+                      options={CurrencyOptions}
+                      getOptionLabel={(option) => option?.label}
+                      id="disable-clearable"
+                      label="Facility currency"
+                      renderInput={(params) => (
+                        <TextField {...params} label="Facility currency" variant="standard" />
+                      )}
+                      onChange={(event, newValue) => {
+                        setFinancingSufficiently({ ...financingSufficiently, facilityCurrency: newValue });
+                      }}
+                      disableClearable
+                      name='facilityCurrency'
+                      value={financingSufficiently.facilityCurrency}
+                    />
+                    {error && error?.justification && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.justification}</span>}
+                  </Col>
+                  <Col lg={3}>
+                    <TextField
+                      label="Facility Amount"
+                      variant="standard"
+                      color="warning"
+                      name='facilityAmount'
+                      value={formateCurrencyValue(financingSufficiently.facilityAmount)}
+                      onChange={handleChange}
+                    />
+                  </Col> */}
                   
                   <Col lg={3}>
                       <TextField

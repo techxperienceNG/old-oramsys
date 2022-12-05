@@ -108,9 +108,9 @@ const FinancingSufficientlyModal = ({ show, onHide, getModalData }) => {
                       renderInput={(params) => (
                         <TextField {...params} label="Contract currency" variant="standard" />
                       )}
-                      onChange={(event, newValue) => {
-                        setFinancingSufficiently({ ...financingSufficiently, contractCurrency: newValue.label });
-                      }}
+                      // onChange={(event, newValue) => {
+                      //   setFinancingSufficiently({ ...financingSufficiently, contractCurrency: newValue.label });
+                      // }}
                       disableClearable
                       disabled={isView || financingSufficiently.contractCurrency?.length > 0}
                       value={(CurrencyOptions.length > 0 && financingSufficiently.contractCurrency) && CurrencyOptions.find((ele) => ele.label === financingSufficiently.contractCurrency)}

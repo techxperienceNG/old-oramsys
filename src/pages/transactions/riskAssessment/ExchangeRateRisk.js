@@ -20,6 +20,9 @@ const ExchangeRateRisk = ({ hendelNext, hendelCancel }) => {
         marginFinancing: ""
     })
 
+    const getTransactionByIdData = useSelector((state) => state.transactionData.getTransactionById)
+
+
     const riskAssessment = useSelector(state => state.riskAssessmentData.riskAssessment)
     const dispatch = useDispatch()
     const modalGetData = (e) => {

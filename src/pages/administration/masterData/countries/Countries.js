@@ -75,7 +75,7 @@ const Countries = ({ showSidebar, setSidebar }) => {
             { title: 'Nature', field: 'code' },
             { title: 'Flag', render: rowData => <Col xs={2} className="mt-auto p-0"><img className="img-fluid" src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${rowData.code}.svg`} alt="" /></Col> }
           ]}
-          data={contryData?.data}
+          data={contryData?.f}
           actions={[
             {
               icon: 'edit',

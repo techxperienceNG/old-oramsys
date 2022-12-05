@@ -77,6 +77,18 @@ const Transactions = () => {
         ).catch(e => console.log(e))
     }
 
+    const formateCurrencyValue = (data) => {
+        if (data) {
+          let value = data.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+          // let prefix = CurrencyOptions.find((ele) => ele.label === contractDetails?.currency)?.prefix
+          // let suffix = CurrencyOptions.find((ele) => ele.label === contractDetails?.currency)?.suffix
+          // return prefix ? (prefix + value) : suffix ? (value + suffix) : value
+          return value
+        } else {
+          return data
+        }
+      }
+
     const converBase64toBlob = (content, contentType) => {
         const linkSource = `data:application/pdf;base64,${content}`;
         const downloadLink = document.createElement("a");

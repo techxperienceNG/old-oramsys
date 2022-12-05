@@ -27,7 +27,6 @@ const Products = () => {
     dispatch(productGetAction(search ? search : "all"))
   }, [search])
 
-
   return (
     <>
       {/* <div className='authheader_main'>

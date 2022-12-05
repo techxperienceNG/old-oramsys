@@ -784,7 +784,7 @@ const FundFlow = ({ hendelCancel, hendelNext, getTrans }) => {
                     </>
                 }
                 <div className='footer_'>
-                    <button onClick={() => { hendelCancel() }} className="footer_cancel_btn">cancel</button>
+                    <button onClick={() => { hendelCancel() }} className="footer_cancel_btn">Back</button>
                     <button onClick={() => { next() }} className='footer_next_btn'> Next</button>
                 </div>
             </div>

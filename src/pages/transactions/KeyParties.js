@@ -374,7 +374,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                 </div>
             </div>
             <div className='footer_'>
-                <button onClick={() => { transactionType === "Export" ? hendelCancel() : navigate('/transactions') }} className="footer_cancel_btn">cancel</button>
+                <button onClick={() => { transactionType === "Export" ? hendelCancel() : navigate('/transactions') }} className="footer_cancel_btn">Back</button>
                 <button onClick={() => { tableData.length > 0 && next() }} className='footer_next_btn'> Next</button>
             </div>
 

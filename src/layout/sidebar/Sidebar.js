@@ -38,6 +38,11 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
 
   const navbarDataForSuperAdmin = [
     {
+      img: "./assets/img/my-img/Entities.png",
+      text: 'Dashboard',
+      path: "homeLanding"
+    },
+    {
       img: "./assets/img/my-img/Administration.png",
       text: 'Administration',
       path: "",
@@ -120,6 +125,11 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
   ]
 
   const navbarDataForUser = [
+    {
+      img: "./assets/img/my-img/Entities.png",
+      text: 'Dashboard',
+      path: "homeLanding"
+    },
     {
       img: './assets/img/my-img/Transactions.png',
       text: 'Transactions',

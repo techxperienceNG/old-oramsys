@@ -122,20 +122,6 @@ const Transactions = () => {
         //     link.click();
     }
 
-    const userTableAction = [
-        {
-            icon: 'edit',
-            tooltip: 'Edit transaction',
-            onClick: (event, rowData) => navigate(`/edit-transactions?id=${rowData?._id}`, { state: [{ type: rowData.type }, { type: rowData?.details?.productDetails?.nature ? rowData.details.productDetails.nature : '' }, { isView: false }] })
-        },
-        {
-            icon: 'download',
-            tooltip: 'Download term sheet',
-            // onClick: (event, rowData) => navigate(`/edit-transactions?id=${rowData?._id}`, { state: [{ type: rowData.type }, { type: rowData?.details?.productDetails?.nature ? rowData.details.productDetails.nature : '' }, { isView: false }] })
-            // onClick: (event, rowData) => { downloadTermSheet(rowData._id) }
-            onClick: (event, rowData) => { rowData.termSheet === 'Not Signed' ? downloadTermSheet(rowData._id) : converBase64toBlob(rowData.termSheetUrl) }
-        },
-    ]
     const tableAction = [
         {
             icon: 'edit',
@@ -152,7 +138,6 @@ const Transactions = () => {
             tooltip: 'Risk Assessment',
             onClick: (event, rowData) => cllickOnRiskAssessment(rowData._id)
         },
-       
         {
             icon: 'download',
             tooltip: 'Download term sheet',

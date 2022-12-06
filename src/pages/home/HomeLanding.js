@@ -128,7 +128,7 @@ const HomeLanding = () => {
                               <img src="./assets/img/figure/figure41.png"  alt="figure" height="41" width="45" />
                             </div>
                           </div>
-                          <h2 className="heading-title"><a href="/" className="text-decoration-none">{getCount(cards.transactions)} {" "} Transactions</a>
+                          <h2 className="heading-title"><a href="/" className="text-decoration-none">{ getAlltransactionData?.data?.length} {" "} Transactions</a>
                           
                           </h2>
                           <p>loremLorem ipsum dolor sit, amet consectetur adipisicing Bookan unknown</p>

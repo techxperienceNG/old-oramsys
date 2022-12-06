@@ -167,7 +167,7 @@ const AddSourceOfRepayment = ({ show, onHide, getModalData, data, mode, getEditD
                                         showPreviewsInDropzone={true}
                                         useChipsForPreview
                                         previewGridProps={{ container: { spacing: 1, } }}
-                                        dropzoneText='Upload Evidence'
+                                        dropzoneText='Upload Payment Evidence'
                                         previewText=""
                                         onChange={(e) => handleChangeFile(e[0])}
                                         dropzoneProps={{ disabled: mode === "View" }}

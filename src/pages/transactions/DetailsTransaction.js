@@ -2416,7 +2416,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                           }
                         />
                         {error?.pricingHedgingMethod && (
-                          <span
+                          <spanf
                             style={{
                               color: "#da251e",
                               width: "100%",
@@ -2424,7 +2424,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                             }}
                           >
                             {error?.pricingHedgingMethod}
-                          </span>
+                          </spanf>
                         )}
                       </Col>
                       <Row>

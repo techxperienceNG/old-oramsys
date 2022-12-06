@@ -9,11 +9,9 @@ import { COMPANY_DATA, EDIT_ENTITY, ENTITY_ADD, ENTITY_GET_BY_ID } from '../../.
 import { toast } from 'react-toastify'
 import { useLocation, useNavigate } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
-import STORAGEKEY from '../../../../config/APP/app.config'
-import AuthStorage from '../../../../helper/AuthStorage'
 import { entitiesRoleAction } from '../../../../redux/actions/entitiesRoleAction';
 
-const Roles = ({ hendelNext, hendelCancel, sendDetailData }) => {
+const Roles = ({ hendelNext, hendelCancel }) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -106,29 +104,17 @@ const Roles = ({ hendelNext, hendelCancel, sendDetailData }) => {
             password: companyData.password,
             type: companyData.type,
             detail: companyData.detail,
-            addresses: companyData.addresses.map((ele) => {
-                delete ele._id
-                return ele
-            }),
+            addresses: companyData.addresses,
             financial: companyData.financial,
-            licenses: companyData.licenses.map((ele) => {
-                delete ele._id
-                return ele
-            }),
-            ratings: companyData.ratings.map((ele) => {
-                delete ele._id
-                return ele
-            }),
-            warehouses: companyData.warehouses.map((ele) => {
-                delete ele._id
-                return ele
-            }),
-            roles: companyData.roles.map((ele) => {
-                delete ele._id
-                return ele
-            }),
+            licenses: companyData.licenses,
+            ratings: companyData.ratings,
+            warehouses: companyData.warehouses,
+            roles: companyData.roles,
         }
         dispatch(editEntityAction(id, body))
+        navigate('/entities')
+        toast.success(editEntityData.message)
+
     }
 
     useEffect(() => {
@@ -138,7 +124,14 @@ const Roles = ({ hendelNext, hendelCancel, sendDetailData }) => {
                 type: EDIT_ENTITY,
                 payload: []
             })
-           
+            dispatch({
+                type: ENTITY_GET_BY_ID,
+                payload: []
+            })
+            dispatch({
+                type: COMPANY_DATA,
+                payload: [],
+            });
             toast.success(editEntityData.message);
         }
     }, [editEntityData])

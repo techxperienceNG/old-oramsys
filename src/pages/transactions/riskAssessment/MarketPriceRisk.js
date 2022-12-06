@@ -36,6 +36,8 @@ const MarketPriceRisk = ({ hendelNext, hendelCancel }) => {
 
     const riskAssessment = useSelector(state => state.riskAssessmentData.riskAssessment)
     const addRiskAssessmentData = useSelector(state => state.riskAssessmentData.addRiskAssessment)
+    const getTransactionByIdData = useSelector((state) => state.transactionData.getTransactionById)
+
     const getRiskAssessmentId = useSelector(state => state.riskAssessmentData.getRiskAssessment)
 
     useEffect(() => {

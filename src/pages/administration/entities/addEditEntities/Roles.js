@@ -113,7 +113,6 @@ const Roles = ({ hendelNext, hendelCancel }) => {
         }
         dispatch(editEntityAction(id, body))
         navigate('/entities')
-        toast.success(editEntityData.message)
 
     }
 

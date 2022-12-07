@@ -108,9 +108,9 @@ const FinancingSufficientlyModal = ({ show, onHide, getModalData }) => {
                       renderInput={(params) => (
                         <TextField {...params} label="Contract currency" variant="standard" />
                       )}
-                      // onChange={(event, newValue) => {
-                      //   setFinancingSufficiently({ ...financingSufficiently, contractCurrency: newValue.label });
-                      // }}
+                      onChange={(event, newValue) => {
+                        setFinancingSufficiently({ ...financingSufficiently, contractCurrency: newValue.label });
+                      }}
                       disableClearable
                       disabled={isView || financingSufficiently.contractCurrency?.length > 0}
                       value={(CurrencyOptions.length > 0 && financingSufficiently.contractCurrency) && CurrencyOptions.find((ele) => ele.label === financingSufficiently.contractCurrency)}
@@ -195,7 +195,7 @@ const FinancingSufficientlyModal = ({ show, onHide, getModalData }) => {
                           label="Loan to collateral value"
                           id="standard-start-adornment"
                           name=''
-                          value={((parseInt(financingSufficiently.facilityAmount) / parseInt(transactionData?.details?.contractDetails?.value?.replace(/,/g, ''))) * 100).toFixed(2)}
+                          value={((parseInt(financingSufficiently.facilityAmount) / parseInt(getTransactionByIdData.data?.details?.contractDetails?.value?.replace(/,/g, ''))) * 100).toFixed(2)}
                           InputProps={{
                               endAdornment: <InputAdornment position="start">%</InputAdornment>,
                           }}

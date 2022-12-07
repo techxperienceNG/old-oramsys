@@ -77,26 +77,17 @@ const Transactions = () => {
         ).catch(e => console.log(e))
     }
 
-    const formateCurrencyValue = (data) => {
-        if (data) {
-          let value = data.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-          // let prefix = CurrencyOptions.find((ele) => ele.label === contractDetails?.currency)?.prefix
-          // let suffix = CurrencyOptions.find((ele) => ele.label === contractDetails?.currency)?.suffix
-          // return prefix ? (prefix + value) : suffix ? (value + suffix) : value
-          return value
-        } else {
-          return data
-        }
-      }
-
     const converBase64toBlob = (content, contentType) => {
         const linkSource = `data:application/pdf;base64,${content}`;
-        const downloadLink = document.createElement("a");
-        const fileName = "TermSheet.pdf";
+        let pdfWindow = window.open("")
+        pdfWindow.document.write(`<iframe width='100%' height='100%' src=${linkSource}></iframe>`)
+        // const linkSource = `data:application/pdf;base64,${content}`;
+        // const downloadLink = document.createElement("a");
+        // const fileName = "TermSheet.pdf";
 
-        downloadLink.href = linkSource;
-        downloadLink.download = fileName;
-        downloadLink.click();
+        // downloadLink.href = linkSource;
+        // downloadLink.download = fileName;
+        // downloadLink.click();
         // contentType = contentType || '';
         // var sliceSize = 512;
         // var byteCharacters = window.atob(content); //method which converts base64 to binary
@@ -134,6 +125,20 @@ const Transactions = () => {
         //     link.click();
     }
 
+    const userTableAction = [
+        {
+            icon: 'edit',
+            tooltip: 'Edit transaction',
+            onClick: (event, rowData) => navigate(`/edit-transactions?id=${rowData?._id}`, { state: [{ type: rowData.type }, { type: rowData?.details?.productDetails?.nature ? rowData.details.productDetails.nature : '' }, { isView: false }] })
+        },
+        {
+            icon: 'download',
+            tooltip: 'Download term sheet',
+            // onClick: (event, rowData) => navigate(`/edit-transactions?id=${rowData?._id}`, { state: [{ type: rowData.type }, { type: rowData?.details?.productDetails?.nature ? rowData.details.productDetails.nature : '' }, { isView: false }] })
+            onClick: (event, rowData) => { downloadTermSheet(rowData._id) }
+            // onClick: (event, rowData) => { rowData.termSheet === 'Not Signed' ? downloadTermSheet() : converBase64toBlob(rowData.termSheetUrl) }
+        },
+    ]
     const tableAction = [
         {
             icon: 'edit',
@@ -207,7 +212,10 @@ const Transactions = () => {
                         // { title: 'Entities Involved', render: rowData => { return rowData?.keyParties.map(item => item?.parties.map(partyItem => partyItem?.name?.details?.name))?.map(data => <p>{data}</p>) } },
                     ]}
                     data={transaction}
-                    actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? (tableAction.splice(2, 1), tableAction) : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? tableAction : tableAction.slice(1, 2)}
+                    // actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? tableAction.splice(2, 1) : tableAction.slice(1, 2)}
+                    // actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? ( tableAction.splice(2, 1),tableAction) : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? tableAction : tableAction.slice(1, 2)}
+                    actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? ( tableAction.splice(2, 1), tableAction) : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? tableAction : tableAction.slice(1, 2)}
+
                     options={{
                         filtering: true,
                         actionsColumnIndex: -1,

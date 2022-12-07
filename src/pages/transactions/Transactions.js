@@ -170,6 +170,17 @@ const Transactions = () => {
         })
         navigate('/edit-transactions', { state: [{ type: "Export" }, { type: "Physical" }] })
     }
+    const formateCurrencyValue = (data) => {
+        if (data) {
+          let value = data.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+          // let prefix = CurrencyOptions.find((ele) => ele.label === contractDetails?.currency)?.prefix
+          // let suffix = CurrencyOptions.find((ele) => ele.label === contractDetails?.currency)?.suffix
+          // return prefix ? (prefix + value) : suffix ? (value + suffix) : value
+          return value
+        } else {
+          return data
+        }
+      }
 
     return (
         <>
@@ -203,7 +214,7 @@ const Transactions = () => {
                         { title: 'Applicant', field: 'borrower_Applicant' },
                         { title: 'Lenders', field: 'lenders' },
                         { title: 'Product', field: 'details.productDetails.name.name' },
-                        { title: 'Value', field: 'details.contractDetails.value' },
+                        { title: 'Value', render: rowData =>  formateCurrencyValue(rowData.details.contractDetails.value)},
                         // { title: 'Origination Port', field: 'details.shippingOptions.portOfOrigin.name' },
                         // { title: 'Destination Port', field: 'details.shippingOptions.destinationPort.name' },
                         // { title: 'Term Sheet', field: 'termSheet' },

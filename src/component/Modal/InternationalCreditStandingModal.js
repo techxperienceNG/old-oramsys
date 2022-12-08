@@ -67,7 +67,7 @@ const InternationalCreditStandingModal = ({ show, onHide, getModalData, type }) 
             <div className='add-edit-product p-0 mt-3' id="transition-modal-description" >
               <div className='form'>
                 <Row>
-                  <Col lg={6}>
+                  {/* <Col lg={6}>
                     <Autocomplete
                       // className='ms-3 mb-3'
                       options={HedgingMethodOption}
@@ -83,10 +83,10 @@ const InternationalCreditStandingModal = ({ show, onHide, getModalData, type }) 
                       disableClearable
                       value={internationalCreditStanding.type}
                     />
-                    {/* {error && error?.justification && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.justification}</span>} */}
-                  </Col>
+                    {error && error?.justification && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.justification}</span>}
+                  </Col> */}
 
-                  <Col lg={6}>
+                  <Col lg={12}>
                     <Autocomplete
                       options={parties}
                       getOptionLabel={(option) => option?.details?.name}

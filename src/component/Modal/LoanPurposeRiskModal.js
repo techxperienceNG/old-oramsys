@@ -1,13 +1,15 @@
 import { Backdrop, Fade, Modal, TextField } from '@material-ui/core'
 import { DropzoneArea } from 'material-ui-dropzone';
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 import { Row, Col } from "react-bootstrap";
 import TextEditerModal from './TextEditerModal';
 
-const LoanPurposeRiskModal = ({ show, onHide, getModalData, types }) => {
+const LoanPurposeRiskModal = ({ show, onHide, getModalData, types, data }) => {
 
     const [loanPurposeRisk, setLoanPurposeRisk] = useState({
-        justification: ""
+        justification: "",
+        evidence: ""
     })
 
     const [commentModal, setCommentModal] = useState(false)
@@ -36,6 +38,20 @@ const LoanPurposeRiskModal = ({ show, onHide, getModalData, types }) => {
             ...loanPurposeRisk,
             [e.target.name]: e.target.value
         })
+    }
+    useEffect(() => {
+        setLoanPurposeRisk(data)
+    }, [data])
+
+    const handleChangeFile = (file) => {
+        if (file) {
+            new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            }).then((res) => setLoanPurposeRisk({ ...loanPurposeRisk, evidence: res }));
+        }
     }
     return (
         <div>
@@ -66,7 +82,7 @@ const LoanPurposeRiskModal = ({ show, onHide, getModalData, types }) => {
                                             variant="standard"
                                             color="warning"
                                             name='justification'
-                                            value={loanPurposeRisk.justification}
+                                            value={loanPurposeRisk?.justification}
                                             multiline
                                             maxRows={3}
                                             onChange={(e) => handleChnage(e)}
@@ -89,7 +105,7 @@ const LoanPurposeRiskModal = ({ show, onHide, getModalData, types }) => {
                                                         previewGridProps={{ container: { spacing: 1, } }}
                                                         dropzoneText='Drop file here'
                                                         previewText=""
-                                                        onChange={''}
+                                                        onChange={(file) => handleChangeFile(file[0])}
                                                     />
                                                 </div> : ''}
                                             </div>

@@ -53,18 +53,18 @@ const Transactions = () => {
         }
     }, [getAlltransactionData])
 
-    const cllickOnRiskAssessment = (id) => {
-        dispatch(getRiskAssessment(id))
-        setSelected(id)
-    }
+    // const cllickOnRiskAssessment = (id) => {
+    //     dispatch(getRiskAssessment(id))
+    //     setSelected(id)
+    // }
     useEffect(() => {
-        console.log('riskAssessment', riskAssessment)
+        console.log('selected🧨🧨', selected)
         if (riskAssessment.status === 200 && selected) {
-            navigate(`/risk-assessment?id=${riskAssessment?.data?.transactionId ?? selected}`)
+            if (riskAssessment && riskAssessment.data && riskAssessment.data.transactionId   ) {
+               navigate(`/risk-assessment?id=${selected}`)
+            }
         }
     }, [riskAssessment, selected])
-
-
 
     const downloadTermSheet = (id, name) => {
         ApiGet(`transaction/termSheet/${id}`).then(res => {
@@ -79,12 +79,6 @@ const Transactions = () => {
     }
 
     const converBase64toBlob = (content, contentType) => {
-        // const linkSource = `data:application/pdf;base64,${content}`;
-        // let pdfWindow = window.open("")
-        // pdfWindow.document.write(`<iframe width='100%' height='100%' src=${linkSource}></iframe>`)
-
-
-
         const linkSource = `data:application/pdf;base64,${content}`;
         const downloadLink = document.createElement("a");
         const fileName = "TermSheet.pdf";
@@ -93,41 +87,6 @@ const Transactions = () => {
         downloadLink.download = fileName;
         downloadLink.click();
 
-        // contentType = contentType || '';
-        // var sliceSize = 512;
-        // var byteCharacters = window.atob(content); //method which converts base64 to binary
-        // var byteArrays = [
-        // ];
-        // for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-        //     var slice = byteCharacters.slice(offset, offset + sliceSize);
-        //     var byteNumbers = new Array(slice.length);
-        //     for (var i = 0; i < slice.length; i++) {
-        //         byteNumbers[i] = slice.charCodeAt(i);
-        //     }
-        //     var byteArray = new Uint8Array(byteNumbers);
-        //     byteArrays.push(byteArray);
-        // }
-        // var blob = new Blob(byteArrays, {
-        //     type: contentType
-        // }); //statement which creates the blob
-
-        // var blobURL = URL.createObjectURL(blob);
-
-        // let link = document.createElement('a');
-        // link.download = 'TermSheet.docx';
-        // link.href = blobURL; // data url  
-        // link.click();
-        // }
-        //     var blob = new Blob(byteArrays, {
-        //         type: contentType
-        //     }); //statement which creates the blob
-
-        //     var blobURL = URL.createObjectURL(blob);
-
-        //     let link = document.createElement('a');
-        //     link.download = 'TermSheet.docx';
-        //     link.href = blobURL; // data url  
-        //     link.click();
     }
     const ViewRiskAssessment = (contents) => {
         const linkSources = `data:application/pdf;base64,${contents}`;
@@ -163,10 +122,10 @@ const Transactions = () => {
         {
             icon: 'assessment',
             tooltip: 'Risk Assessment',
-            onClick: (event, rowData) => cllickOnRiskAssessment(rowData._id)
+            onClick: (event, rowData) => { dispatch(getRiskAssessment(rowData._id)) ;setSelected(rowData._id)}
         },
         {
-            icon: 'preview',
+            icon: 'visibilityIcon',
             tooltip: 'view term sheet',
             onClick: (event, rowData) => { rowData.termSheet === 'Not Signed' ? downloadTermSheet(rowData._id, 'view') : ViewRiskAssessment() }
         },
@@ -220,7 +179,6 @@ const Transactions = () => {
                         </div>
                     }
                 </div>
-                {console.log(tableAction)}
                 <MaterialTable
                     title=""
                     columns={[
@@ -238,9 +196,10 @@ const Transactions = () => {
                         // { title: 'Entities Involved', render: rowData => { return rowData?.keyParties.map(item => item?.parties.map(partyItem => partyItem?.name?.details?.name))?.map(data => <p>{data}</p>) } },
                     ]}
                     data={transaction}
-                    // actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? tableAction.splice(2, 1) : tableAction.slice(1, 2)}
-                    // actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? ( tableAction.splice(2, 1),tableAction) : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? tableAction : tableAction.slice(1, 2)}
+                
+
                     actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? ( tableAction.splice(2, 1), tableAction) : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? tableAction : tableAction.slice(1, 2)}
+
 
                     options={{
                         filtering: true,

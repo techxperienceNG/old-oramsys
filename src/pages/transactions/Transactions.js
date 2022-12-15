@@ -60,9 +60,9 @@ const Transactions = () => {
     useEffect(() => {
         console.log('selected🧨🧨', selected)
         if (riskAssessment.status === 200 && selected) {
-            if (riskAssessment && riskAssessment.data && riskAssessment.data.transactionId   ) {
+            // if (riskAssessment && riskAssessment.data && riskAssessment.data.transactionId   ) {
                navigate(`/risk-assessment?id=${selected}`)
-            }
+            // }
         }
     }, [riskAssessment, selected])
 
@@ -196,7 +196,13 @@ const Transactions = () => {
                         // { title: 'Entities Involved', render: rowData => { return rowData?.keyParties.map(item => item?.parties.map(partyItem => partyItem?.name?.details?.name))?.map(data => <p>{data}</p>) } },
                     ]}
                     data={transaction}
-                
+                    // actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? tableAction.splice(2, 1) : tableAction.slice(1, 2)}
+                    // actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? ( tableAction.splice(2, 1),tableAction) : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? tableAction : tableAction.slice(1, 2)}
+
+
+                    // actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? (tableAction) : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? tableAction : tableAction.slice(1, 2)}
+
+                    // actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? ( tableAction.splice(2, 1), tableAction) : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? tableAction : tableAction.slice(1, 2)}
 
                     actions={AuthStorage.getStorageData(STORAGEKEY.roles) === 'superAdmin' ? ( tableAction.splice(2, 1), tableAction) : AuthStorage.getStorageData(STORAGEKEY.roles) === 'user' ? tableAction : tableAction.slice(1, 2)}
 

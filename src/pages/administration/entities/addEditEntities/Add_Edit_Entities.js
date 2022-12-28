@@ -25,7 +25,6 @@ const Add_Edit_Entities = () => {
     const dispatch = useDispatch();
     const queryParams = new URLSearchParams(location.search)
     const id = queryParams.get("id")
-    const navigate = useNavigate()
     const entityType = location.state[0]?.type
     let steps = location.state[0]?.type === "Company" ? ['Details', 'Financials', 'Licences', 'Ratings', 'Warehouse', 'Roles'] : ['Details', "Address"]
     const [activeStep, setActiveStep] = React.useState(0);
@@ -41,55 +40,55 @@ const Add_Edit_Entities = () => {
     }, [id])
 
     useEffect(() => {
-      console.log('entityType', entityType)
+        console.log('entityType', entityType)
     }, [entityType])
-    
+
 
     useEffect(() => {
         if (entityGetById && entityGetById.data && entityGetById.status === 200) {
             const address = entityGetById.data.addresses.map((ele) => {
                 return {
                     _id: ele?._id,
-                    type: ele.type,
-                    flatNumber: ele.flatNumber,
-                    addressLine1: ele.addressLine1,
-                    addressLine2: ele.addressLine2,
-                    addressLine3: ele.addressLine3,
-                    postcode: ele.postcode,
-                    state: ele.state,
-                    city: ele.city,
-                    country: ele.country?._id,
-                    mobile: ele.mobile,
-                    telephone: ele.telephone,
-                    fax: ele.fax,
-                    email: ele.email,
+                    type: ele?.type,
+                    flatNumber: ele?.flatNumber,
+                    addressLine1: ele?.addressLine1,
+                    addressLine2: ele?.addressLine2,
+                    addressLine3: ele?.addressLine3,
+                    postcode: ele?.postcode,
+                    state: ele?.state,
+                    city: ele?.city,
+                    country: ele?.country?._id,
+                    mobile: ele?.mobile,
+                    telephone: ele?.telephone,
+                    fax: ele?.fax,
+                    email: ele?.email,
                 }
             })
 
             const details = {
-                _id: entityGetById.data.details?._id,
-                name: entityGetById.data.details?.name,
-                country: entityGetById.data.details?.country?._id,
-                registrationNumber: entityGetById.data.details?.registrationNumber,
-                dateOfIncorporation: entityGetById.data.details?.dateOfIncorporation,
-                sector: entityGetById.data.details?.sector,
-                subSector: entityGetById.data.details?.subSector,
-                mainActivity: entityGetById.data.details?.mainActivity,
+                _id: entityGetById?.data?.details?._id,
+                name: entityGetById?.data?.details?.name,
+                country: entityGetById?.data?.details?.country?._id,
+                registrationNumber: entityGetById?.data?.details?.registrationNumber,
+                dateOfIncorporation: entityGetById?.data?.details?.dateOfIncorporation,
+                sector: entityGetById?.data?.details?.sector,
+                subSector: entityGetById?.data?.details?.subSector,
+                mainActivity: entityGetById?.data?.details?.mainActivity,
             }
 
             const financialData = {
                 _id: entityGetById?.data?.financial?._id,
-                netProfitMargin: entityGetById.data.financial?.netProfitMargin,
-                ROE: entityGetById.data.financial?.ROE,
-                ROA: entityGetById.data.financial?.ROA,
-                operatingCashFlow: entityGetById.data.financial?.operatingCashFlow,
-                debtServiceCoverageRatio: entityGetById.data.financial?.debtServiceCoverageRatio,
-                interestCoverageRatio: entityGetById.data.financial?.interestCoverageRatio,
-                netGearingRatio: entityGetById.data.financial?.netGearingRatio,
-                totalDebtToTotalCapital: entityGetById.data.financial?.totalDebtToTotalCapital,
-                currentRatio: entityGetById.data.financial?.currentRatio,
-                quickRatio: entityGetById.data.financial?.quickRatio,
-                cashFlowBeforeFinancingSales: entityGetById.data.financial?.cashFlowBeforeFinancingSales,
+                netProfitMargin: entityGetById?.data?.financial?.netProfitMargin,
+                ROE: entityGetById?.data?.financial?.ROE,
+                ROA: entityGetById?.data?.financial?.ROA,
+                operatingCashFlow: entityGetById?.data?.financial?.operatingCashFlow,
+                debtServiceCoverageRatio: entityGetById?.data?.financial?.debtServiceCoverageRatio,
+                interestCoverageRatio: entityGetById?.data?.financial?.interestCoverageRatio,
+                netGearingRatio: entityGetById?.data?.financial?.netGearingRatio,
+                totalDebtToTotalCapital: entityGetById?.data?.financial?.totalDebtToTotalCapital,
+                currentRatio: entityGetById?.data?.financial?.currentRatio,
+                quickRatio: entityGetById?.data?.financial?.quickRatio,
+                cashFlowBeforeFinancingSales: entityGetById?.data?.financial?.cashFlowBeforeFinancingSales,
             }
 
             const licencesData = entityGetById.data.licenses.map((ele) => {
@@ -157,7 +156,6 @@ const Add_Edit_Entities = () => {
 
 
     const handleNext = () => {
-
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
@@ -187,7 +185,15 @@ const Add_Edit_Entities = () => {
                     })}
                 </Stepper>
                 {activeStep === steps.length ? (
-                    navigate('/entities')
+                    <React.Fragment>
+                        <Typography sx={{ mt: 2, mb: 1 }}>
+                            All steps completed - you&apos;re finished
+                        </Typography>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                            <Box sx={{ flex: '1 1 auto' }} />
+                            <Button onClick={handleReset}>Reset</Button>
+                        </Box>
+                    </React.Fragment>
                 ) : (
                     <>
                         {entityType === "Company" ?
@@ -197,7 +203,7 @@ const Add_Edit_Entities = () => {
                                 {activeStep + 1 === 3 && <Licences hendelNext={handleNext} hendelCancel={handleBack} />}
                                 {activeStep + 1 === 4 && <Ratings hendelNext={handleNext} hendelCancel={handleBack} />}
                                 {activeStep + 1 === 5 && <Warehouse hendelNext={handleNext} hendelCancel={handleBack} />}
-                                {activeStep + 1 === 6 && <Roles hendelNext={handleNext} hendelCancel={handleBack} sendDetailData={individualDetailData} common={common} />}
+                                {activeStep + 1 === 6 && <Roles hendelNext={handleNext} hendelCancel={handleBack} />}
                             </React.Fragment> :
                             <React.Fragment>
                                 {activeStep + 1 === 1 && <IndividualDetail hendelNext={handleNext} getDetailData={getIndividualDetailData} getCommonData={setCommon} entityType={entityType} />}

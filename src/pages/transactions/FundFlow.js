@@ -85,7 +85,6 @@ const FundFlow = ({ hendelCancel, hendelNext, getTrans }) => {
 
     useEffect(() => {
         if (getTransactionByIdData && getTransactionByIdData.data) {
-            console.log("getTransactionByIdData====", getTransactionByIdData.data)
             setFundFlow({
                 _id: getTransactionByIdData.data?.fundFlow?._id,
                 contractCurrency: getTransactionByIdData.data?.fundFlow?.contractCurrency,
@@ -346,7 +345,7 @@ const FundFlow = ({ hendelCancel, hendelNext, getTrans }) => {
                                 color="warning"
                                 value={getTrans.currency}
                                 name="currency"
-                                
+                             
                                 disabled={true}
                             />
                             {error && error.value && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.value}</span>}
@@ -358,7 +357,7 @@ const FundFlow = ({ hendelCancel, hendelNext, getTrans }) => {
                                 color="warning"
                                 value={formateCurrencyValue(getTrans.value)}
                                 name="value"
-                                // onChange={handleChange}
+                                onChange={handleChange}
                                 disabled={true}
                             />
                             {error && error.value && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.value}</span>}
@@ -784,7 +783,7 @@ const FundFlow = ({ hendelCancel, hendelNext, getTrans }) => {
                     </>
                 }
                 <div className='footer_'>
-                    <button onClick={() => { hendelCancel() }} className="footer_cancel_btn">Back</button>
+                    <button onClick={() => { hendelCancel() }} className="footer_cancel_btn">cancel</button>
                     <button onClick={() => { next() }} className='footer_next_btn'> Next</button>
                 </div>
             </div>

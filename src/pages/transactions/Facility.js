@@ -106,7 +106,6 @@ const Facility = ({ hendelCancel, hendelNext }) => {
 
     useEffect(() => {
         if (getTransactionByIdData && getTransactionByIdData.data) {
-            console.log("getTransactionByIdData=====", getTransactionByIdData.data)
             setFacility({
                 _id: getTransactionByIdData.data?.facility?._id,
                 interestPeriod: getTransactionByIdData.data?.facility?.interestPeriod,
@@ -689,7 +688,8 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                         name: ele.name.value
                     }
                 }),
-                _id: transactionData.keyParties._id
+                _id: transactionData.keyParties._id,
+                relatedParties: transactionData.keyParties?.relatedParties
             },
             documentFlow: transactionData.documentFlow,
             fundFlow: {

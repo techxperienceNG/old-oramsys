@@ -73,4 +73,4 @@ const RiskAssessment = () => {
     )
 }
 
-export default RiskAssessmentgit 
+export default RiskAssessment

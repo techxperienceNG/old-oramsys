@@ -217,7 +217,6 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
 
   useEffect(() => {
     if (getTransactionByIdData && getTransactionByIdData.data) {
-      console.log("getTransactionByIdData===", getTransactionByIdData)
       setEditId(getTransactionByIdData.data?.details?._id)
       setBorrower_Applicant(getTransactionByIdData.data?.borrower_Applicant)
       setLenders(getTransactionByIdData.data?.lenders)
@@ -377,7 +376,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
     productDetails.commodityType === "Hard"
       ? ["Metal", "Energy"]
       : productDetails.commodityType === "Soft"
-      ? ["Agricultural", "Energy"]
+      ? ["Agricultural"]
       : []
 
   const metricOption = ["Ton"]
@@ -1007,6 +1006,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                       ...productDetails,
                       commoditySubType: newVal,
                     })
+                    
                   }
                   getOptionLabel={(option) => option}
                   options={commoditySubTypeOption}
@@ -1019,11 +1019,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                     />
                   )}
                   value={
-                    commoditySubTypeOption.length > 0 &&
-                    productDetails?.commoditySubType &&
-                    commoditySubTypeOption.find(
-                      (ele) => ele === productDetails.commoditySubType
-                    )
+                    commoditySubTypeOption
                   }
                   disabled={isView}
                 />
@@ -1272,7 +1268,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                       shrink: true,
                     }}
                     inputProps={{
-                      min: contractDetails.contractDate
+                      max: contractDetails.contractDate
                         ? new Date(contractDetails.contractDate)
                             .toISOString()
                             .split("T")[0]
@@ -1516,8 +1512,8 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                       shrink: true,
                     }}
                     inputProps={{
-                      min: contractDetails.contractDate,
-                      max: contractDetails.expiryDate,
+                      max: contractDetails.contractDate,
+                      min: contractDetails.expiryDate,
                     }}
                     disabled={isView}
                     onChange={(e) =>
@@ -2259,7 +2255,9 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                       label='Pricing unit'
                       variant='standard'
                       color='warning'
+                      // value={selectedProduct && selectedProduct}
                       value={selectedProduct && selectedProduct}
+                      onChange={(e) => handleChnage(e, "pricingUnit", "pricingDetails")}
                       disabled
                     />
                   </Col>
@@ -2416,7 +2414,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                           }
                         />
                         {error?.pricingHedgingMethod && (
-                          <spanf
+                          <span
                             style={{
                               color: "#da251e",
                               width: "100%",
@@ -2424,7 +2422,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                             }}
                           >
                             {error?.pricingHedgingMethod}
-                          </spanf>
+                          </span>
                         )}
                       </Col>
                       <Row>

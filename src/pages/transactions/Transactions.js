@@ -173,7 +173,7 @@ const Transactions = () => {
                                     <p className="ps-3" onClick={handleRefresh}>Physical commodities</p>
                                     <p className="ps-3" onClick={() => navigate('/edit-transactions', { state: [{ type: "Export" }, { type: "Non-physical" }] })}>Non-physical commodities</p>
                                 </>
-                            }
+                            || <Skeleton /> }
                         </div>
                     }
                 </div>

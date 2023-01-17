@@ -1019,7 +1019,11 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                     />
                   )}
                   value={
-                    commoditySubTypeOption
+                    commoditySubTypeOption.length > 0 &&
+                    productDetails?.commoditySubType &&
+                    commoditySubTypeOption.find(
+                      (ele) => ele === productDetails.commoditySubType
+                    )
                   }
                   disabled={isView}
                 />

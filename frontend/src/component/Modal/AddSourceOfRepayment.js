@@ -26,6 +26,9 @@ const AddSourceOfRepayment = ({ show, onHide, getModalData, data, getEditData, i
         'SBLCs',
         'Proceeds Performance Bonds',
         'Credit Insurance proceeds',
+        'Proceeds from Assigned Contracts',
+        'Pledged Cash Deposits',
+        'Pledged Bonds/Treasury Deposits'
     ]
 
     useEffect(() => {
@@ -126,7 +129,15 @@ const AddSourceOfRepayment = ({ show, onHide, getModalData, data, getEditData, i
                                         <Autocomplete
                                             // options={sourceOfRepayment.type ? options : [] || data.type && sourceOfRepayment.type}
                                             // options={sourceOfRepayment.type ? options : []}
+<<<<<<< HEAD
+<<<<<<< HEAD
+                                            options={ sourceOfRepayment.type === 'Primary' ? (options.splice(3, 2), options) : options }
+=======
                                             options={ options }
+>>>>>>> 565e2d05e05409a7db75340f16ad0f3bd11e6e93
+=======
+                                            options={ options }
+>>>>>>> fe8d13c0c93d65607e561863ef9a7408a99c4294
                                             getOptionLabel={(option) => option}
                                             id="disable-clearable"
                                             label="Instrument"

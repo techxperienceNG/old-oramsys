@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Transactionscard from '../../component/Transactionscard'
@@ -35,7 +35,7 @@ const Transactions = () => {
         dispatch(getAllTransaction(id))
     }, [])
 
-    useEffect(() => {
+    const refreshPage = useCallback(() => {
         if (getAlltransactionData && getAlltransactionData.data && getAlltransactionData.data.length > 0) {
             setTransaction(getAlltransactionData.data?.map(item => {
                 return {
@@ -52,6 +52,11 @@ const Transactions = () => {
             }))
         }
     }, [getAlltransactionData])
+
+    useEffect(() => {
+        dispatch(() => refreshPage())
+        //eslint-disable-next-line
+    }, [])
 
     // const cllickOnRiskAssessment = (id) => {
     //     dispatch(getRiskAssessment(id))
@@ -216,7 +221,7 @@ const Transactions = () => {
                 />
             </div>
 
-            {showExcelModal && <ExcelModal show={showExcelModal} onHide={() => setShowExcelModal(false)} getId={sendId} />}
+            {showExcelModal && <ExcelModal refreshpage={() => dispatch(() => refreshPage())} show={showExcelModal} onHide={() => setShowExcelModal(false)} getId={sendId} />}
         </>
     )
 }

@@ -131,6 +131,60 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
       path: "homeLanding"
     },
     {
+      img: "./assets/img/my-img/Administration.png",
+      text: 'Administration',
+      path: "",
+      subItem: [
+        {
+          img: "./assets/img/my-img/Entities.png",
+          text: 'Entities',
+          path: "entities"
+        },
+        {
+          img: "./assets/img/my-img/Entities.png",
+          text: 'Entities Role',
+          path: "entities-role"
+        },
+        {
+          img: "./assets/img/my-img/MasterData.png",
+          text: 'Master Data',
+          path: "",
+          subData: [
+            {
+              img: "./assets/img/my-img/Products.png",
+              text: 'Products',
+              path: "products",
+            },
+            {
+              img: "./assets/img/my-img/Countries.png",
+              text: 'Countries',
+              path: "countries",
+            },
+            {
+              img: "./assets/img/my-img/Countries.png",
+              text: 'Ports',
+              path: "ports",
+            },
+            {
+              img: "./assets/img/my-img/Countries.png",
+              text: 'Airports',
+              path: "airports",
+            },
+            {
+              img: "./assets/img/my-img/RatingAgencies.png",
+              text: 'Rating Agencies',
+              path: "rating-agencies",
+            },
+          ]
+        },
+        {
+          img: "./assets/img/my-img/Users.png",
+          text: 'Users',
+          path: "users"
+        },
+      ]
+    },
+    {
       img: './assets/img/my-img/Transactions.png',
       text: 'Transactions',
       path: "transactions"
@@ -138,7 +192,7 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
   ]
 
   if (AuthStorage.getStorageData(STORAGEKEY.roles) === "user") {
-    navbarData = navbarDataForUser
+    navbarData = navbarDataForSuperAdmin
   } else if (AuthStorage.getStorageData(STORAGEKEY.roles) === "admin") {
     navbarData = navbarDataForAdmin
   } else if (AuthStorage.getStorageData(STORAGEKEY.roles) === "superAdmin") {

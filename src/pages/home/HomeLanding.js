@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import Nav from 'react-bootstrap/Nav';
 import { FaAngleRight } from 'react-icons/fa'
 import { BsCheckCircle, BsBox, BsFillPeopleFill } from 'react-icons/bs'
 import { IoTimerOutline } from 'react-icons/io5';
 import { FcBusinessman, FcApproval, FcClock } from "react-icons/fc";
 import { GrTransaction } from "react-icons/gr"
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AuthStorage from '../../helper/AuthStorage';
@@ -17,32 +21,30 @@ import { userGetAction } from '../../redux/actions/userAction';
 
 const HomeLanding = () => {
   const token = AuthStorage.getToken()
-  const [length, setLength] = useState([])
+  const [showspan, setShowspan] = useState(false)
+  const [showSubData, setShowSubData] = useState(false)
 
   const dispatch = useDispatch()
   const cards = [
     {
-      title: 'Completed Transactions',
-      text: '',
-      img: "Transact", icon: GrTransaction,
-      name: "transactions"
+      title: 'Transactions',
+      img: "Transact", icon: GrTransaction, color: "bg-success",
+      name: "transactions",
+      status: 'Completed'
     },
     {
       title: 'Available Products',
-      text: '',
-      img: 'Product', icon: BsBox,
+      img: 'Product', icon: BsBox, color: "bg-primary",
       name: "products"
     },
     {
       title: 'Registered Users',
-      text: '',
-      img: "Users", icon: BsFillPeopleFill,
+      img: "Users", icon: BsFillPeopleFill, color: "bg-info",
       name: "users"
     },
     {
       title: 'Entities',
-      text: '',
-      img: "entity", icon: FcBusinessman,
+      img: "entity", icon: FcBusinessman, color: "bg-warning",
       name: "entities"
     },
  
@@ -53,9 +55,7 @@ const HomeLanding = () => {
   const getAllUsers = useSelector(state => state.userData.getUserData)
   const getAllEntities = useSelector(state => state.entityData.entity)
 
-
-  console.log('termsheet', getAlltransactionData)
-
+  //Get data counts on everything
   const getCount = useCallback((name) => {
     switch (name) {
       case 'transactions':
@@ -73,6 +73,7 @@ const HomeLanding = () => {
 
   const signedCount = []
   const notSignedCount = []
+  //check to geet the number of signed transactions and un-signed transaction
   if(getAlltransactionData?.data) {
     getAlltransactionData.data.map((item) => {
       if(item.termSheet === 'Signed') {
@@ -85,6 +86,7 @@ const HomeLanding = () => {
     })
   }
 
+  //get all transaction
   const Authsend = useCallback(() => {
     let id = AuthStorage.getStorageData(STORAGEKEY.roles) !== "superAdmin" ? AuthStorage.getStorageData(STORAGEKEY.userId) : "all"
     dispatch(getAllTransaction(id))
@@ -112,7 +114,218 @@ const HomeLanding = () => {
       
   return (
     <>
-        <section className=''>
+        <div class="container d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+        
+
+        <div class="h-screen flex-grow-1">
+        {/* <!-- Header --> */}
+        <header class="bg-surface-primary border-bottom pt-6">
+            <div class="container-fluid">
+                <div class="mb-npx">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                            {/* <!-- Title --> */}
+                            <h1 class="h2 mb-0 ls-tight">Dashboard</h1>
+                        </div>
+                        {/* <!-- Actions --> */}
+                        <div class="col-sm-6 col-12 text-sm-end">
+                            <div class="mx-n1">
+                                <Link to='/transactions' class="btn d-inline-flex btn-sm btn-neutral border-base mx-1">
+                                    <span class=" pe-2">
+                                        <i class="bi bi-pencil"></i>
+                                    </span>
+                                    <span>Edit Transactions</span>
+                                </Link>
+                                <Dropdown as={ButtonGroup}>
+                                    <Button variant="primary">Create</Button>
+
+                                    <Dropdown.Toggle split variant="primary" id="dropdown-split-basic" />
+
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item href="#/action-1">Import</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-2">Export </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                                {/* <a href='/' class="btn d-inline-flex btn-sm btn-primary mx-1">
+                                    <span class=" pe-2">
+                                        <i class="bi bi-plus"></i>
+                                    </span>
+                                    <span>Create</span>
+                                </a> */}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        {/* <!-- Main --> */}
+        <main class="py-6 bg-surface-secondary">
+            <div class="container-fluid">
+    
+                <div class="row g-6 mb-6">
+                    {AuthStorage.getStorageData(STORAGEKEY.roles) === "user" && ( 
+                        cards.map((card, i) => (
+                            <div class="col-xl-3 mb-3 col-sm-6 col-12">
+                        
+                                        <div class="card shadow border-0">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <span class="h6 font-semibold text-muted text-sm d-block mb-2">{card.title}</span>
+                                                        <span class="h3 font-bold mb-0">{getCount(card.name)}</span>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <div className={`icon icon-shape ${card.color} text-white text-lg rounded-circle`}>
+                                                            <card.icon size={56} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2 mb-0 text-sm">
+                                                    {card.status === 'Completed' ? 
+                                                    <> <span className='badge badge-pill bg-soft-success text-success me-2'>
+                                                            {signedCount.length}
+                                                            </span>
+                                                            <span class="text-nowrap text-xs text-muted">Completed</span>
+
+                                                            <span className='badge mx-2 badge-pill bg-danger text-success-white me-2'>
+                                                            {notSignedCount.length}
+                                                            </span>
+                                                            <span class="text-nowrap text-xs text-muted">In Progress...</span>
+
+                                                            </> :
+                                                            <>
+                                                            <span class="badge badge-pill bg-soft-success text-success me-2">
+                                                            <i class="bi bi-arrow-up me-1"></i>13%
+                                                        </span>
+                                                        <span class="text-nowrap text-xs text-muted">
+                                                            {card.title === 'Available Products' ? 
+                                                                <Link className='text-decoration-none' to='/products'>
+                                                                    View Products <i class="bi bi-arrow-right me-1"></i>
+                                                                </Link> :
+                                                            card.title === 'Registered Users' ? 
+                                                                <Link className='text-decoration-none' to='/users'>
+                                                                    View Users <i class="bi bi-arrow-right me-1"></i>
+                                                                </Link> : 
+                                                            card.title === 'Entities' ?
+                                                                <Link className='text-decoration-none' to='/entities'>
+                                                                View Entities <i class="bi bi-arrow-right me-1"></i>
+                                                                </Link> : ''
+                                                            }
+                                                            
+                                                        </span>
+                                                            </>
+                                                    }
+                                                    
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+                        ))
+                    )}
+                </div>
+
+                <div class="card shadow border-0 mb-7">
+                    <div class="card-header">
+                        <h5 class="mb-0">Applications</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-nowrap">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Company</th>
+                                    <th scope="col">Offer</th>
+                                    <th scope="col">Meeting</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img alt="..." src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2" />
+                                        <Link class="text-decoration-none text-heading font-semibold" to='/'>
+                                            Robert Fox
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        Feb 15, 2021
+                                    </td>
+                                    <td>
+                                        <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-1.png" class="avatar avatar-xs rounded-circle me-2" />
+                                        <Link class="text-decoration-none  text-heading font-semibold" to='/'>
+                                            Dribbble
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        $3.500
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-lg text-heading badge-dot">
+                                            <i class="bg-success"></i>Scheduled
+                                        </span>
+                                    </td>
+                                    <td class="text-end">
+                                        <Link to='/'  class="btn btn-sm btn-neutral">View</Link>
+                                        <Button variant="outline-dark" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                            <i class="bi bi-trash"></i>
+                                        </Button>
+                                    </td>
+                                </tr>
+                               
+                                <tr>
+                                    <td>
+                                        <img alt="..." src="https://images.unsplash.com/photo-1608976328267-e673d3ec06ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar-sm rounded-circle me-2" />
+                                        <Link class="text-decoration-none text-heading font-semibold" to='/'>
+                                            Cody Fisher
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        Apr 10, 2021
+                                    </td>
+                                    <td>
+                                        <img alt="..." src="https://preview.webpixels.io/web/img/other/logos/logo-5.png" class="avatar avatar-xs rounded-circle me-2" />
+                                        <Link class="text-decoration-none text-heading font-semibold" to='/'>
+                                            Webpixels
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        $1.500
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-lg text-heading badge-dot">
+                                            <i class="bg-danger"></i>Canceled
+                                        </span>
+                                    </td>
+                                    <td class="text-end">
+                                        <Link to='/' class="btn btn-sm btn-neutral">View</Link>
+                                        <Button variant="outline-dark" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                            <i class="bi bi-trash"></i>
+                                        </Button>
+                                    </td>
+                                </tr>
+                               
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer border-0 py-5">
+                        <span class="text-muted text-sm">Showing 10 items out of 250 results found</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+      </div>
+  </>
+  )
+}
+
+export default HomeLanding
+
+{/* <section className=''>
                  <div className="background-shape6">
                   <img src="./assets/img/figure/figure32.png" alt="figure" width="404" height="216" />
                 </div>
@@ -174,9 +387,4 @@ const HomeLanding = () => {
                   <img src="./assets/img/my-img/figure33.png" alt="figure" width="783" height="439" />
                 </div>
             </div>
-      </section>
-  </>
-  )
-}
-
-export default HomeLanding 
+      </section> */}

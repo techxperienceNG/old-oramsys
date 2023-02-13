@@ -174,7 +174,7 @@ const HomeLanding = () => {
 
   return (
     <>
-      <div class='container d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary'>
+      <div class='container d-flex flex-column flex-lg-row h-lg-full'>
         <div id='dash' class='h-screen flex-grow-1'>
           {/* <!-- Header --> */}
           <header class='bg-surface-primary border-bottom pt-6'>
@@ -228,7 +228,7 @@ const HomeLanding = () => {
             </div>
           </header>
           {/* <!-- Main --> */}
-          <main class='py-6 bg-surface-secondary'>
+          <main class='py-6'>
             <div class='container-fluid'>
               <div class='row g-6 mb-6'>
                 {AuthStorage.getStorageData(STORAGEKEY.roles) === "user" &&
@@ -334,42 +334,23 @@ const HomeLanding = () => {
                         getAlltransactionData?.data?.map((data) => (
                           <tr>
                             <td>
-                              {new Date(data.createdAt).toLocaleDateString(
-                                "en-US",
-                                DATE_OPTIONS
-                              )}
+                              {new Date(data.createdAt).toLocaleDateString("en-US", DATE_OPTIONS)}
                             </td>
                             <td>
-                              <img
-                                alt='...'
-                                src='https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80'
-                                class='avatar avatar-sm rounded-circle me-2'
-                              />
-                              <Link
-                                class='text-decoration-none text-heading font-semibold'
-                                to='/'
-                              >
+                              <img alt='...' src='https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80' class='avatar avatar-sm rounded-circle me-2' />
+                              <Link class='text-decoration-none text-heading font-semibold' to='/'>
                                 {data.borrower_Applicant}
                               </Link>
                             </td>
 
                             <td>
-                              <img
-                                alt='...'
-                                src='https://preview.webpixels.io/web/img/other/logos/logo-1.png'
-                                class='avatar avatar-xs rounded-circle me-2'
-                              />
-                              <Link
-                                class='text-decoration-none  text-heading font-semibold'
-                                to='/'
-                              >
+                              <img alt='...' src='https://preview.webpixels.io/web/img/other/logos/logo-1.png' class='avatar avatar-xs rounded-circle me-2' />
+                              <Link class='text-decoration-none  text-heading font-semibold' to='/'>
                                 {data.lenders}
                               </Link>
                             </td>
                             <td>
-                              {formateCurrencyValue(
-                                data.details.contractDetails.value
-                              )}
+                              {formateCurrencyValue(data.details.contractDetails.value)}
                             </td>
                             <td>
                               {data.termSheet === "Signed" ? (
@@ -383,12 +364,10 @@ const HomeLanding = () => {
                               )}
                             </td>
                             <td class='text-end'>
-                              <Link to='/' class='btn btn-sm btn-neutral'>
+                              <Button variant='outline-dark' class='btn btn-sm btn-neutral'>
                                 View Termsheet
-                              </Link>
-                              <Button
-                                variant='outline-dark'
-                                class='btn btn-sm btn-square btn-neutral text-danger-hover'
+                              </Button>
+                              <Button variant='outline-dark' class='btn btn-sm btn-square btn-neutral text-danger-hover'
                                 onClick={() => {
                                   data.termSheet === "Signed"
                                     ? downloadTermSheet(data._id, "download")
@@ -400,6 +379,7 @@ const HomeLanding = () => {
                             </td>
                           </tr>
                         ))}
+
                     </tbody>
                   </table>
                 </div>

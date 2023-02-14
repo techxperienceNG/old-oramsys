@@ -364,9 +364,9 @@ const HomeLanding = () => {
                               )}
                             </td>
                             <td class='text-end'>
-                              <Button variant='outline-dark' class='btn btn-sm btn-neutral'>
+                              <Link to='/' class='btn btn-sm btn-neutral'>
                                 View Termsheet
-                              </Button>
+                              </Link>
                               <Button variant='outline-dark' class='btn btn-sm btn-square btn-neutral text-danger-hover'
                                 onClick={() => {
                                   data.termSheet === "Signed"

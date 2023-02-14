@@ -364,7 +364,9 @@ const HomeLanding = () => {
                               )}
                             </td>
                             <td class='text-end'>
-                              <Link to='/' class='btn btn-sm btn-neutral'>
+                              <Link to='#' onClick={() => {
+                                  data.termSheet === 'Not Signed' ? downloadTermSheet(data._id, 'view') : ViewRiskAssessment() 
+                              }} class='btn btn-sm btn-neutral'>
                                 View Termsheet
                               </Link>
                               <Button variant='outline-dark' class='btn btn-sm btn-square btn-neutral text-danger-hover'

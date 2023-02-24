@@ -233,7 +233,7 @@ const HomeLanding = () => {
               <div class='row g-6 mb-6'>
                 {AuthStorage.getStorageData(STORAGEKEY.roles) === "superAdmin" &&
                   cards.map((card, i) => (
-                    <div class='col-xl-3 mb-3 col-sm-6 col-12'>
+                    <div class='col-xl-6 mb-3 col-sm-6 col-12'>
                       <div class='card shadow border-0'>
                         <div class='card-body'>
                           <div class='row'>
@@ -315,7 +315,7 @@ const HomeLanding = () => {
 
 
                   { AuthStorage.getStorageData(STORAGEKEY.roles) === "user" &&
-                  <div class='col-xl-3 mb-3 col-sm-6 col-12'>
+                  <div class='col-6 mb-3 col-sm-6 col-12'>
                   <div class='card shadow border-0'>
                     <div class='card-body'>
                       <div class='row'>
@@ -353,7 +353,7 @@ const HomeLanding = () => {
 
                   { AuthStorage.getStorageData(STORAGEKEY.roles) === "user" &&
                     <>
-                    <div class='col-xl-3 mb-3 col-sm-6 col-12'>
+                    <div class='col-6 mb-3 col-sm-6 col-12'>
                       <div class='card shadow border-0'>
                         <div class='card-body'>
                           <div class='row'>
@@ -410,7 +410,7 @@ const HomeLanding = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {getAlltransactionData &&
+                      {!getAlltransactionData ? <p className='text-center'> No records were found</p> : getAlltransactionData &&
                         getAlltransactionData?.data?.map((data) => (
                           <tr>
                             <td>
@@ -430,7 +430,7 @@ const HomeLanding = () => {
                               </Link>
                             </td>
                             <td>
-                              {formateCurrencyValue(data.details.contractDetails.value)}
+                              {formateCurrencyValue(data?.details?.contractDetails?.value)}
                             </td>
                             <td>
                               {data.termSheet === "Signed" ? (

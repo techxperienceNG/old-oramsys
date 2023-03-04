@@ -1304,14 +1304,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                     disabled={isView}
                   />
                 </form>
-                {error?.expiryDate && (
-                  <span
-                    style={{
-                      color: "#da251e",
-                      width: "100%",
-                      textAlign: "start",
-                    }}
-                  >
+                {error?.expiryDate && (<span style={{color: "#da251e", width: "100%", textAlign: "start"}}>
                     {error?.expiryDate}
                   </span>
                 )}

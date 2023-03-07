@@ -322,15 +322,25 @@ const PublicRoutes = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const authenticate = useCallback(() => {
-        !isAuthenticated ? (
-            pathForLayout.includes(location.pathname) ? (
+        if(!isAuthenticated) {
+            if (pathForLayout.includes(location.pathname)) {
                 <Navigate to={location} />
-            ) : (
+            } else{
                 <Navigate to='/' />
-            )
-        ) : (
+            }
+        }else {
             pathForLayout.includes(location.pathname) ? navigate(-1) : location.pathname === "/" ? navigate("/products") : navigate('/')
-        );
+         }
+
+        // !isAuthenticated ? (
+        //     pathForLayout.includes(location.pathname) ? (
+        //         <Navigate to={location} />
+        //     ) : (
+        //         <Navigate to='/' />
+        //     )
+        // ) : (
+        //     pathForLayout.includes(location.pathname) ? navigate(-1) : location.pathname === "/" ? navigate("/products") : navigate('/')
+        // );
     
     }, [isAuthenticated])
 

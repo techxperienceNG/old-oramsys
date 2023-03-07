@@ -321,33 +321,19 @@ const PublicRoutes = () => {
     const isAuthenticated = AuthStorage.isUserAuthenticated();
     const navigate = useNavigate();
     const location = useLocation();
-    const authenticate = useCallback(() => {
-        if(!isAuthenticated) {
-            if (pathForLayout.includes(location.pathname)) {
-                // <Navigate to={location} />
-                <navigte to={location} />
-            } else{
-                <navigate to='/' />
-            }
-        }else {
+ 
+
+    useEffect(() => {
+        !isAuthenticated ? (
+            pathForLayout.includes(location.pathname) ? (
+                <Navigate to={location} />
+            ) : (
+                <Navigate to='/' />
+            )
+        ) : (
             pathForLayout.includes(location.pathname) ? navigate(-1) : location.pathname === "/" ? navigate("/products") : navigate('/')
-         }
-
-        // !isAuthenticated ? (
-        //     pathForLayout.includes(location.pathname) ? (
-        //         <Navigate to={location} />
-        //     ) : (
-        //         <Navigate to='/' />
-        //     )
-        // ) : (
-        //     pathForLayout.includes(location.pathname) ? navigate(-1) : location.pathname === "/" ? navigate("/products") : navigate('/')
-        // );
-    
-    }, [isAuthenticated])
-
-    useEffect(() => { 
-        authenticate()
-    }, []);
+        );
+    }, [isAuthenticated]);
 
     return (
         <Layout>

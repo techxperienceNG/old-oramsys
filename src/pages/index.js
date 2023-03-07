@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Routes, Route, useLocation, useNavigate, Navigate, Outlet } from "react-router-dom";
 import AuthStorage from '../helper/AuthStorage';
 import AuthLayOut from '../layout/AuthLayOut';
@@ -29,6 +29,7 @@ import RiskAssessment from './transactions/riskAssessment/RiskAssessment';
 import Ports from './administration/masterData/ports/Ports';
 import AirBases from './administration/masterData/airBases/AirBases';
 import { ApiGet, ApiPost } from '../helper/API/ApiData';
+
 
 
 const pathForLayout = ['/', '/signup', '/home', '/admin-login', '/fa-login']
@@ -320,7 +321,8 @@ const PublicRoutes = () => {
     const isAuthenticated = AuthStorage.isUserAuthenticated();
     const navigate = useNavigate();
     const location = useLocation();
-    useEffect(() => { !isAuthenticated ? (
+    const authenticate = useCallback(() => {
+        !isAuthenticated ? (
             pathForLayout.includes(location.pathname) ? (
                 <Navigate to={location} />
             ) : (
@@ -329,7 +331,13 @@ const PublicRoutes = () => {
         ) : (
             pathForLayout.includes(location.pathname) ? navigate(-1) : location.pathname === "/" ? navigate("/products") : navigate('/')
         );
-    }, [isAuthenticated]);
+    
+    }, [isAuthenticated])
+
+    useEffect(() => { 
+        dispatch(() => authenticate())
+           
+    }, []);
 
     return (
         <Layout>

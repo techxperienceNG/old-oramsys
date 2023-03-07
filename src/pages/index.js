@@ -320,8 +320,7 @@ const PublicRoutes = () => {
     const isAuthenticated = AuthStorage.isUserAuthenticated();
     const navigate = useNavigate();
     const location = useLocation();
-    useEffect(() => {
-        !isAuthenticated ? (
+    useEffect(() => { !isAuthenticated ? (
             pathForLayout.includes(location.pathname) ? (
                 <Navigate to={location} />
             ) : (

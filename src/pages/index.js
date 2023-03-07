@@ -324,9 +324,10 @@ const PublicRoutes = () => {
     const authenticate = useCallback(() => {
         if(!isAuthenticated) {
             if (pathForLayout.includes(location.pathname)) {
-                <Navigate to={location} />
+                // <Navigate to={location} />
+                <navigte to={location} />
             } else{
-                <Navigate to='/' />
+                <navigate to='/' />
             }
         }else {
             pathForLayout.includes(location.pathname) ? navigate(-1) : location.pathname === "/" ? navigate("/products") : navigate('/')

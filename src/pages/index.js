@@ -336,7 +336,6 @@ const PublicRoutes = () => {
 
     useEffect(() => { 
         dispatch(() => authenticate())
-           
     }, []);
 
     return (

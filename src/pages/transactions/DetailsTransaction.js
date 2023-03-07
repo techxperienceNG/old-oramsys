@@ -2375,13 +2375,13 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                       disabled={isView}
                       value={
                         ((warehouseRequiredOptions.length > 0 &&
-                          pricingDetails.pricingHedgeingStatus === true) ||
-                          pricingDetails.pricingHedgeingStatus === false) &&
+                            pricingDetails.pricingHedgeingStatus === true) ||
+                            pricingDetails.pricingHedgeingStatus === false) && Array.isArray(warehouseRequiredOptions) ?
                         warehouseRequiredOptions.find(
-                          (ele) =>
-                            ele.value === pricingDetails.pricingHedgeingStatus
-                        )
-                      }
+                            (ele) =>
+                                ele.value === pricingDetails.pricingHedgeingStatus
+                        ) : warehouseRequiredOptions === ''
+                    }
                     />
                     {error?.pricingHedgeingStatus && (
                       <span

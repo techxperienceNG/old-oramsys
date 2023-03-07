@@ -14,7 +14,7 @@ import { ApiGet, ApiGet2 } from '../../helper/API/ApiData';
 import { Button, Icon } from '@material-ui/core';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { GET_TRANSACTION_BY_ID } from '../../redux/types';
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from 'react-loading-skeleton';
 const Transactions = () => {
 
     const dispatch = useDispatch()
@@ -150,7 +150,10 @@ const Transactions = () => {
     }
     const formateCurrencyValue = (data) => {
         if (data) {
-            let value = data.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            let value = data.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            // let prefix = CurrencyOptions.find((ele) => ele.label === contractDetails?.currency)?.prefix
+            // let suffix = CurrencyOptions.find((ele) => ele.label === contractDetails?.currency)?.suffix
+            // return prefix ? (prefix + value) : suffix ? (value + suffix) : value
             return value
         } else {
             return data
@@ -188,7 +191,7 @@ const Transactions = () => {
                         { title: 'Applicant', field: 'borrower_Applicant' },
                         { title: 'Lenders', field: 'lenders' },
                         { title: 'Product', field: 'details.productDetails.name.name' },
-                        { title: 'Value', render: rowData => formateCurrencyValue(rowData.details.contractDetails.value) },
+                        { title: 'Value', render: rowData => formateCurrencyValue(rowData.details?.contractDetails?.value) },
                         // { title: 'Origination Port', field: 'details.shippingOptions.portOfOrigin.name' },
                         // { title: 'Destination Port', field: 'details.shippingOptions.destinationPort.name' },
                         // { title: 'Term Sheet', field: 'termSheet' },
@@ -217,6 +220,7 @@ const Transactions = () => {
                     }}
                 />
             </div>
+            
 
             {showExcelModal && <ExcelModal refreshpage={() => dispatch(() => refreshPage())} show={showExcelModal} onHide={() => setShowExcelModal(false)} getId={sendId} />}
         </>

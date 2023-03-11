@@ -1222,14 +1222,14 @@ const Facility = ({ hendelCancel, hendelNext }) => {
 
                 <div className='add-edit-product p-0'>
                     <div className='form'>
-                        <h2 className='mb-3'>Loan Purpose Justification</h2>
+                        <h2 className='mb-3'>Loan Purpose</h2>
                         <div>
                             <Row>
                               
                             
                                     <Col lg={6}>
                                         <TextField
-                                            label="Loan Purpose"
+                                            label="Loan Purpose Details"
                                             id="standard-start-adornment"
                                             variant="standard"
                                             color="warning"

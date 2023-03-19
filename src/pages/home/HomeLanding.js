@@ -174,7 +174,7 @@ const HomeLanding = () => {
 
   return (
     <>
-      <div class='container d-flex flex-column flex-lg-row h-lg-full'>
+      <div class='mx-5 d-flex flex-column flex-lg-row h-lg-full'>
         <div id='dash' class='h-screen flex-grow-1'>
           {/* <!-- Header --> */}
           <header class='bg-surface-primary border-bottom pt-6'>
@@ -183,44 +183,16 @@ const HomeLanding = () => {
                 <div class='row align-items-center mb-4'>
                   <div class='col-sm-6 col-12 mb-4 mb-sm-0'>
                     {/* <!-- Title --> */}
-                    <h1 class='h2 mb-0 ls-tight'>Dashboard</h1>
+                    <h1 class='h2 mb-0 fw-bold fs-4 ls-tight'>Dashboard</h1>
                   </div>
                   {/* <!-- Actions --> */}
                   <div class='col-sm-6 col-12 text-sm-end'>
                     <div class='mx-n1'>
-                      <Link
-                        to='/transactions'
-                        class='btn d-inline-flex btn-sm btn-neutral border-base mx-1'
-                      >
-                        <span class=' pe-2'>
-                          <i class='bi bi-pencil'></i>
-                        </span>
+                      <Link to='/transactions' class='btn border border-danger border-2 d-inline-flex btn-sm btn-neutral border-base mx-1'>
+                        <span class=' pe-2'><i class='bi bi-pencil'></i></span>
                         <span>Edit Transactions</span>
                       </Link>
-                      {/* <Dropdown as={ButtonGroup}>
-                        <Button variant='primary'>Create</Button>
-
-                        <Dropdown.Toggle
-                          split
-                          variant='primary'
-                          id='dropdown-split-basic'
-                        />
-
-                        <Dropdown.Menu>
-                          <Dropdown.Item href='#/action-1'>
-                            Import
-                          </Dropdown.Item>
-                          <Dropdown.Item href='#/action-2'>
-                            Export{" "}
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown> */}
-                      {/* <a href='/' class="btn d-inline-flex btn-sm btn-primary mx-1">
-                                    <span class=" pe-2">
-                                        <i class="bi bi-plus"></i>
-                                    </span>
-                                    <span>Create</span>
-                                </a> */}
+                      
                     </div>
                   </div>
                 </div>
@@ -404,9 +376,7 @@ const HomeLanding = () => {
                         <th scope='col'>Lender</th>
                         <th scope='col'>Value</th>
                         <th scope='col'>Status</th>
-                        <th scope='col'>Status</th>
-                        <th scope='col'>Status</th>
-                        <th></th>
+                        {/* <th scope='col'>Actions</th> */}
                       </tr>
                     </thead>
                     <tbody>

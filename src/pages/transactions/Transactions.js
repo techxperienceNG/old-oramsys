@@ -160,13 +160,13 @@ const Transactions = () => {
       <div class='m-4 d-flex flex-column flex-lg-row h-lg-full'>
         <div id='dash' class='h-screen flex-grow-1'>
           {/* <!-- Header --> */}
-          <header class='bg-surface-primary border-bottom pt-6'>
+          <header class='bg-surface-primary border-bottom pt-3'>
             <div class='container-fluid'>
               <div id='dash' class='mb-npx'>
-                <div class='row align-items-center mb-4'>
+                <div class='row align-items-center mb-3'>
                   <div class='col-sm-6 col-12 mb-4 mb-sm-0'>
                     {/* <!-- Title --> */}
-                    <h1 class='h2 mb-0 ms-5 fw-bold ls-tight'>Transaction</h1>
+                    <h1 class='h2 mb-0 ms-5 fw-bold fs-4 ls-tight'>Transaction</h1>
                   </div>
                   {/* <!-- Actions --> */}
                   <div class='col-sm-6 col-12 text-sm-end'>
@@ -218,19 +218,17 @@ const Transactions = () => {
           {/* <!-- Main --> */}
           <main class='py-3'>
             <div class='container-fluid'>
-              <div class='row g-6 mb-2'></div>
+              <div class='row g-6 mb-4'></div>
 
               <div class='card mx-5 rounded-4 shadow border-0 mb-7'>
-                <div class='card-header'>
-                  <h5 class='mb-0'></h5>
+              <div class='card-header'>
+                  <h5 class='mb-0'>Transactions</h5>
                 </div>
 
                 <div class='table-responsive'>
 
                   <table class='table table-bordered border-light caption-top border-2 table-hover table-nowrap'>
-                    <caption className='m-2 ps-2 fs-4 text-capitalize fw-bold text-dark'>
-                      Transactions
-                    </caption>
+                   
                     <thead class='thead-light text-white'>
                       <tr className='text-center'>
                         <th style={{ fontSize: "0.8rem" }} className='fw-bold text-dark' scope='col'>

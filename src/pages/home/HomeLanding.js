@@ -368,7 +368,7 @@ const HomeLanding = () => {
                   <h5 class='mb-0'>Applications</h5>
                 </div>
                 <div class='table-responsive'>
-                  <table class='table table-hover table-nowrap'>
+                  <table class='table table-bordered border-light caption-top border-2 table-hover table-nowrap'>
                     <thead class='thead-light'>
                       <tr>
                         <th scope='col'>Date Created</th>

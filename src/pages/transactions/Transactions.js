@@ -157,16 +157,16 @@ const Transactions = () => {
     <>
 
 
-      <div class='m-4 d-flex flex-column flex-lg-row h-lg-full'>
+      <div class='mx-5 d-flex flex-column flex-lg-row h-lg-full'>
         <div id='dash' class='h-screen flex-grow-1'>
           {/* <!-- Header --> */}
-          <header class='bg-surface-primary border-bottom pt-3'>
+          <header class='bg-surface-primary border-bottom pt-6'>
             <div class='container-fluid'>
               <div id='dash' class='mb-npx'>
                 <div class='row align-items-center mb-3'>
                   <div class='col-sm-6 col-12 mb-4 mb-sm-0'>
                     {/* <!-- Title --> */}
-                    <h1 class='h2 mb-0 ms-5 fw-bold fs-4 ls-tight'>Transaction</h1>
+                    <h1 class='h2 mb-0 fw-bold fs-4 ls-tight'>Transaction</h1>
                   </div>
                   {/* <!-- Actions --> */}
                   <div class='col-sm-6 col-12 text-sm-end'>
@@ -174,7 +174,7 @@ const Transactions = () => {
 
                       {AuthStorage.getStorageData(STORAGEKEY.roles) === "user" ? (
                         <Dropdown className="me-2" autoClose="outside">
-                          <Dropdown.Toggle variant="light" className="btn btn-lg items-center" id="dropdown-autoclose-outside" key='start'>
+                          <Dropdown.Toggle variant="light" className="btn btn-md items-center" id="dropdown-autoclose-outside" key='start'>
                             <i class="bi bi-plus pe-2 "></i><span className="fs-6 fw-bold">Add</span>
                           </Dropdown.Toggle>
 
@@ -196,13 +196,13 @@ const Transactions = () => {
 
                       <div class="input-group w-50">
                           <input type="search" placeholder="Search transaction..." class="form-control" />
-                        <button type="button" class="btn btn-primary btn-lg">
+                        <button type="button" class="btn btn-primary btn-sm">
                           <FaSearch />
                         </button>
                       </div>
 
 
-                      <Link to='/transactions' style={{ borderColor: '#9E3E65' }} class='btn d-inline-flex btn-lg btn-light border-base mx-1 me-3'>
+                      <Link to='/transactions' style={{ borderColor: '#9E3E65' }} class='btn d-inline-flex btn-md btn-light border-base mx-1 me-3'>
                         <span class=' pe-2'>
                           <i class='bi bi-pencil'></i>
                         </span>
@@ -216,11 +216,11 @@ const Transactions = () => {
             </div>
           </header>
           {/* <!-- Main --> */}
-          <main class='py-3'>
+          <main class='py-2'>
             <div class='container-fluid'>
               <div class='row g-6 mb-4'></div>
 
-              <div class='card mx-5 rounded-4 shadow border-0 mb-7'>
+              <div class='card rounded-4 shadow border-0'>
               <div class='card-header'>
                   <h5 class='mb-0'>Transactions</h5>
                 </div>
@@ -229,24 +229,20 @@ const Transactions = () => {
 
                   <table class='table table-bordered border-light caption-top border-2 table-hover table-nowrap'>
                    
-                    <thead class='thead-light text-white'>
+                    <thead class='thead-light'>
                       <tr className='text-center'>
-                        <th style={{ fontSize: "0.8rem" }} className='fw-bold text-dark' scope='col'>
-                          Transaction Date
-                        </th>
-                        <th style={{ fontSize: "0.8rem" }} className='fw-bold text-dark' scope='col'>Transaction Number</th>
-                        <th style={{ fontSize: "0.8rem" }} className='fw-bold text-dark' scope='col'>Applicant</th>
-                        <th style={{ fontSize: "0.8rem" }} className='fw-bold text-dark' scope='col'>Lender</th>
-                        <th style={{ fontSize: "0.8rem" }} className='fw-bold text-dark' scope='col'>Product</th>
-                        <th style={{ fontSize: "0.8rem" }} className='fw-bold text-dark' scope='col'>Value</th>
-                        <th style={{ fontSize: "0.8rem" }} className='fw-bold text-dark' scope='col'>Termsheet</th>
-                        <th style={{ fontSize: "0.8rem" }} className='fw-bold text-dark' scope='col'>Actions</th>
+                        <th className='fw-bold' scope='col'>Transaction Date</th>
+                        <th className='fw-bold' scope='col'>Transaction Number</th>
+                        <th className='fw-bold' scope='col'>Applicant</th>
+                        <th className='fw-bold' scope='col'>Lender</th>
+                        <th className='fw-bold' scope='col'>Product</th>
+                        <th className='fw-bold' scope='col'>Value</th>
+                        <th className='fw-bold' scope='col'>Termsheet</th>
+                        <th className='fw-bold' scope='col'>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {!currentTrans ? (
-                        <p className='text-center'> No records were found</p>
-                      ) : (
+                      {
                         currentTrans &&
                         currentTrans?.map((data) => (
                           <tr className='text-center'>
@@ -328,9 +324,10 @@ const Transactions = () => {
                             </td>
                           </tr>
                         ))
-                      )}
+                      }
                     </tbody>
                   </table>
+                  {!currentTrans && <p className='text-center mx-auto container my-5 m-5'> No records were found</p> }
                 </div>
                 <div class="card-footer border-0 py-2">
 

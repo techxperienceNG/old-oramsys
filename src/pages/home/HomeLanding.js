@@ -380,7 +380,7 @@ const HomeLanding = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {!getAlltransactionData ? <p className='text-center'> No records were found</p> : getAlltransactionData &&
+                      {getAlltransactionData &&
                         getAlltransactionData?.data?.map((data) => (
                           <tr>
                             <td>
@@ -434,6 +434,8 @@ const HomeLanding = () => {
 
                     </tbody>
                   </table>
+                  {!getAlltransactionData && <p className='text-center mx-auto container my-5 m-5'> No records were found</p> }
+
                 </div>
                 <div class='card-footer border-0 py-5'>
                   <span class='text-muted text-sm'>

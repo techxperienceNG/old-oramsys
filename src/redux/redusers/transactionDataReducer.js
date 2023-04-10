@@ -1,7 +1,8 @@
-import { ADD_TRANSACTION, ADD_TRANSACTION_ERROR, EDIT_TRANSACTION, EDIT_TRANSACTION_ERROR, GET_ALL_TRANSACTION, GET_ALL_TRANSACTION_ERROR, GET_TRANSACTION_BY_ID, GET_TRANSACTION_BY_ID_ERROR, TRANSACTION_DATA } from '../types';
+import { ADD_TRANSACTION, ADD_TRANSACTION_ERROR, EDIT_TRANSACTION, EDIT_TRANSACTION_ERROR, GET_ALL_TRANSACTION, GET_ALL_TRANSACTION_ERROR, GET_ALL_TRANSACTION_LOADING, GET_TRANSACTION_BY_ID, GET_TRANSACTION_BY_ID_ERROR, TRANSACTION_DATA } from '../types';
 
 const initialState = {
     transactionData: [],
+    fetchLoading: false,
 
     addTransaction: [],
     addTransactionError: [],
@@ -18,6 +19,11 @@ const initialState = {
 
 export const transactionDataReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_ALL_TRANSACTION_LOADING:
+            return {
+                ...state,
+                fetchLoading: action.payload,
+            };
         case TRANSACTION_DATA:
 
             console.log('at redux',action.payload);

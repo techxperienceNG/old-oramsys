@@ -215,7 +215,7 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
                             subItem.subData?.map((subSubItem) => (
                               <div className='d-flex align-items-center gap-5 ms-2 my-4 mx-4 ps-5'>
                                 <subSubItem.img size={16} />
-                                <span className=' text-decoration-none' to={subSubItem.path} style={{ display: "block" }}>{subSubItem.text}</span>
+                                <NavLink className='text-dark text-decoration-none' to={subSubItem.path} style={{ display: "block" }}>{subSubItem.text}</NavLink>
                               </div>
                             ))
                           }

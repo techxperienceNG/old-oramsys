@@ -556,7 +556,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
         console.log('product.product name loading');
         if (productDetails.commoditySubType != undefined) {
             let product = [];
-            productData.data.forEach((item) => {
+            productData?.data?.forEach((item) => {
                 if (item.commodity_sub_type == productDetails.commoditySubType) {
                     product.push(item);
                 }

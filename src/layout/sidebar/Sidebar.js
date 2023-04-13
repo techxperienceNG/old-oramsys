@@ -226,17 +226,17 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
                 ))
               }
                {/* <!-- Divider --> */}
-               <hr class="navbar-divider my-2 opacity-20" />
+               <hr className="navbar-divider my-2 opacity-20" />
                 {/* <!-- Navigation --> */}
              
-                <div class="d-flex flex-column mx-3 ps-2 gap-4  my-4">
-                    <div class="">
-                        <Link to='/'  class="nav-link">
-                            <i class="bi bi-person-square"></i> <span className='ps-5'>Account</span>
+                <div className="d-flex flex-column mx-3 ps-2 gap-4  my-4">
+                    <div className="">
+                        <Link className="nav-link">
+                            <i className="bi bi-person-square"></i> <span className='ps-5'>Account</span>
                         </Link>
                     </div>
-                    <div class="">
-                        <Link onClick={() => setshowModal(true)} class="nav-link" href="#">
+                    <div className="">
+                        <Link onClick={() => setshowModal(true)} className="nav-link" href="#">
                             <BsPower size={22} className='text-danger' /><span className='ps-5 fw-semibold text-danger'>Logout</span>
                         </Link>
                     </div>
@@ -270,38 +270,38 @@ export default Sidebar
       //       </div>
       //     </div>
        
-      //         <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical">
+      //         <nav className="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical">
                 
-      //             <div class="container-fluid">
+      //             <div className="container-fluid">
                 
-      //                 <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      //                     <span class="navbar-toggler-icon"></span>
+      //                 <button className="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      //                     <span className="navbar-toggler-icon"></span>
       //                 </button>
                       
                     
-      //                 <div class="navbar-user d-lg-none">
+      //                 <div className="navbar-user d-lg-none">
                       
-      //                     <div class="dropdown">
+      //                     <div className="dropdown">
                           
       //                         <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      //                             <div class="avatar-parent-child">
-      //                                 <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar- rounded-circle" />
-      //                                 <span class="avatar-child avatar-badge bg-success"></span>
+      //                             <div className="avatar-parent-child">
+      //                                 <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" className="avatar avatar- rounded-circle" />
+      //                                 <span className="avatar-child avatar-badge bg-success"></span>
       //                             </div>
       //                         </a>
                             
-      //                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
-      //                             <a href="#" class="dropdown-item">Profile</a>
-      //                             <a href="#" class="dropdown-item">Settings</a>
-      //                             <a href="#" class="dropdown-item">Billing</a>
-      //                             <hr class="dropdown-divider" />
-      //                             <a href="#" class="dropdown-item">Logout</a>
+      //                         <div className="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
+      //                             <a href="#" className="dropdown-item">Profile</a>
+      //                             <a href="#" className="dropdown-item">Settings</a>
+      //                             <a href="#" className="dropdown-item">Billing</a>
+      //                             <hr className="dropdown-divider" />
+      //                             <a href="#" className="dropdown-item">Logout</a>
       //                         </div>
       //                     </div>
       //                 </div>
-      //                 <div class="collapse navbar-collapse" id="sidebarCollapse">
+      //                 <div className="collapse navbar-collapse" id="sidebarCollapse">
                       
-      //                     <ul class="navbar-nav">
+      //                     <ul className="navbar-nav">
       //                       {
       //                         navbarData.map((item, i) => (
       //                           <div key={i} className={`${item.text === "Jobs" ? "d-block navbar-body" : 'navbar-body'}`}>

@@ -185,7 +185,7 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
         {/* <img src="../../../assets/img/about/close.png" className="close_sidebar" onClick={() => setSidebar(!showSidebar)} /> */}
           <div className='profile-content'>
             <img src='../../../assets/img/lgo-red.png' alt="" className='align-items-center m-2 mt-3 mx-auto profile-img' />
-            <img src='../../../assets/img/about/bg.png' className='user_img' />
+            <img src='../../../assets/img/about/profile.png' className='user_img' />
             <div className='profile-name text-center'>
               <h1>{userData?.name}</h1>
               {/* <img src='../../../assets/img/about/logout.png' onClick={(e) => Logout(e)} className='mt-2' style={{ cursor: "pointer" }} /> */}
@@ -230,11 +230,7 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
                 {/* <!-- Navigation --> */}
              
                 <div className="d-flex flex-column mx-3 ps-2 gap-4  my-4">
-                    <div className="">
-                        <Link className="nav-link">
-                            <i className="bi bi-person-square"></i> <span className='ps-5'>Account</span>
-                        </Link>
-                    </div>
+                  
                     <div className="">
                         <Link onClick={() => setshowModal(true)} className="nav-link" href="#">
                             <BsPower size={22} className='text-danger' /><span className='ps-5 fw-semibold text-danger'>Logout</span>

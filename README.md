@@ -1,4 +1,4 @@
-# CredPal Assesment Project
+# Oramsys
 
 Hi! Welcome to the project file of oramsys
 

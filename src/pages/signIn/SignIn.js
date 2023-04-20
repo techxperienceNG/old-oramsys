@@ -124,7 +124,7 @@ const SignIn = () => {
 
                                     <button onClick={(e) => Login(e)} class="btn btn-block btn-primary">Log In</button>
 
-                                    <span class="d-block text-left my-4 text-muted">&mdash; or login as &mdash;</span>
+                                    {/* <span class="d-block text-left my-4 text-muted">&mdash; or login as &mdash;</span> */}
                                     
 {/* 
                                     <div class="social-login">

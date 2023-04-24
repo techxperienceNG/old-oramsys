@@ -122,7 +122,7 @@ const Transactions = () => {
       `<iframe width='100%' height='100%' src=${linkSources}></iframe>`
     )
   }
-  
+
   const handleRefresh = () => {
     dispatch({
       type: GET_TRANSACTION_BY_ID,
@@ -195,7 +195,7 @@ const Transactions = () => {
                       )}
 
                       <div class="input-group w-50">
-                          <input type="search" placeholder="Search transaction..." class="form-control" />
+                        <input type="search" placeholder="Search transaction..." class="form-control" />
                         <button type="button" class="btn btn-primary btn-sm">
                           <FaSearch />
                         </button>
@@ -221,14 +221,14 @@ const Transactions = () => {
               <div class='row g-6 mb-4'></div>
 
               <div class='card rounded-4 shadow border-0'>
-              <div class='card-header'>
+                <div class='card-header'>
                   <h5 class='mb-0'>Transactions</h5>
                 </div>
 
                 <div class='table-responsive'>
 
                   <table class='table table-bordered border-light caption-top border-2 table-hover table-nowrap'>
-                   
+
                     <thead class='thead-light'>
                       <tr className='text-center'>
                         <th className='fw-bold' scope='col'>Transaction Date</th>
@@ -300,9 +300,10 @@ const Transactions = () => {
                                   </div>
                                   <div class=''>
                                     {AuthStorage.getStorageData(STORAGEKEY.roles) === "user" ? <MdAssessment data-tooltip-id='riskassesment-id' data-tooltip-content='Risk Assesment' onClick={() => {
-                                      dispatch(getRiskAssessment(data._id)); setSelected(data._id)}} className='cursor-pointer'
+                                      dispatch(getRiskAssessment(data._id)); setSelected(data._id)
+                                    }} className='cursor-pointer'
                                       size={25}
-                                    />  : ""}
+                                    /> : ""}
 
                                     <Tooltip id='riskassesment-id' place='top' effect='solid' />
                                   </div>
@@ -326,8 +327,9 @@ const Transactions = () => {
                         ))
                       }
                     </tbody>
+                    {!currentTrans < 0 && <p className='text-center mx-auto container my-5 m-5'> No records were found</p>}
+
                   </table>
-                  {!currentTrans && <p className='text-center mx-auto container my-5 m-5'> No records were found</p> }
                 </div>
                 <div class="card-footer border-0 py-2">
 
@@ -340,8 +342,8 @@ const Transactions = () => {
       </div>
 
       {showExcelModal && (<ExcelModal refreshpage={() => dispatch(() => refreshPage())} show={showExcelModal} onHide={() => setShowExcelModal(false)}
-          getId={sendId}
-        />
+        getId={sendId}
+      />
       )}
     </>
   )

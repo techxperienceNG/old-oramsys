@@ -207,14 +207,14 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
                       showItem === item.text && "subItem" in item &&
                       item.subItem?.map((subItem) => {
                         return <>
-                          <div className='d-flex align-items-center ps-3 gap-5 mx-4 my-4'>
+                          <div className='d-flex align-items-center gap-5 mx-4 my-4'>
                           <subItem.img size={16} />
                             <Nav.Link className=' p-0 ' onClick={() => ShowSubItem({ text: subItem.text, path: subItem.path })}>{subItem.text} {subItem.text === 'Master Data' ? <img src='../../../../../assets/img/about/down-filled-triangular-arrow.png' className={`${showSubItem === "Master Data" ? 'img-roted' : 'img-roted_unset'}`} /> : ""}</Nav.Link>
                           </div>
                           {
                             showSubItem === subItem.text && "subData" in subItem &&
                             subItem.subData?.map((subSubItem) => (
-                              <div className='d-flex align-items-center gap-5 ms-2 my-4 mx-4 ps-5'>
+                              <div className='d-flex align-items-center gap-5 my-4 mx-4 ps-3'>
                                 <subSubItem.img size={16} />
                                 <NavLink className='text-dark text-decoration-none' to={subSubItem.path} style={{ display: "block" }}>{subSubItem.text}</NavLink>
                               </div>

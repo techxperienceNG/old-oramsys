@@ -15642,14 +15642,24 @@ div#wrapper.open>.offcanvas-mask {
   width: 300px;
   /* padding: 25px; */
   /* background: #082979; */
-  height: 100vh;
-  border: 1px solid #F1F1F1;
+  /* height: 100vh; */
+  border-right: 1px solid #F1F1F1;
   display: block;
   position: none;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   /* position: fixed;
   top: 0px;
   z-index: 111; */
   /* background-color: rgb(249, 249, 249); */
+}
+.sidebar-main::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar-main::-webkit-scrollbar-thumb {
+  width: 5px;
+  background: lightgrey;
 }
 
 /* .sidebar_responsive {

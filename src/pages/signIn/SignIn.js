@@ -8,6 +8,7 @@ import { LOGIN } from '../../redux/types';
 import svgIcon from '../../css/undraw_remotely_2j6y.svg'
 import '../../css/login.css'
 import '../../css/bootstrap.min.css'
+import Lottie from 'react-lottie';
 
 const SignIn = () => {
     let emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;

@@ -226,8 +226,8 @@ const Transactions = () => {
                   <div class="mb-2 d-flex justify-content-between align-items-center">
 
                     <div class="position-relative">
-                      {/* <span class="position-absolute search pe-4"><i class="fa fa-search"></i></span> */}
-                      <input className="form-control w-100" placeholder="Search transaction..." />
+                      <span class="position-absolute search"><i class="fa fa-search"></i></span>
+                      <input className="form-control w-100 ps-5" placeholder="Search transaction..." />
                     </div>
 
                     {/* <div class="px-2">

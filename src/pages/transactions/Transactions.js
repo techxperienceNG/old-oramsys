@@ -230,15 +230,15 @@ const Transactions = () => {
                       <input className="form-control w-100 ps-5" placeholder="Search transaction..." />
                     </div>
 
-                    {/* <div class="px-2">
+                    <div class="pe-5">
 
-                      <span>Filters <i class="fa fa-angle-down"></i></span>
-                      <i class="fa fa-ellipsis-h ms-3"></i>
-                    </div> */}
+                      <span class="text-muted text-sm"><Paginate postsPerPage={postsPerPage} totalPosts={getAlltransactionData?.data?.length} paginate={paginate} prevPagefunc={() => setCurrentPage(prev => prev - 1)} nextPagefunc={() => setCurrentPage(prev => prev + 1)} currentPage={currentPage} /> </span>
+                      {/* <i class="fa fa-ellipsis-h ms-3"></i> */}
+                    </div>
 
                   </div>
                   <div class="table-responsive">
-                    <table class="table table-responsive table-hover table-borderless">
+                    <table class="table table-responsive table-bordered table-hover table-borderless">
 
                       <thead>
                         <tr class="bg-light">
@@ -347,10 +347,10 @@ const Transactions = () => {
                       </tbody>
                       {getAlltransactionData?.data?.length < 1 && <div className='text-center mx-auto container py-5 my-5 m-5'> No records were found</div> }
                     </table>
-                    <div class="card-footer border-0 py-2">
+                    {/* <div class="card-footer border-0 py-2">
 
                       <span class="text-muted text-sm"><Paginate postsPerPage={postsPerPage} totalPosts={getAlltransactionData?.data?.length} paginate={paginate} prevPagefunc={() => setCurrentPage(prev => prev - 1)} nextPagefunc={() => setCurrentPage(prev => prev + 1)} currentPage={currentPage} /> </span>
-                    </div>
+                    </div> */}
                   </div>
 
                 </div>

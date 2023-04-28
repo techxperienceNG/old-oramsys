@@ -16,6 +16,7 @@ import { HiOutlineUsers } from "react-icons/hi";
 import { GiCargoShip } from "react-icons/gi";
 import { ImOffice } from "react-icons/im";
 import { IoMdLogOut } from "react-icons/io";
+import Fade from 'react-reveal/Fade';
 
 
 const Sidebar = ({ showSidebar, setSidebar }) => {
@@ -180,7 +181,7 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
     
 
          {/* <!-- Vertical Navbar --> */}
-    
+        <Fade left>
       <div className={`${showSidebar ? ' sidebar-main' : 'sidebar-main '}`}>
         <GrClose size={30} className="close_sidebar" onClick={() => setSidebar(!showSidebar)} />
         {/* <img src="../../../assets/img/about/close.png" className="close_sidebar" onClick={() => setSidebar(!showSidebar)} /> */}
@@ -252,6 +253,7 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
       <div className="sidebar_responsive">
 
       </div>
+      </Fade>
       {showModal && <LogoutModal show={showModal} onHide={() => setshowModal(false)} />}
     </>
   )

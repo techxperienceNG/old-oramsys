@@ -238,7 +238,7 @@ const Transactions = () => {
 
                   </div>
                   <div class="table-responsive">
-                    <table class="table table-responsive table-bordered table-hover table-borderless">
+                    <table class="table table-responsive table-hover table-borderless">
 
                       <thead>
                         <tr class="bg-light">

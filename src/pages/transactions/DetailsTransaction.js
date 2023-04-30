@@ -1272,7 +1272,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                       shrink: true,
                     }}
                     inputProps={{
-                      max: contractDetails.contractDate
+                      min: contractDetails.contractDate
                         ? new Date(contractDetails.contractDate)
                             .toISOString()
                             .split("T")[0]

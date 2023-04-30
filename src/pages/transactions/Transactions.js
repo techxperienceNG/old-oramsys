@@ -327,6 +327,7 @@ const Transactions = () => {
                                     </div>
                                     <div class=''>
                                         <MdVisibility  onClick={() => { data.termSheet === "Not Signed" ? downloadTermSheet(data._id, "view") : ViewRiskAssessment() }}data-tooltip-id='viewriskassesment' data-tooltip-content='View Termsheet' size={18} />
+                                        {/* { rowData.termSheet === 'Not Signed' ? downloadTermSheet(rowData._id, 'view') : ViewRiskAssessment() } */}
                                         <Tooltip id='viewriskassesment' place='top' effect='solid' />
                                     
                                     </div>

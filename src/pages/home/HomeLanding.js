@@ -373,22 +373,22 @@ const HomeLanding = () => {
                 <div className='card shadow border-0 mb-7'>
                   <div className='card-header'>
 
-                    <div classname="input-group w-50 ">
-                      <input type="text" id='search' onChange={(e) => setSearch(e.target.value)} placeholder="Search transaction..." classname="form-control" />
-                      {/* <button type="button" classname="btn btn-primary btn-lg">
+                    <div className="input-group w-50 ">
+                      <input type="text" id='search' onChange={(e) => setSearch(e.target.value)} placeholder="Search transaction..." className="form-control" />
+                      {/* <button type="button" className="btn btn-primary btn-lg">
                       <FaSearch />
                     </button> */}
                     </div>
-                    <div className='table-responsive'>
+                    <div className='table-responsive text-center'>
                       <table className='table table-bordered border-light caption-top border-2 table-hover table-nowrap'>
-                        <thead className='thead-light'>
+                        <thead className='thead-light text-center'>
                           <tr>
                             <th scope='col'>Date Created</th>
                             <th scope='col'>Borrower</th>
                             <th scope='col'>Lender</th>
                             <th scope='col'>Value</th>
                             <th scope='col'>Status</th>
-                            {/* <th scope='col'>Actions</th> */}
+                            <th scope='col'>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -396,7 +396,7 @@ const HomeLanding = () => {
                             getAlltransactionData?.data?.filter((item) => {
                               return search.toLowerCase() === '' ? item : item.borrower_Applicant.toLowerCase().includes(search)
                             }).map((data, i) => (
-                              <tr key={data.id}>
+                              <tr key={data.id} text-center>
                                 <td>
                                   {new Date(data.createdAt).toLocaleDateString("en-US", DATE_OPTIONS)}
                                 </td>

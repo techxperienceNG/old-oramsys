@@ -378,7 +378,7 @@ const HomeLanding = () => {
                       {/* <button type="button" className="btn btn-primary btn-lg">
                       <FaSearch />
                     </button> */}
-                    <div>Applications</div>
+                    <h4>Applications</h4>
                     </div>
                     <div className='table-responsive text-center'>
                       <table className='table table-bordered border-light caption-top border-2 table-hover table-nowrap'>
@@ -389,7 +389,7 @@ const HomeLanding = () => {
                             <th scope='col'>Lender</th>
                             <th scope='col'>Value</th>
                             <th scope='col'>Status</th>
-                            {/* <th scope='col'>Actions</th> */}
+                            <th scope='col'>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -428,7 +428,7 @@ const HomeLanding = () => {
                                     </span>
                                   )}
                                 </td>
-                                {/* <td className='text-end'>
+                                <td className='text-end'>
                                   <Link to='#' onClick={() => {
                                     data.termSheet === 'Not Signed' ? downloadTermSheet(data._id, 'view') : ViewRiskAssessment()
                                   }} className='btn btn-sm btn-neutral'>
@@ -443,18 +443,18 @@ const HomeLanding = () => {
                                   >
                                     <i className='bi bi-arrow-down'></i>
                                   </Button>
-                                </td> */}
+                                </td>
                               </tr>
                             ))}
 
                         </tbody>
                       </table>
                     </div>
-                    <div className='card-footer border-0 py-5'>
+                    {/* <div className='card-footer border-0 py-5'>
                       <span className='text-muted text-sm'>
 
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 </Slide>

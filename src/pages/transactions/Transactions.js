@@ -34,7 +34,7 @@ const Transactions = () => {
   const [transaction, setTransaction] = useState([])
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [postsPerPage, setPostsPerPage] = useState(4)
+  const [postsPerPage, setPostsPerPage] = useState(2)
 
   const getAlltransactionData = useSelector(
     (state) => state.transactionData.getAllTransaction
@@ -231,8 +231,7 @@ const Transactions = () => {
                     </div>
 
                     <div class="pe-5">
-
-                      <span class="text-muted text-sm"><Paginate postsPerPage={postsPerPage} totalPosts={getAlltransactionData?.data?.length} paginate={paginate} prevPagefunc={() => setCurrentPage(prev => prev - 1)} nextPagefunc={() => setCurrentPage(prev => prev + 1)} currentPage={currentPage} /> </span>
+                      <span class="text-muted text-sm"><Paginate postsPerPage={postsPerPage} totalPosts={getAlltransactionData?.data?.length} paginate={paginate} prevPagefunc={() => setCurrentPage(prev => prev - 1)} nextPagefunc={() => setCurrentPage(prev => prev + 1)} currentPage={currentPage} currentTrans={currentTrans} /> </span>
                       {/* <i class="fa fa-ellipsis-h ms-3"></i> */}
                     </div>
 
@@ -250,14 +249,6 @@ const Transactions = () => {
                           <th scope="col" width="10%">Value</th>
                           <th scope="col" width="20%">Termsheet</th>
                           <th scope="col" class="" width="20%"><span>Actions</span></th>
-                          {/* <th scope="col" className='col-2' >Date</th>
-                          <th scope="col" className='col-2'>Transaction Number</th>
-                          <th scope="col" className='col-2' width="10%">Applicant</th>
-                          <th scope="col" className='col-2'>Lender</th>
-                          <th scope="col" className='col-2'>Product</th>
-                          <th scope="col" className='col-2'>Value</th>
-                          <th scope="col" className='col-2'>Termsheet</th>
-                          <th scope="col" className='col-2' class="text-end"><span>Actions</span></th> */}
                         </tr>
                       </thead>
                       <tbody>
@@ -345,8 +336,9 @@ const Transactions = () => {
                           )) }
                        
                       </tbody>
-                      {getAlltransactionData?.data?.length < 1 && <div className='text-center mx-auto container py-5 my-5 m-5'> No records were found</div> }
+                     
                     </table>
+                    {getAlltransactionData?.data?.length < 1 && <div className='text-center mx-auto container py-5 my-5 m-5'> No records were found</div> }
                     {/* <div class="card-footer border-0 py-2">
 
                       <span class="text-muted text-sm"><Paginate postsPerPage={postsPerPage} totalPosts={getAlltransactionData?.data?.length} paginate={paginate} prevPagefunc={() => setCurrentPage(prev => prev - 1)} nextPagefunc={() => setCurrentPage(prev => prev + 1)} currentPage={currentPage} /> </span>

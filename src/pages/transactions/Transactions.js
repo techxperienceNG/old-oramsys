@@ -34,7 +34,9 @@ const Transactions = () => {
   const [transaction, setTransaction] = useState([])
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [postsPerPage, setPostsPerPage] = useState(2)
+  const [postsPerPage, setPostsPerPage] = useState(10)
+  const [search, setSearch] = useState('')
+  const [searched, setSearched] = useState(true)
 
   const getAlltransactionData = useSelector(
     (state) => state.transactionData.getAllTransaction
@@ -227,11 +229,11 @@ const Transactions = () => {
 
                     <div class="position-relative">
                       <span class="position-absolute search"><i class="fa fa-search"></i></span>
-                      <input className="form-control w-100 ps-5" placeholder="Search transaction..." />
+                      <input type="text" id='search' onChange={(e) => setSearch(e.target.value)} className="form-control w-100 ps-5" placeholder="Search transaction..." />
                     </div>
 
                     <div class="pe-5">
-                      <span class="text-muted text-sm"><Paginate postsPerPage={postsPerPage} totalPosts={getAlltransactionData?.data?.length} paginate={paginate} prevPagefunc={() => setCurrentPage(prev => prev - 1)} nextPagefunc={() => setCurrentPage(prev => prev + 1)} currentPage={currentPage} currentTrans={currentTrans} /> </span>
+                      {/* <span class="text-muted text-sm"><Paginate postsPerPage={postsPerPage} totalPosts={getAlltransactionData?.data?.length} paginate={paginate} prevPagefunc={() => setCurrentPage(prev => prev - 1)} nextPagefunc={() => setCurrentPage(prev => prev + 1)} currentPage={currentPage} currentTrans={currentTrans} /> </span> */}
                       {/* <i class="fa fa-ellipsis-h ms-3"></i> */}
                     </div>
 
@@ -245,15 +247,17 @@ const Transactions = () => {
                           <th scope="col" width="15%">Transaction Number</th>
                           <th scope="col" width="10%">Applicant</th>
                           <th scope="col" width="15%">Lender</th>
-                          <th scope="col" width="20%">Product</th>
                           <th scope="col" width="10%">Value</th>
+                          <th scope="col" width="20%">Product</th>
                           <th scope="col" width="20%">Termsheet</th>
                           <th scope="col" class="" width="20%"><span>Actions</span></th>
                         </tr>
                       </thead>
                       <tbody>
-                        {!currentTrans ? <Loader /> : currentTrans.length > 0 &&
-                          currentTrans?.map((data) => (
+                        {!currentTrans ? <Loader className='text-center mx-auto container py-5 my-5 m-5' /> : currentTrans.length > 0 &&
+                          currentTrans?.filter((item) => {
+                            return search.toLowerCase() === '' ? item : item.borrower_Applicant.toLowerCase().includes(search)
+                          }).map((data) => (
                             <tr className='text-center'>
                               <td style={{ fontSize: "0.9rem" }} className='py-4 fst-normal'>
                                 {new Date(data.createdAt).toLocaleDateString("en-US", DATE_OPTIONS)}
@@ -338,11 +342,12 @@ const Transactions = () => {
                       </tbody>
                      
                     </table>
+                    {!searched && <div className='text-center mx-auto container py-5 my-5 m-5'> No records were found</div> }
                     {getAlltransactionData?.data?.length < 1 && <div className='text-center mx-auto container py-5 my-5 m-5'> No records were found</div> }
-                    {/* <div class="card-footer border-0 py-2">
+                    <div class="card-footer border-0 py-2">
 
-                      <span class="text-muted text-sm"><Paginate postsPerPage={postsPerPage} totalPosts={getAlltransactionData?.data?.length} paginate={paginate} prevPagefunc={() => setCurrentPage(prev => prev - 1)} nextPagefunc={() => setCurrentPage(prev => prev + 1)} currentPage={currentPage} /> </span>
-                    </div> */}
+                       <span class="text-muted text-sm"><Paginate postsPerPage={postsPerPage} totalPosts={getAlltransactionData?.data?.length} paginate={paginate} prevPagefunc={() => setCurrentPage(prev => prev - 1)} nextPagefunc={() => setCurrentPage(prev => prev + 1)} currentPage={currentPage} currentTrans={currentTrans} /> </span>
+                    </div>
                   </div>
 
                 </div>

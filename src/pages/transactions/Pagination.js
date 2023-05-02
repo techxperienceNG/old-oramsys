@@ -12,7 +12,7 @@ const Paginate = ({ postsPerPage, totalPosts, currentTrans, paginate, prevPagefu
     return (
         <div className='d-flex align-items-center justify-content-between' aria-label="...">
             <div className='pe-4'>
-            <span className="text-muted fs-6 fw-light">Showing {currentTrans.length } out of {totalPosts}</span>
+            <span className="text-muted fs-6 fw-light">Showing {currentTrans?.length } out of {totalPosts}</span>
 
             </div>
             <ul className="pagination pagination-md">
@@ -27,7 +27,7 @@ const Paginate = ({ postsPerPage, totalPosts, currentTrans, paginate, prevPagefu
                     </li>
 
                 ))}
-                <li className={`page-item cursor-pointer ${currentPage === pageNumbers.length ? 'disabled' : ''}`}>
+                <li className={`page-item cursor-pointer ${currentPage === pageNumbers?.length ? 'disabled' : ''}`}>
                     <span onClick={nextPagefunc} className="page-link">Next</span>
                 </li>
             </ul>

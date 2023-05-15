@@ -9,6 +9,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useDispatch, useSelector } from 'react-redux';
 import { CurrencyOptions } from "../../helper/common"
 import { transactionDataAction } from '../../redux/actions/transactionDataAction'
+import { MdOutlineDeleteOutline } from 'react-icons/md'
+import { entityGetAction } from '../../redux/actions/entityAction'
 
 const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getBorrower }) => {
     const dispatch = useDispatch()
@@ -29,10 +31,17 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
     const [keyParties, setkeyParties] = useState([{
         'party_relation': '', 'buyer': '', 'shipper': '', 'upload_evidence': ''
     }])
+    const [relatedPartyDetails, setRelatedPartyDetails] = useState([{
+        'buyer': '', 'shipper': '', 'party_relation': '', 'upload_evidence': ''
+    }])
     const [editMode, setEditMode] = useState(false);
     const [relation, setRelation] = useState();
 
     const [warehouses, setWarehouses] = useState([])
+    const [party, setParty] = useState({
+        name: "",
+        type: ""
+    })
     const parties = [{
         label: 'Subsidiary',
         value: 'subsidiary',
@@ -51,10 +60,22 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
         value: 'none',
         prefix: ''
     }
-];
+    ];
     const transactionData = useSelector((state) => state.transactionData.transactionData)
     const getTransactionByIdData = useSelector((state) => state.transactionData.getTransactionById)
 
+    const handleRelatedParties = () => {
+        setRelatedPartyDetails([...relatedPartyDetails, { 'buyer': '', 'shipper': '', 'party_relation': '', 'upload_evidence': '' }])
+    }
+    const handleRemoveParty = (index) => {
+        const list = [...relatedPartyDetails]
+        list.splice(index, 1)
+        setRelatedPartyDetails(list)
+    }
+
+    useEffect(() => {
+        dispatch(entityGetAction('Company'))
+    }, [])
     useEffect(() => {
         // console.log('getTransactionByIdData.data?.keyparties',getTransactionByIdData.data?.keyParties[0].relatedParties);
         if (getTransactionByIdData && getTransactionByIdData.data) {
@@ -240,8 +261,8 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                     </Col>
                                 </Row>
                         },
-                        { title: 'Name', field: 'name.label' },
-                        { title: 'Label', field: 'type.label' },
+                        { title: 'Party', field: 'name.label' },
+                        { title: 'Role', field: 'type.label' },
 
                     ]}
                     data={tableData}
@@ -272,90 +293,154 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                     }}
                 />
             </div>
-            <div className='add-edit-product parties_main'>
+            <div className='add-edit-product parties_main mb-4'>
                 <div className='form' style={{ backgroundColor: "rgb(243, 243, 243)", border: "none" }}>
-                    <h5 className="title-color">Related parties</h5>
+                    {/* <h5 className="title-color">Related parties</h5>
+                    <button className={`add_btn me-3 ${isView ? 'd-none' : 'd-block'}`} onClick={() => { setShowEditModal(!showEditModal) }}> <img src='../../assets/img/about/plus.png' className='me-2' />Add</button> */}
 
+                    <div className='mb-3 d-flex justify-content-between align-items-center'>
+                        <h5 className="title-color">Related Parties</h5>
+                        <button className={`add_btn me-3 ${isView ? 'd-none' : 'd-block'}`}
+                            onClick={handleRelatedParties}>
+                            <img src='../../assets/img/about/plus.png' className='me-2' />New party relation</button>
+                    </div>
                     {buyer_data_loop.map((val, ind) => (
-                      <>
-                      <Row>
-                          <Col lg={3}>
-                              <div className='d-flex'>
-                                  <img src='../../../assets/img/about/Tag.png' style={{ "height": "30px", "top": "22px", "position": "relative" }} />
-                                  <Autocomplete
-                                      className='ms-3 mb-3 w-100'
-                                      options={buyers}
-                                      getOptionLabel={(option) => option.label || ""}
-                                      id={"disable-clearable-buyer" + ind}
-                                      label="Buyer"
-                                      renderInput={(params) => (
-                                          <TextField {...params} label="Buyer" variant="standard" />
-                                      )}
-              
-                                      getOptionSelected={(option) => option.label === 'test'}
-                                      onChange={(event, newValue) => handleBuyer(event, newValue, ind)}
-                                      disableClearable
-                                  />
-                              </div>
-                          </Col>
-                          <Col lg={3}>
-                              {warehouses.map((element) => (
-                                  <><div className='d-flex'>
-                                      <img src='../../../assets/img/about/Deliver.png' style={{ "height": "30px", "top": "22px", "position": "relative" }} />
-                                      <Autocomplete
-                                          className='ms-3 mb-3 w-100'
-                                          options={warehouses}
-                                          getOptionLabel={(option) => option.name}
-                                          id={"disable-clearable-shipper-" + ind}
-                                          label="Shipper"
-                                          renderInput={(params) => (
-                                              <TextField {...params} label="Shipper" variant="standard" />
-                                          )}
-                                          getOptionSelected={(option) => option.name === 'test'}
-                                          onChange={(event, newValue) => handleShipper(event, newValue, ind)}
-                                          disableClearable
-                                      />
-                                  </div></>
-                              ))}
-              
-                          </Col>
-                          <Col lg={4}>
-                              <div className='d-flex align-items-center Related_parties'>
-                                  <p className='mb-0 title-color'>Party Relation</p>
-                                  <Autocomplete
-                                      className='ms-3 mb-3'
-                                      options={parties}
-                                      getOptionLabel={(option) => option.label}
-                                      id={"disable-clearable-relation-party" + ind}
-                                      label="Party Relation"
-                                      renderInput={(params) => (
-                                          <TextField {...params} label="Party Relation" variant="standard" />
-                                      )}
-                                      getOptionSelected={(option) => option.label === 'test'}
-                                      onChange={(event, newValue) => {handleRelation(event, newValue, ind); setRelation(parties)}}
-                                      disableClearable
-                                  />
-                              </div>
-              
-                          </Col>
-                          {relation ? <Col lg={2}>
-                              <div className='drag-and-drop'>
-                                  <DropzoneArea
-                                      Icon="none"
-                                      filesLimit={1}
-                                      showPreviews={true}
-                                      showPreviewsInDropzone={false}
-                                      useChipsForPreview
-                                      previewGridProps={{ container: { spacing: 1, } }}
-                                      dropzoneText='Upload Evidence'
-                                      previewText=""
-                                      onChange={(file) => handleChangeFile(file[0], ind)}
-                                  />
-                              </div>
-                          </Col> : '' }
-                        
-                      </Row>
-                  </>
+                        <>
+                            {relatedPartyDetails?.map((party, index) => (
+                                <Row key={index}>
+                                    <>
+
+                                        {/* <Col lg={3}>
+                                            <div className='d-flex ms-4'>
+                                                <img src='../../../assets/img/about/Tag.png' style={{ "height": "30px", "top": "22px", "position": "relative" }} />
+                                                <Autocomplete
+                                                    className='ms-3 mb-3 w-100'
+                                                    options={names}
+                                                    getOptionLabel={(option) => option.label || ""}
+                                                    id={"disable-clearable-buyer" + ind}
+                                                    label="Buyer"
+                                                    renderInput={(params) => (
+                                                        <TextField {...params} label="Party 1" variant="standard" />
+                                                    )}
+                                                    defaultValue={relatedParties.buyer}
+                                                    getOptionSelected={(option) => option.label === 'test'}
+                                                    onChange={(event, newValue) => handleBuyer(event, newValue, ind)}
+                                                    disableClearable
+                                                />
+                                            </div>
+                                        </Col> */}
+                                        <Col lg={3}>
+                                            <Autocomplete
+                                                options={names}
+                                                getOptionLabel={(option) => option.details ? option.details?.name : ""}
+                                                id="disable-clearable"
+                                                label="Party"
+                                                renderInput={(params) => (
+                                                    <TextField {...params} label="Party 1" variant="standard" />
+                                                )}
+                                                onChange={(event, newValue) => {
+                                                    setParty({ ...party, name: { value: newValue._id, label: newValue.details?.name } });
+                                                }}
+                                                disabled={isView}
+                                                value={(names && party.name) && names.find((ele) => ele._id === party.name?.value)}
+                                                disableClearable
+                                            />
+                                            {error && error?.name && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.name}</span>}
+                                        </Col>
+
+                                        <Col lg={3}>
+                                            <Autocomplete
+                                                options={names}
+                                                getOptionLabel={(option) => option.details ? option.details?.name : ""}
+                                                id="disable-clearable"
+                                                label="Party"
+                                                renderInput={(params) => (
+                                                    <TextField {...params} label="Party 2" variant="standard" />
+                                                )}
+                                                onChange={(event, newValue) => {
+                                                    setParty({ ...party, name: { value: newValue._id, label: newValue.details?.name } });
+                                                }}
+                                                disabled={isView}
+                                                value={(names && party.name) && names.find((ele) => ele._id === party.name?.value)}
+                                                disableClearable
+                                            />
+                                            {error && error?.name && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.name}</span>}
+                                        </Col>
+
+                                        {/* {warehouses.map((element) => ( */}
+
+                                        {/* <Col lg={3}>
+                                            <><div className='d-flex'>
+                                                <img src='../../../assets/img/about/Deliver.png' style={{ "height": "30px", "top": "22px", "position": "relative" }} />
+                                                <Autocomplete
+                                                    className='ms-3 mb-3 w-100'
+                                                    options={warehouses}
+                                                    getOptionLabel={(option) => option.name}
+                                                    id={"disable-clearable-shipper-" + ind}
+                                                    label="Shipper"
+                                                    renderInput={(params) => (
+                                                        <TextField {...params} label="Party 2" variant="standard" />
+                                                    )}
+                                                    defaultValue={relatedParties.shipper}
+                                                    getOptionSelected={(option) => option.name === 'test'}
+                                                    onChange={(event, newValue) => handleShipper(event, newValue, ind)}
+                                                    disableClearable
+                                                />
+                                            </div></>
+                                                        
+
+                                        </Col> */}
+                                        <Col lg={4}>
+                                            <div className='d-flex align-items-center Related_parties'>
+                                                <p className='mb-0 title-color'>Relation</p>
+                                                <Autocomplete
+                                                    className='ms-3 mb-3'
+                                                    options={parties}
+                                                    getOptionLabel={(option) => option.label}
+                                                    id={"disable-clearable-relation-party" + ind}
+                                                    label="Party Relation"
+                                                    renderInput={(params) => (
+                                                        <TextField {...params} label="Party Relation" variant="standard" />
+                                                    )}
+                                                    defaultValue={relatedPartyDetails.party_relation}
+                                                    getOptionSelected={(option) => option.label === 'test'}
+                                                    onChange={(event, newValue) => { handleRelation(event, newValue, ind); setRelation(parties) }}
+                                                    disableClearable
+                                                />
+                                            </div>
+
+                                        </Col>
+                                        {relation && <Col lg={2}>
+                                            <div className='drag-and-drop'>
+                                                <DropzoneArea
+                                                    Icon="none"
+                                                    filesLimit={1}
+                                                    showPreviews={true}
+                                                    defaultValue={relatedPartyDetails.upload_evidence}
+                                                    showPreviewsInDropzone={false}
+                                                    useChipsForPreview
+                                                    previewGridProps={{ container: { spacing: 1, } }}
+                                                    dropzoneText='Upload Evidence'
+                                                    previewText=""
+                                                    onChange={(file) => handleChangeFile(file[0], ind)}
+                                                />
+                                            </div>
+                                        </Col>}
+
+                                        {/* <Col lg={2}>
+                                        <div className=''>
+                                    <MdOutlineDeleteOutline onClick={() => handleRemoveParty(index)} className='cursor-pointer' size={30} />
+                                    </div> 
+                                        </Col> */}
+
+                                    </>
+                                    {/* <div className='d-flex justify-content-end '>
+                                    <MdOutlineDeleteOutline className='mb-5' size={30} />
+                                    </div> */}
+                                </Row>
+                            ))}
+                        </>
+
                     ))}
 
 

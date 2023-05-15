@@ -164,7 +164,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
     }, [ports, airBase, countries, shippingOptions])
 
     useEffect(() => {
-         console.log('airBase', airBase);
+        console.log('airBase', airBase);
         console.log('=======airBase', airBase.data)
     }, [airBase])
 
@@ -404,153 +404,153 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                 respProductDetails?.quantity,
                             metric: respProductDetails?.metric,
 
-                        quality: getTransactionByIdData.data?.details?.productDetails?.quality,
-                    })
-                    // setProductDetails({
-                    //      commoditySubType: getTransactionByIdData.data?.details?.productDetails
-                    //         ?.commoditySubType
-                    // })
-
-                    console.log('product.product details at', productDetails);
-                    setContractDetails({
-                        currency:
-                            getTransactionByIdData.data?.details?.contractDetails?.currency,
-                        value: getTransactionByIdData.data?.details?.contractDetails?.value,
-                        contractDate:
-                            getTransactionByIdData.data?.details?.contractDetails?.contractDate &&
-                            moment(
-                                getTransactionByIdData.data?.details?.contractDetails?.contractDate
-                            ).format("YYYY-MM-DD"),
-                        expiryDate:
-                            getTransactionByIdData.data?.details?.contractDetails?.expiryDate &&
-                            moment(
-                                getTransactionByIdData.data?.details?.contractDetails?.expiryDate
-                            ).format("YYYY-MM-DD"),
-                        conditionsOfContract:
-                            getTransactionByIdData.data?.details?.contractDetails
-                                ?.conditionsOfContract,
-                        descriptionOfContract:
-                            getTransactionByIdData.data?.details?.contractDetails
-                                ?.descriptionOfContract,
-                    })
-
-                    setShippingOptions({
-                        shipmentDate:
-                            getTransactionByIdData.data?.details?.shippingOptions?.shipmentDate &&
-                            moment(
-                                getTransactionByIdData.data?.details?.shippingOptions?.shipmentDate
-                            ).format("YYYY-MM-DD"),
-                        shipmentMode:
-                            getTransactionByIdData.data?.details?.shippingOptions?.shipmentMode,
-                        shipmentTerms:
-                            getTransactionByIdData.data?.details?.shippingOptions?.shipmentTerms,
-                        shippedWeights:
-                            getTransactionByIdData.data?.details?.shippingOptions?.shippedWeights.toLocaleString(),
-                        countryOfOrigin:
-                            getTransactionByIdData.data?.details?.shippingOptions?.countryOfOrigin
-                                ?._id,
-                        portOfOrigin:
-                            getTransactionByIdData.data?.details?.shippingOptions?.portOfOrigin
-                                ?._id,
-                        airbaseOfOrigin:
-                            getTransactionByIdData.data?.details?.shippingOptions?.airbaseOfOrigin
-                                ?._id,
-                        destinationCountry:
-                            getTransactionByIdData.data?.details?.shippingOptions
-                                ?.destinationCountry?._id,
-                        destinationPort:
-                            getTransactionByIdData.data?.details?.shippingOptions?.destinationPort
-                                ?._id,
-                        destinationAirbase:
-                            getTransactionByIdData.data?.details?.shippingOptions
-                                ?.destinationAirbase?._id,
-                        shipmentFrequency:
-                            getTransactionByIdData.data?.details?.shippingOptions
-                                ?.shipmentFrequency,
-                        warehouseRequired:
-                            getTransactionByIdData.data?.details?.shippingOptions
-                                ?.warehouseRequired,
-                        warehouses:
-                            getTransactionByIdData.data?.details?.shippingOptions?.warehouses.map(
-                                (item) => {
-                                    return {
-                                        warehouse: {
-                                            value: item?.warehouse?._id,
-                                            label: item?.warehouse?.name,
-                                        },
-                                        warehouseCompany: {
-                                            value: item?.warehouseCompany?._id,
-                                            label: item?.warehouseCompany?.details?.name,
-                                        },
-                                    }
-                                }
-                            ),
-                    })
-
-                    setTransShipmentOptions({
-                        tranShipmentRequired:
-                            getTransactionByIdData.data?.details?.transShipmentOptions
-                                ?.tranShipmentRequired,
-                        street:
-                            getTransactionByIdData.data?.details?.transShipmentOptions?.street,
-                        city: getTransactionByIdData.data?.details?.transShipmentOptions?.city,
-                        country:
-                            getTransactionByIdData.data?.details?.transShipmentOptions?.country
-                                ?._id,
-                        transShipmentQuantity:
-                            getTransactionByIdData.data?.details?.transShipmentOptions
-                                ?.transShipmentQuantity,
-                        transShipmentDate:
-                            getTransactionByIdData.data?.details?.transShipmentOptions
-                                ?.transShipmentDate &&
-                            moment(
-                                getTransactionByIdData.data?.details?.transShipmentOptions
-                                    ?.transShipmentDate
-                            ).format("YYYY-MM-DD"),
-                    })
-
-                    setPricingDetails({
-                        pricingType:
-                            getTransactionByIdData.data?.details?.pricingDetails?.pricingType,
-                        pricingAmount:
-                            getTransactionByIdData.data?.details?.pricingDetails?.pricingAmount.toLocaleString(),
-                        pricingUnit:
-                            getTransactionByIdData.data?.details?.pricingDetails?.pricingUnit,
-                        previousDayClosingAmount:
-                            getTransactionByIdData.data?.details?.pricingDetails
-                                ?.previousDayClosingAmount,
-                        pricingFormula:
-                            getTransactionByIdData.data?.details?.pricingDetails?.pricingFormula,
-                        pricingHedgeingStatus:
-                            getTransactionByIdData.data?.details?.pricingDetails
-                                ?.pricingHedgingStatus,
-                        pricingHedgingMethod:
-                            getTransactionByIdData.data?.details?.pricingDetails
-                                ?.pricingHedgingMethod,
-                        pricingCounterParty:
-                            getTransactionByIdData.data?.details?.pricingDetails
-                                ?.pricingCounterParty?._id,
-                    })
-
-                    if (respProductDetails.commoditySubType != undefined) {
-                        let product = [];
-                        productData.data.forEach((item) => {
-                            if (item.commodity_sub_type == respProductDetails.commoditySubType) {
-                                product.push(item);
-                            }
+                            quality: getTransactionByIdData.data?.details?.productDetails?.quality,
                         })
-                        setProductName(product);
-                    } else {
-                        if (productData && productData.data) {
-                            setProductName(productData.data)
+                        // setProductDetails({
+                        //      commoditySubType: getTransactionByIdData.data?.details?.productDetails
+                        //         ?.commoditySubType
+                        // })
+
+                        console.log('product.product details at', productDetails);
+                        setContractDetails({
+                            currency:
+                                getTransactionByIdData.data?.details?.contractDetails?.currency,
+                            value: getTransactionByIdData.data?.details?.contractDetails?.value,
+                            contractDate:
+                                getTransactionByIdData.data?.details?.contractDetails?.contractDate &&
+                                moment(
+                                    getTransactionByIdData.data?.details?.contractDetails?.contractDate
+                                ).format("YYYY-MM-DD"),
+                            expiryDate:
+                                getTransactionByIdData.data?.details?.contractDetails?.expiryDate &&
+                                moment(
+                                    getTransactionByIdData.data?.details?.contractDetails?.expiryDate
+                                ).format("YYYY-MM-DD"),
+                            conditionsOfContract:
+                                getTransactionByIdData.data?.details?.contractDetails
+                                    ?.conditionsOfContract,
+                            descriptionOfContract:
+                                getTransactionByIdData.data?.details?.contractDetails
+                                    ?.descriptionOfContract,
+                        })
+
+                        setShippingOptions({
+                            shipmentDate:
+                                getTransactionByIdData.data?.details?.shippingOptions?.shipmentDate &&
+                                moment(
+                                    getTransactionByIdData.data?.details?.shippingOptions?.shipmentDate
+                                ).format("YYYY-MM-DD"),
+                            shipmentMode:
+                                getTransactionByIdData.data?.details?.shippingOptions?.shipmentMode,
+                            shipmentTerms:
+                                getTransactionByIdData.data?.details?.shippingOptions?.shipmentTerms,
+                            shippedWeights:
+                                getTransactionByIdData.data?.details?.shippingOptions?.shippedWeights.toLocaleString(),
+                            countryOfOrigin:
+                                getTransactionByIdData.data?.details?.shippingOptions?.countryOfOrigin
+                                    ?._id,
+                            portOfOrigin:
+                                getTransactionByIdData.data?.details?.shippingOptions?.portOfOrigin
+                                    ?._id,
+                            airbaseOfOrigin:
+                                getTransactionByIdData.data?.details?.shippingOptions?.airbaseOfOrigin
+                                    ?._id,
+                            destinationCountry:
+                                getTransactionByIdData.data?.details?.shippingOptions
+                                    ?.destinationCountry?._id,
+                            destinationPort:
+                                getTransactionByIdData.data?.details?.shippingOptions?.destinationPort
+                                    ?._id,
+                            destinationAirbase:
+                                getTransactionByIdData.data?.details?.shippingOptions
+                                    ?.destinationAirbase?._id,
+                            shipmentFrequency:
+                                getTransactionByIdData.data?.details?.shippingOptions
+                                    ?.shipmentFrequency,
+                            warehouseRequired:
+                                getTransactionByIdData.data?.details?.shippingOptions
+                                    ?.warehouseRequired,
+                            warehouses:
+                                getTransactionByIdData.data?.details?.shippingOptions?.warehouses.map(
+                                    (item) => {
+                                        return {
+                                            warehouse: {
+                                                value: item?.warehouse?._id,
+                                                label: item?.warehouse?.name,
+                                            },
+                                            warehouseCompany: {
+                                                value: item?.warehouseCompany?._id,
+                                                label: item?.warehouseCompany?.details?.name,
+                                            },
+                                        }
+                                    }
+                                ),
+                        })
+
+                        setTransShipmentOptions({
+                            tranShipmentRequired:
+                                getTransactionByIdData.data?.details?.transShipmentOptions
+                                    ?.tranShipmentRequired,
+                            street:
+                                getTransactionByIdData.data?.details?.transShipmentOptions?.street,
+                            city: getTransactionByIdData.data?.details?.transShipmentOptions?.city,
+                            country:
+                                getTransactionByIdData.data?.details?.transShipmentOptions?.country
+                                    ?._id,
+                            transShipmentQuantity:
+                                getTransactionByIdData.data?.details?.transShipmentOptions
+                                    ?.transShipmentQuantity,
+                            transShipmentDate:
+                                getTransactionByIdData.data?.details?.transShipmentOptions
+                                    ?.transShipmentDate &&
+                                moment(
+                                    getTransactionByIdData.data?.details?.transShipmentOptions
+                                        ?.transShipmentDate
+                                ).format("YYYY-MM-DD"),
+                        })
+
+                        setPricingDetails({
+                            pricingType:
+                                getTransactionByIdData.data?.details?.pricingDetails?.pricingType,
+                            pricingAmount:
+                                getTransactionByIdData.data?.details?.pricingDetails?.pricingAmount.toLocaleString(),
+                            pricingUnit:
+                                getTransactionByIdData.data?.details?.pricingDetails?.pricingUnit,
+                            previousDayClosingAmount:
+                                getTransactionByIdData.data?.details?.pricingDetails
+                                    ?.previousDayClosingAmount,
+                            pricingFormula:
+                                getTransactionByIdData.data?.details?.pricingDetails?.pricingFormula,
+                            pricingHedgeingStatus:
+                                getTransactionByIdData.data?.details?.pricingDetails
+                                    ?.pricingHedgingStatus,
+                            pricingHedgingMethod:
+                                getTransactionByIdData.data?.details?.pricingDetails
+                                    ?.pricingHedgingMethod,
+                            pricingCounterParty:
+                                getTransactionByIdData.data?.details?.pricingDetails
+                                    ?.pricingCounterParty?._id,
+                        })
+
+                        if (respProductDetails.commoditySubType != undefined) {
+                            let product = [];
+                            productData.data.forEach((item) => {
+                                if (item.commodity_sub_type == respProductDetails.commoditySubType) {
+                                    product.push(item);
+                                }
+                            })
+                            setProductName(product);
+                        } else {
+                            if (productData && productData.data) {
+                                setProductName(productData.data)
+                            }
                         }
+                        setIsLoading(false);
                     }
-                    setIsLoading(false);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
         }
     }
 
@@ -559,7 +559,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
         console.log('product.product name loading');
         if (productDetails.commoditySubType != undefined) {
             let product = [];
-            productData.data.forEach((item) => {
+            productData?.data.forEach((item) => {
                 if (item.commodity_sub_type == productDetails.commoditySubType) {
                     product.push(item);
                 }
@@ -2397,8 +2397,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                             <h2 className='mb-3'>Pricing details</h2>
                             <div>
                                 <Row>
-                                    <Col
-                                        lg={
+                                    <Col lg={
                                             pricingDetails.pricingType === "Firm fixed price"
                                                 ? 3
                                                 : 4 || pricingDetails.pricingHedgeingStatus === "Yes"
@@ -2594,10 +2593,10 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                                         ((warehouseRequiredOptions.length > 0 &&
                                                             pricingDetails.pricingHedgeingStatus === true) ||
                                                             pricingDetails.pricingHedgeingStatus === false) && Array.isArray(warehouseRequiredOptions) ?
-                                                        warehouseRequiredOptions.find(
-                                                            (ele) =>
-                                                                ele.value === pricingDetails.pricingHedgeingStatus
-                                                        ) : warehouseRequiredOptions === ''
+                                                            warehouseRequiredOptions.find(
+                                                                (ele) =>
+                                                                    ele.value === pricingDetails.pricingHedgeingStatus
+                                                            ) : warehouseRequiredOptions === ''
                                                     }
                                                 />
                                                 {error?.pricingHedgeingStatus && (

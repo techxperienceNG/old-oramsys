@@ -427,17 +427,20 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                             </div>
                                         </Col>}
 
-                                        {/* <Col lg={2}>
-                                        <div className=''>
+                                        <Col lg={2}>
+                                        {/* <div className=''>
+                                        <button type="button" onClick={() => handleRemoveParty(index)} className='btn btn-secondary btn-sm cursor-pointer'>Remove</button>
+
                                     <MdOutlineDeleteOutline onClick={() => handleRemoveParty(index)} className='cursor-pointer' size={30} />
-                                    </div> 
-                                        </Col> */}
+                                    </div>  */}
+                                        </Col>
 
                                     </>
                                     {/* <div className='d-flex justify-content-end '>
                                     <MdOutlineDeleteOutline className='mb-5' size={30} />
                                     </div> */}
                                 </Row>
+                              
                             ))}
                         </>
 

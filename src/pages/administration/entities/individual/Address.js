@@ -61,7 +61,7 @@ const IndividualAddress = ({ handleNext, hendelCancel, sendDetailData, common })
 
     const entityGetById = useSelector((state) => state.entityData.getEntityById)
     const entityAddData = useSelector((state) => state.entityData.entityAdd)
-    const editEntityData = useSelector((state) => state.entityData.editEntity)
+    const editEntityData = useSelector((state) => state.entityData.entityUpdate)
 
     useEffect(() => {
         if (country && country.data) {
@@ -268,7 +268,7 @@ const IndividualAddress = ({ handleNext, hendelCancel, sendDetailData, common })
         return flag;
     }
 
-    const save = () => {
+    const Save = () => {
         if (validation()) {
             return;
         }
@@ -300,7 +300,13 @@ const IndividualAddress = ({ handleNext, hendelCancel, sendDetailData, common })
         if (validation()) {
             return;
         }
-        let final = { detail: sendDetailData, email: common?.email, password: common?.password, type: common?.type, addresses: [ResidentialState, ProfessionalState] }
+        let final = { 
+            detail: sendDetailData, 
+            email: common?.email, 
+            password: common?.password, 
+            type: common?.type, 
+            addresses: [ResidentialState, ProfessionalState] 
+        }
         dispatch(editEntityAction(id, final))
     }
 
@@ -661,7 +667,7 @@ const IndividualAddress = ({ handleNext, hendelCancel, sendDetailData, common })
 
             <div className='footer_'>
                 <button onClick={() => { hendelCancel() }} className="footer_cancel_btn">cancel</button>
-                <button onClick={() => { id ? edit() : save() }} className={`footer_next_btn ${isView ? 'd-none' : 'd-block'}`}>{id ? "Edit" : "Save"}</button>
+                <button onClick={() => { id ? edit() : Save() }} className={`footer_next_btn ${isView ? 'd-none' : 'd-block'}`}>{id ? "Edit" : "Save"}</button>
             </div>
         </>
     )

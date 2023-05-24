@@ -28,11 +28,11 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
     const [names, setNames] = useState([])
     const [buyers, setBuyer] = useState([])
     const nameOption = useSelector(state => state.entityData.entity)
-    const [keyParties, setkeyParties] = useState([{
-        'party_relation': '', 'buyer': '', 'shipper': '', 'upload_evidence': ''
+    const [keyParties, setKeyParties] = useState([{
+        'buyer': '', 'shipper': '', 'party_relation': '', 'upload_evidence': ''
     }])
     const [relatedPartyDetails, setRelatedPartyDetails] = useState([{
-        'buyer': '', 'shipper': '', 'party_relation': '', 'upload_evidence': ''
+        'buyer1': '', 'shippers': '', 'partyRelation': '', 'uploadEvidence': ''
     }])
     const [editMode, setEditMode] = useState(false);
     const [relation, setRelation] = useState();
@@ -65,7 +65,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
     const getTransactionByIdData = useSelector((state) => state.transactionData.getTransactionById)
 
     const handleRelatedParties = () => {
-        setRelatedPartyDetails([...relatedPartyDetails, { 'buyer': '', 'shipper': '', 'party_relation': '', 'upload_evidence': '' }])
+        setRelatedPartyDetails([...relatedPartyDetails, { 'buyer1': '', 'shippers': '', 'partyRelation': '', 'uploadEvidence': '' }])
     }
     const handleRemoveParty = (index) => {
         const list = [...relatedPartyDetails]
@@ -91,7 +91,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
             setLenders(getBorrower.lenders)
             if (getTransactionByIdData.data?.keyParties[0].relatedParties != undefined && getTransactionByIdData.data?.keyParties[0].relatedParties.length > 0) {
                 // console.log('keyparties at useEffect', keyParties);
-                setkeyParties(getTransactionByIdData.data?.keyParties[0].relatedParties);
+                setKeyParties(getTransactionByIdData.data?.keyParties[0].relatedParties);
                 setRelatedPartyDetails(getTransactionByIdData.data?.keyParties[0].relatedParties);
                 console.log('relatedparties from database',getTransactionByIdData.data?.keyParties[0].relatedParties);
                 setEditMode(true);
@@ -115,7 +115,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
             temp[ind].shipper = newValue.details?.name;
         }      
         // setParty({ ...party, name: { value: newValue._id, label: newValue.details?.name } })
-        setkeyParties(temp)
+        setKeyParties(temp)
     }
 
     useEffect(() => {
@@ -206,14 +206,14 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
         console.log('handleRelation keyParties', keyParties);
         temp[ind].party_relation = newValue.label;
         console.log('handleRelation temp ----->', temp);
-        setkeyParties(temp);
+        setKeyParties(temp);
         console.log(keyParties);
     }
 
     const handleBuyer = (e, newValue, ind) => {
         let temp = keyParties;
         temp[ind].buyer = newValue.label;
-        setkeyParties(temp);
+        setKeyParties(temp);
         console.log('handleBuyer keyParties', keyParties);
 
     }
@@ -221,7 +221,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
     const handleShipper = (e, newValue, ind) => {
         var temp = keyParties;
         temp[ind].shipper = newValue.name;
-        setkeyParties(temp);
+        setKeyParties(temp);
         console.log('handleBuyer keyParties', keyParties);
 
     }
@@ -236,7 +236,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
             }).then((res) => {
                 var temp = keyParties;
                 temp[ind].upload_evidence = { type: 'img', name: file.name, file: res };
-                setkeyParties(temp);
+                setKeyParties(temp);
             });
         }
         console.log('handleChangeFile keyparties', keyParties);

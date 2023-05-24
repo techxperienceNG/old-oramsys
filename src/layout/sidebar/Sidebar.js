@@ -215,7 +215,7 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
                           {
                             showSubItem === subItem.text && "subData" in subItem &&
                             subItem.subData?.map((subSubItem) => (
-                              <div className='d-flex align-items-center gap-5 my-4 mx-4 ps-3'>
+                              <div className='d-flex align-items-center gap-3 my-4 mx-4 ps-3'>
                                 <subSubItem.img size={16} />
                                 <NavLink className='text-dark text-decoration-none' to={subSubItem.path} style={{ display: "block" }}>{subSubItem.text}</NavLink>
                               </div>
@@ -231,7 +231,7 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
                <hr className="navbar-divider my-2 opacity-20" />
                 {/* <!-- Navigation --> */}
              
-                <div className="d-flex flex-column mx-3 ps-2 gap-4  my-4">
+                <div className="d-flex flex-column mx-3 ps-2 gap-3  my-4">
                     <div className="">
                         {/* <Link className="nav-link">
                             <i className="bi bi-person-square"></i> <span className='ps-5'>Account</span>
@@ -239,7 +239,7 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
                     </div>
                     <div className="">
                         <Link onClick={() => setshowModal(true)} className="nav-link" href="#">
-                            <IoMdLogOut size={22} /><span className='ps-5 fw-semibold text-danger'>Logout</span>
+                            <IoMdLogOut size={22} /><span className='ps-3 fw-semibold text-danger'>Logout</span>
                         </Link>
                     </div>
                 </div>

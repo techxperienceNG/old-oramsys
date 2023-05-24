@@ -1927,9 +1927,9 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                     </div>
                 </div>
                 <div className='footer_'>
-                    <button onClick={() => { hendelCancel() }} className="footer_cancel_btn">cancel</button>
+                    <button onClick={() => { hendelCancel() }} className="footer_cancel_btn">Back</button>
                     <button onClick={() => { navigate('/transactions') }} className={`footer_next_btn ${isView ? 'd-block' : 'd-none'}`}>Exit</button>
-                    <button onClick={() => { id ? edit() : save() }} className={`footer_next_btn ${isView && 'd-none'}`}>{id ? "Close" : "Save"}</button>
+                    <button onClick={() => { id ? edit() : save() }} className={`footer_next_btn ${isView && 'd-none'}`}>{id ? "Edit" : "Save"}</button>
                 </div>
             </div>
             {addSourceOfRepayment && <AddSourceOfRepayment show={addSourceOfRepayment} onHide={() => { setAddSourceOfRepayment(false); setRowEditData('') }} getModalData={(e) => setSourceOfRepayment([...sourceOfRepayment, e])} data={rowEditData} getEditData={(e) => propsEditData(e)} isView={view} />}

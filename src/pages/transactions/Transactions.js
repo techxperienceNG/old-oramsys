@@ -254,7 +254,11 @@ const Transactions = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {!currentTrans ? <Loader  /> : currentTrans.length > 0 &&
+                        {!currentTrans ? <div class="d-flex justify-content-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div> : currentTrans.length > 0 &&
                           currentTrans?.filter((item) => {
                             return search.toLowerCase() === '' ? item : item.borrower_Applicant.toLowerCase().includes(search)
                           }).map((data) => (

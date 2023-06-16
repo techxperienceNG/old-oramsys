@@ -15,7 +15,7 @@ import { FaBoxOpen, FaPeopleCarry } from 'react-icons/fa';
 import { HiOutlineUsers } from "react-icons/hi";
 import { GiCargoShip } from "react-icons/gi";
 import { ImOffice } from "react-icons/im";
-import { FcHome, FcLock,FcCollaboration, FcWorkflow, FcViewDetails, FcPositiveDynamic } from "react-icons/fc";
+import { FcHome, FcLock,FcCollaboration, FcWorkflow, FcViewDetails, FcPositiveDynamic, FcDepartment } from "react-icons/fc";
 import { IoMdLogOut } from "react-icons/io";
 import Fade from 'react-reveal/Fade';
 
@@ -98,7 +98,7 @@ const Sidebar = ({ showSidebar, setSidebar }) => {
               path: "airports",
             },
             {
-              img: ImOffice,
+              img: FcDepartment,
               text: 'Rating Agencies',
               path: "rating-agencies",
             },

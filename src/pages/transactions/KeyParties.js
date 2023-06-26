@@ -196,8 +196,35 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
             setTableData([...tableData, data])
         }
     }
+    const validation = () => {
+        let flag = false
+        let error = {}
+
+        if (!relatedPartyDetails.buyer) {
+            flag = true
+            error.buyer = 'Please enter document remittance'
+        }
+        if (!relatedPartyDetails.shipper) {
+            flag = true
+            error.shipper = 'Please enter document remittance'
+        }
+        if (!relatedPartyDetails.party_relation) {
+            flag = true
+            error.party_relation = 'Please enter document remittance'
+        }
+        if (!relatedPartyDetails.length) {
+            flag = true
+            error.relatedPartyDetails = 'Please enter document remittance'
+        }
+        setError(error)
+        return flag
+    }
+
 
     const next = () => {
+        // if (validation()) {
+        //     return
+        // }
         let relatedParties = keyParties;
         
         let body = {
@@ -416,7 +443,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                 value={names.find((ele) => ele.details.name === party.buyer)}
                                                 disableClearable
                                             />
-                                            {error && error?.name && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.name}</span>}
+                                             {error && error?.buyer && <span style={{ color: 'red' }}>{error.buyer}</span>}
                                         </Col>
 
                                         <Col lg={3}>
@@ -432,10 +459,10 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                     handleParties(event, newValue, index,'shipper');
                                                 }}
                                                 disabled={isView}
-                                                value={(names && party.shipper) && names.find((ele) => ele.details.name === party.shipper.value)}
+                                                value={(names && party.shipper) && names.find((ele) => ele.details.name === party.shipper)}
                                                 disableClearable
                                             />
-                                            {error && error?.name && <span style={{ color: "#da251e", width: "100%", textAlign: "start" }}>{error.name}</span>}
+                                             {error && error?.shipper && <span style={{ color: 'red' }}>{error.shipper}</span>}
                                         </Col>
 
                                         {/* {warehouses.map((element) => ( */}
@@ -480,7 +507,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                     disableClearable
                                                 />
                                             </div>
-
+                                            {error && error?.party_relation && <span style={{ color: 'red' }}>{error.party_relation}</span>}
                                         </Col>
                                         {relation && <Col lg={2}>
                                             <div className='drag-and-drop'>
@@ -497,6 +524,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                     onChange={(file) => handleChangeFile(file[0], index)}
                                                 />
                                             </div>
+                                            {error && error?.upload_evidence && <span style={{ color: 'red' }}>{error.upload_evidence}</span>}
                                         </Col>}
 
                                         {/* <Col lg={2}>

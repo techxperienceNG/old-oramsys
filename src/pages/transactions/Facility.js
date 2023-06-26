@@ -984,7 +984,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                         </Row>
 
                         <Row className='mt-3'>
-                            <Col lg={3}>
+                            <Col lg={4}>
                                 <TextField
                                     label="prePayment"
                                     id="standard-start-adornment"
@@ -998,7 +998,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                 />
                                 {error && error?.prePayment && <span style={{ color: 'red' }}>{error.prePayment}</span>}
                             </Col>
-                            <Col lg={3}>
+                            <Col lg={4}>
                                 <TextField
                                     label="Cancellation fee"
                                     id="standard-start-adornment"
@@ -1012,7 +1012,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                 />
                                 {error && error?.cancellationFee && <span style={{ color: 'red' }}>{error.cancellationFee}</span>}
                             </Col>
-                            <Col lg={3}>
+                            {/* <Col lg={3}>
                                 <TextField
                                     label="Margin"
                                     id="standard-start-adornment"
@@ -1025,8 +1025,8 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                     disabled={isView}
                                 />
                                 {error && error?.margin && <span style={{ color: 'red' }}>{error.margin}</span>}
-                            </Col>
-                            <Col lg={3}>
+                            </Col> */}
+                            <Col lg={4}>
                                 <TextField
                                     label="Agency Fee"
                                     id="standard-start-adornment"
@@ -1182,7 +1182,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
                                         variant="standard"
                                         color="warning"
                                         name="amount"
-                                        value={facility.amount}
+                                        value={formateCurrencyValue(facility.amount)}
                                         onChange={(e) => handleChangeNumber(e, 'amount')}
                                         disabled={isView}
                                     />

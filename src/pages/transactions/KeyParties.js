@@ -522,7 +522,6 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                     dropzoneText='Upload Evidence'
                                                     previewText=""
                                                     onChange={(file) => handleChangeFile(file[0], index)}
-                                                    disabled={relatedPartyDetails.buyer === '' || relatedPartyDetails.shipper === '' || relatedPartyDetails.party_relation === '' }
                                                 />
                                             </div>
                                             {error && error?.upload_evidence && <span style={{ color: 'red' }}>{error.upload_evidence}</span>}

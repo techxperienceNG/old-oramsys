@@ -392,7 +392,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                         <h5 className="title-color">Related Parties</h5>
                         <button className={`add_btn me-3 ${isView ? 'd-none' : 'd-block'}`}
                             onClick={handleRelatedParties}>
-                            <img src='../../assets/img/about/plus.png' className='me-2' />New party relation</button>
+                            <img src='../../assets/img/about/plus.png' className='me-2' />Add Party Relation</button>
                     </div>
                     
                         <>
@@ -522,6 +522,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                     dropzoneText='Upload Evidence'
                                                     previewText=""
                                                     onChange={(file) => handleChangeFile(file[0], index)}
+                                                    disabled={relatedPartyDetails.buyer === '' || relatedPartyDetails.shipper === '' || relatedPartyDetails.party_relation === '' }
                                                 />
                                             </div>
                                             {error && error?.upload_evidence && <span style={{ color: 'red' }}>{error.upload_evidence}</span>}

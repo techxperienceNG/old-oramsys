@@ -322,7 +322,7 @@
 
                                     <Dropdown size='sm'>
                                       <Dropdown.Toggle variant="light" id="dropdown-basic">
-                                      <FcSettings size={25} />
+                                      <FcSettings size={17} />
                                       </Dropdown.Toggle>
 
                                       <Dropdown.Menu variant="light" className="text-white" active>

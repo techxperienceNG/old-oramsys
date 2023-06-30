@@ -202,17 +202,17 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
 
         if (!relatedPartyDetails.buyer) {
             flag = true
-            error.buyer = 'Please enter document remittance'
+            error.buyer = 'Please select a party'
         }
         if (!relatedPartyDetails.shipper) {
             flag = true
-            error.shipper = 'Please enter document remittance'
+            error.shipper = 'Please select a party'
         }
         if (!relatedPartyDetails.party_relation) {
             flag = true
-            error.party_relation = 'Please enter document remittance'
+            error.party_relation = 'Please select a relation'
         }
-        if (!relatedPartyDetails.length) {
+        if (relatedPartyDetails.length < 1) {
             flag = true
             error.relatedPartyDetails = 'Please enter document remittance'
         }
@@ -443,7 +443,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                 value={names.find((ele) => ele.details.name === party.buyer)}
                                                 disableClearable
                                             />
-                                             {error && error?.buyer && <span style={{ color: 'red' }}>{error.buyer}</span>}
+                                             {error && error?.buyer && <span style={{ color: 'red' }}>{error?.buyer}</span>}
                                         </Col>
 
                                         <Col lg={3}>
@@ -462,7 +462,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                 value={(names && party.shipper) && names.find((ele) => ele.details.name === party.shipper)}
                                                 disableClearable
                                             />
-                                             {error && error?.shipper && <span style={{ color: 'red' }}>{error.shipper}</span>}
+                                             {error && error?.shipper && <span style={{ color: 'red' }}>{error?.shipper}</span>}
                                         </Col>
 
                                         {/* {warehouses.map((element) => ( */}
@@ -507,7 +507,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                     disableClearable
                                                 />
                                             </div>
-                                            {error && error?.party_relation && <span style={{ color: 'red' }}>{error.party_relation}</span>}
+                                            {error && error?.party_relation && <span style={{ color: 'red' }}>{error?.party_relation}</span>}
                                         </Col>
                                         {relation && <Col lg={2}>
                                             <div className='drag-and-drop'>
@@ -515,17 +515,20 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                     Icon="none"
                                                     filesLimit={1}
                                                     showPreviews={true}
-                                                    defaultValue={relatedPartyDetails.upload_evidence}
+                                                    // defaultValue={relatedPartyDetails.upload_evidence}
                                                     showPreviewsInDropzone={false}
                                                     useChipsForPreview
                                                     previewGridProps={{ container: { spacing: 1, } }}
                                                     dropzoneText='Upload Evidence'
+                                                    dropzoneProps={ 
+                                                        {  disabled: false} 
+                                                    }
                                                     previewText=""
                                                     onChange={(file) => handleChangeFile(file[0], index)}
                                                     disabled={relatedPartyDetails.buyer === '' || relatedPartyDetails.shipper === '' || relatedPartyDetails.party_relation === '' }
                                                 />
                                             </div>
-                                            {error && error?.upload_evidence && <span style={{ color: 'red' }}>{error.upload_evidence}</span>}
+                                            {error && error?.upload_evidence && <span style={{ color: 'red' }}>{error?.upload_evidence}</span>}
                                         </Col>}
 
                                         {/* <Col lg={2}>

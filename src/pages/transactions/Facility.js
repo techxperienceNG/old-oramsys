@@ -765,8 +765,7 @@ const Facility = ({ hendelCancel, hendelNext }) => {
         await dispatch(editTransaction(id, body))
         setLoading(false)
         navigate("/final-page")
-        // setTimeout(() => {
-        // }, 2000);
+        
     }
 
     useEffect(() => {

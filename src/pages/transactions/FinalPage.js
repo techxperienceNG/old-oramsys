@@ -37,7 +37,7 @@ const FinalPage = ({ show, onHide }) => {
     useEffect(() => {
         setTimeout(() => {
             navigate('/transactions')
-        }, 3000);
+        }, 2000);
     }, [])
 
     return (

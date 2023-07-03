@@ -12,7 +12,9 @@ import { transactionDataAction } from '../../redux/actions/transactionDataAction
 import { MdOutlineDeleteOutline } from 'react-icons/md'
 import { entityGetAction } from '../../redux/actions/entityAction'
 
-const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getBorrower }) => {
+const KeyParties = ({ hendelCancel, hendelNext, transactionType, getCounterParty, getWarehouseCompany,  getLender, getBorrower }) => {
+    console.log(getWarehouseCompany)
+    console.log(getCounterParty)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [showEditModal, setShowEditModal] = useState(false)
@@ -24,6 +26,8 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
     const [view, setView] = useState()
     const [borrower_Applicant, setBorrower_Applicant] = useState("")
     const [lenders, setLenders] = useState("")
+    const [warehouseComp, setWarehouseComp] = useState("")
+    const [counterPart, setCounterPart] = useState("")
     const [error, setError] = useState({})
     const [names, setNames] = useState([])
     const [buyers, setBuyer] = useState([])
@@ -96,6 +100,9 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
             setEditId(getTransactionByIdData?.data?.keyParties[0]?._id)
             setBorrower_Applicant(getLender.borrower_Applicant)
             setLenders(getBorrower.lenders)
+            setWarehouseComp(getWarehouseCompany?.warehouses[0]?.warehouseCompany?.label)
+            setCounterPart(getCounterParty?.pricingCounterParty?.details?.name)
+            // console.log('check warehouse', getTransactionByIdData.details.shippingOptions?.warehouses[0]?.warehouseCompany?.details.name)
             if (getTransactionByIdData.data?.keyParties[0].relatedParties != undefined && getTransactionByIdData.data?.keyParties[0].relatedParties.length > 0) {
                 // console.log('keyparties at useEffect', keyParties);
                 setkeyParties(getTransactionByIdData.data?.keyParties[0].relatedParties);                
@@ -103,6 +110,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                 console.log('relatedparties from database',getTransactionByIdData.data?.keyParties[0].relatedParties);
                 setEditMode(true);
             }
+            console.log('CUNTERPARTY', getCounterParty?.pricingCounterParty?.details?.name)
         }
     }, [getTransactionByIdData])
 
@@ -318,6 +326,40 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                     title=""
                     columns={[
                         {
+                            title: 'Warehouse Company', render: rowData =>
+                                <Row>
+                                    <Col lg={12} className="mb-4">
+                                        <TextField
+                                            label=''
+                                            variant='standard'
+                                            color='warning'
+                                            name='warehouse company'
+
+                                            // onChange={(e) => setBorrower_Applicant(e.target.value)}
+                                            value={warehouseComp}
+                                            disabled={true}
+                                        />
+                                    </Col>
+                                </Row>
+                        },
+                        // {
+                        //     title: 'Counterparty', render: rowData =>
+                        //         <Row>
+                        //             <Col lg={12} className="mb-4">
+                        //                 <TextField
+                        //                     label=''
+                        //                     variant='standard'
+                        //                     color='warning'
+                        //                     name='Counterparty'
+
+                        //                     // onChange={(e) => setBorrower_Applicant(e.target.value)}
+                        //                     value={counterPart}
+                        //                     disabled={true}
+                        //                 />
+                        //             </Col>
+                        //         </Row>
+                        // },
+                        {
                             title: 'Borrower/Applicant', render: rowData =>
                                 <Row>
                                     <Col lg={12} className="mb-4">
@@ -525,7 +567,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getLender, getB
                                                     }
                                                     previewText=""
                                                     onChange={(file) => handleChangeFile(file[0], index)}
-                                                    disabled={relatedPartyDetails.buyer === '' || relatedPartyDetails.shipper === '' || relatedPartyDetails.party_relation === '' }
+                                                    disabled={party.buyer === '' || party.shipper === '' || party.party_relation === '' }
                                                 />
                                             </div>
                                             {error && error?.upload_evidence && <span style={{ color: 'red' }}>{error?.upload_evidence}</span>}

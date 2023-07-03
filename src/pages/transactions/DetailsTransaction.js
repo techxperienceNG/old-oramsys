@@ -19,7 +19,7 @@ import { airPortsAction, portsAction } from "../../redux/actions/portsAction"
 import LoadingSpinner from "../../component/LoadingSpinner";
 import { ApiGet, ApiPost } from '../../helper/API/ApiData';
 
-const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalWarehouseCompany, signalContract, signalBorrower, signalLender, transaction_id }) => {
+const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalCounterParty, signalWarehouseCompany, signalContract, signalBorrower, signalLender, transaction_id }) => {
     const navigate = useNavigate()
 
     // let numberReg = /^[0-9\b]+$/;
@@ -298,7 +298,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalW
                 .then((getTransactionByIdData) => {
                     let resp = getTransactionByIdData.data;
                     let respProductDetails = getTransactionByIdData.data.details.productDetails;
-                    console.log('CHECK ALL DATA', getTransactionByIdData.data.details.shippingOptions)
+                    console.log('CHECK ALL DATA', getTransactionByIdData.data.details.pricingDetails)
 
                     if (getTransactionByIdData && getTransactionByIdData.data) {
                         setEditId(getTransactionByIdData.data?.details?._id)
@@ -930,7 +930,8 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalW
         dispatch(transactionDataAction(body))
         signalContract(body.details.contractDetails)
         signalBorrower(body.borrower_Applicant)
-        // signalWarehouseCompany(body.detaiils)
+        signalWarehouseCompany(body.details.shippingOptions)
+        signalCounterParty(body.details.pricingDetails)
         signalLender(body.lenders)
         hendelNext()
     }

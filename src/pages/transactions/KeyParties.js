@@ -93,15 +93,15 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getCounterParty
                 console.log(ele);
                 return {
                     name: { label: (ele.name?.details?.name != null ? ele.name?.details?.name:ele.name?.details?.givenName) , value: ele.name?._id },
-                    type: { label: ele.type.roleName, value: ele.type._id }
+                    type: { label: ele.type?.roleName, value: ele.type?._id }
                 }
             }))
             setApiFetched(true)
             setEditId(getTransactionByIdData?.data?.keyParties[0]?._id)
             setBorrower_Applicant(getLender.borrower_Applicant)
             setLenders(getBorrower.lenders)
-            setWarehouseComp(getWarehouseCompany?.warehouses[0]?.warehouseCompany?.label)
-            setCounterPart(getCounterParty?.pricingCounterParty?.details?.name)
+            // setWarehouseComp(getWarehouseCompany?.warehouses[0]?.warehouseCompany?.label)
+            // setCounterPart(getCounterParty?.pricingCounterParty?.details?.name)
             // console.log('check warehouse', getTransactionByIdData.details.shippingOptions?.warehouses[0]?.warehouseCompany?.details.name)
             if (getTransactionByIdData.data?.keyParties[0].relatedParties != undefined && getTransactionByIdData.data?.keyParties[0].relatedParties.length > 0) {
                 // console.log('keyparties at useEffect', keyParties);
@@ -259,7 +259,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getCounterParty
         if (names) {
             names.forEach(element => { 
                 element.roles.forEach(roleDetail => {
-                    if (roleDetail.roleId.roleName == "Buyer") {
+                    if (roleDetail.roleId?.roleName == "Buyer") {
                         var temp = {
                             label: element.details.name != null ? element.details.name:element.details.givenName,
                             value: element.details.name != null ?element.details.name:element.details.givenName,

@@ -26,21 +26,43 @@ const AddWareHouseModal = ({ onHide, show, wareHouseData, wareHouseId }) => {
     }, [])
 
     useEffect(() => {
+        let entityDetails = []
         if (entityData && entityData.data) {
-            setWareHouseCompanyOption(entityData.data.map((ele) => {
-                if (ele?.details?.name) {
-                    return {
-                        label: ele?.details?.name,
-                        value: ele._id
-                    }
-                } else { 
-                    return {
-                        label: ele?.details?.givenName,
-                        value: ele._id
-                    }
-                }
-            })) 
+            console.log('Entity DATA',entityData)
+        
+                entityData.data.map((ele) => {
+                    ele.roles.map(roleDetail => {
+                        if(roleDetail.roleId.roleName == "Warehouse Company") {
+                            var temp = {
+                                label: ele?.details?.name,
+                                value: ele._id
+                            }
+                            entityDetails.push(temp)
+                        } else {
+                            var temp = {
+                                label: ele?.details?.givenName,
+                                value: ele._id
+                            }
+                        }
+                    })
+                })
         }
+        setWareHouseCompanyOption(entityDetails)
+        // if (entityData && entityData.data) {
+        //     setWareHouseCompanyOption(entityData.data.map((ele) => {
+        //         if (ele?.details?.name) {
+        //             return {
+        //                 label: ele?.details?.name,
+        //                 value: ele._id
+        //             }
+        //         } else { 
+        //             return {
+        //                 label: ele?.details?.givenName,
+        //                 value: ele._id
+        //             }
+        //         }
+        //     })) 
+        // }
     }, [entityData])
 
     useEffect(() => {

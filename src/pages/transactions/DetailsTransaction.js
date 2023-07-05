@@ -58,6 +58,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
         shipmentFrequency: "",
         warehouseRequired: "",
         warehouses: [],
+        shippingCompany: "",
     })
 
     const [transShipmentOptions, setTransShipmentOptions] = useState({
@@ -96,6 +97,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
     const [countries, setcountries] = useState([])
     const [sendModalData, setSendModalData] = useState("")
     const [counterPartyOption, setCounterPartyOption] = useState([])
+    const [shippingCompanyOption, setShippingCompanyOption] = useState([])
     const [wareHouseId, setWareHouseId] = useState("")
     const [error, setError] = useState({})
     const [selectedProduct, setSelectedProduct] = useState("")
@@ -243,23 +245,54 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
     }, [activeOnChange])
 
     useEffect(() => {
+        let entityDetails = []
         if (entityData && entityData.data) {
-            setCounterPartyOption(
-                entityData.data.map((ele) => {
-                    if (ele?.details?.name) {
-                        return {
+            console.log('Entity DATA', entityData)
+
+            entityData.data.map((ele) => {
+                ele.roles.map(roleDetail => {
+                    if (roleDetail.roleId.roleName == "Hedge Counterparty") {
+                        var temp = {
                             label: ele?.details?.name,
                             value: ele._id
                         }
+                        entityDetails.push(temp)
                     } else {
-                        return {
+                        var temp = {
                             label: ele?.details?.givenName,
                             value: ele._id
                         }
                     }
                 })
-            )
+            })
         }
+        setCounterPartyOption(entityDetails)
+        console.log("TAG", counterPartyOption)
+    }, [entityData])
+
+    useEffect(() => {
+        let shipDetails = []
+        if (entityData && entityData.data) {
+
+            entityData.data.map((ele) => {
+                ele.roles.map(roleDetail => {
+                    if (roleDetail.roleId.roleName == "Shipping Company") {
+                        var temp = {
+                            label: ele?.details?.name,
+                            value: ele._id
+                        }
+                        shipDetails.push(temp)
+                    } else {
+                        var temp = {
+                            label: ele?.details?.givenName,
+                            value: ele._id
+                        }
+                    }
+                })
+            })
+        }
+        setShippingCompanyOption(shipDetails)
+        console.log("TAG", shippingCompanyOption)
     }, [entityData])
 
     useEffect(() => {
@@ -298,7 +331,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                 .then((getTransactionByIdData) => {
                     let resp = getTransactionByIdData.data;
                     let respProductDetails = getTransactionByIdData.data.details.productDetails;
-                    console.log('CHECK ALL DATA', getTransactionByIdData.data.details.pricingDetails)
+                    console.log('CHECK ALL DATA', getTransactionByIdData.data.details.shippingOptions)
 
                     if (getTransactionByIdData && getTransactionByIdData.data) {
                         setEditId(getTransactionByIdData.data?.details?._id)
@@ -382,6 +415,8 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                             warehouseRequired:
                                 getTransactionByIdData.data?.details?.shippingOptions
                                     ?.warehouseRequired,
+                            shippingCompany: getTransactionByIdData.data?.details?.shippingOptions
+                                ?.shippingCompany,
                             warehouses:
                                 getTransactionByIdData.data?.details?.shippingOptions?.warehouses.map(
                                     (item) => {
@@ -397,6 +432,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                         }
                                     }
                                 ),
+
                         })
 
                         setTransShipmentOptions({
@@ -869,6 +905,10 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
             flag = true
             error.pricingCounterParty = "Please enter counter party!"
         }
+        if (!shippingOptions.shippingCompany) {
+            flag = true
+            error.shippingCompany = "Please enter a shipping company!"
+        }
         setError(error)
         return flag
     }
@@ -930,8 +970,8 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
         dispatch(transactionDataAction(body))
         signalContract(body.details.contractDetails)
         signalBorrower(body.borrower_Applicant)
-        signalWarehouseCompany(body.details.shippingOptions)
-        signalCounterParty(body.details.pricingDetails)
+        // signalWarehouseCompany(body.details.shippingOptions)
+        // signalCounterParty(body.details.pricingDetails)
         signalLender(body.lenders)
         hendelNext()
     }
@@ -1500,6 +1540,53 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                         >
                             <h2 className='mb-3'>Shipping options</h2>
                             <div>
+                                <Row>
+                                    <Col lg={4}>
+                                        <Autocomplete
+                                            label='Shipping Company'
+                                            id='disable-clearable'
+                                            onChange={(e, newVal) =>
+                                                setShippingOptions({
+                                                    ...shippingOptions,
+                                                    shippingCompany: newVal.value,
+                                                })
+                                            }
+                                            getOptionLabel={(option) => option.label || ""}
+                                            options={shippingCompanyOption}
+                                            disableClearable
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    label='Shipping Company'
+                                                    variant='standard'
+                                                />
+                                            )}
+                                            disabled={isView}
+                                            value={
+                                                shippingCompanyOption.length > 0 &&
+                                                shippingOptions.shippingCompany !==
+                                                undefined &&
+                                                shippingOptions.shippingCompany &&
+                                                shippingCompanyOption.find(
+                                                    (ele) =>
+                                                        ele.value ===
+                                                        shippingOptions.shippingCompany
+                                                )
+                                            }
+                                        />
+                                        {error?.shippingCompany && (
+                                            <span
+                                                style={{
+                                                    color: "#da251e",
+                                                    width: "100%",
+                                                    textAlign: "start",
+                                                }}
+                                            >
+                                                {error?.shippingCompany}
+                                            </span>
+                                        )}
+                                    </Col>
+                                </Row>
                                 <Row>
                                     <Col lg={3}>
                                         <Autocomplete

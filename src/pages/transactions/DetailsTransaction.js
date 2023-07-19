@@ -19,7 +19,7 @@ import { airPortsAction, portsAction } from "../../redux/actions/portsAction"
 import LoadingSpinner from "../../component/LoadingSpinner";
 import { ApiGet, ApiPost } from '../../helper/API/ApiData';
 
-const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalCounterParty, signalShippingCompany, signalWarehouseCompany, signalContract, signalBorrower, signalLender, transaction_id }) => {
+const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalCounterParty, signalShippingCompany, signalWarehouseCompany, signalWarehouseStatus,  signalContract, signalBorrower, signalLender, transaction_id, signalPricingHedgingStatus }) => {
     const navigate = useNavigate()
 
     // let numberReg = /^[0-9\b]+$/;
@@ -32,6 +32,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
         name: "",
         quantity: "",
         metric: "",
+        unit: "",
         quality: "",
     })
 
@@ -82,6 +83,10 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
     })
 
     const [borrower_Applicant, setBorrower_Applicant] = useState("")
+    const [shipping_company, setShippingCompany] = useState("")
+    const [hedging_party, setHedgingParty] = useState("")
+    const [hedging_status, setHedgingStatus] = useState(false)
+    const [warehouse_status, setWarehouseStatus] = useState(false)
     const [lenders, setLenders] = useState("")
 
     const [addWarehouseModal, setAddWarehouseModal] = useState(false)
@@ -111,6 +116,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
     const productData = useSelector((state) => state.product.product)
     const country = useSelector((state) => state.countryData.country)
     const entityData = useSelector((state) => state.entityData.entity)
+    console.log('PRodcutd data', productData)
     // const getTransactionByIdData = useSelector(
     //     (state) => state.transactionData.getTransactionById
     // )
@@ -193,7 +199,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
         setActiveOnChange('destination')
         // setApiCalled(false)
     }
-
+    
     useEffect(() => {
         if (shippingOptions.countryOfOrigin) {
             setPorts(
@@ -364,6 +370,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
             setProductDetails({
                 ...productDetails,
                 metric: productName.find((ele) => ele._id === productDetails.name)?.matric,
+                unit: productName.find((ele) => ele._id === productDetails.name)?.unit
             })
         }
     }, [productDetails.name, productName])
@@ -403,6 +410,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                             quantity:
                                 respProductDetails?.quantity,
                             metric: respProductDetails?.metric,
+                            unit: respProductDetails?.unit,
 
                             quality: getTransactionByIdData.data?.details?.productDetails?.quality,
                         })
@@ -432,6 +440,9 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                 getTransactionByIdData.data?.details?.contractDetails
                                     ?.descriptionOfContract,
                         })
+
+                        setShippingCompany(getTransactionByIdData.data?.details?.shippingOptions
+                            ?.shippingCompany?.details?.name)
 
                         setShippingOptions({
                             shipmentDate:
@@ -488,6 +499,8 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                 ),
 
                         })
+                        setWarehouseStatus(  getTransactionByIdData.data?.details?.shippingOptions
+                            ?.warehouseRequired)
 
                         setTransShipmentOptions({
                             tranShipmentRequired:
@@ -523,7 +536,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                     ?.previousDayClosingAmount,
                             pricingFormula:
                                 getTransactionByIdData.data?.details?.pricingDetails?.pricingFormula,
-                            pricingHedgeingStatus:
+                            pricingHedgingStatus:
                                 getTransactionByIdData.data?.details?.pricingDetails
                                     ?.pricingHedgingStatus,
                             pricingHedgingMethod:
@@ -533,6 +546,10 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                 getTransactionByIdData.data?.details?.pricingDetails
                                     ?.pricingCounterParty?._id,
                         })
+                        setHedgingParty(getTransactionByIdData.data?.details?.pricingDetails
+                            ?.pricingCounterParty?.details?.name)
+                        setHedgingStatus(getTransactionByIdData.data?.details?.pricingDetails
+                            ?.pricingHedgingStatus)
 
                         if (respProductDetails.commoditySubType != undefined) {
                             let product = [];
@@ -938,14 +955,14 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
 
         if (
             pricingDetails.pricingType === "Price to be fixed" &&
-            pricingDetails.pricingHedgeingStatus === ""
+            pricingDetails.pricingHedgingStatus === ""
         ) {
             flag = true
-            error.pricingHedgeingStatus = "Please enter pricing hedgeing status!"
+            error.pricingHedgingStatus = "Please enter pricing hedgeing status!"
         }
 
         if (
-            pricingDetails.pricingHedgeingStatus &&
+            pricingDetails.pricingHedgingStatus &&
             !pricingDetails.pricingHedgingMethod
         ) {
             flag = true
@@ -953,7 +970,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
         }
 
         if (
-            pricingDetails.pricingHedgeingStatus &&
+            pricingDetails.pricingHedgingStatus &&
             !pricingDetails.pricingCounterParty
         ) {
             flag = true
@@ -1019,14 +1036,20 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
             },
             borrower_Applicant,
             lenders,
+            shipping_company,
+            hedging_party,
+            hedging_status,
+            warehouse_status,
             type: transactionType,
         }
         dispatch(transactionDataAction(body))
         signalContract(body.details.contractDetails)
         signalBorrower(body.borrower_Applicant)
         signalWarehouseCompany(body.details.shippingOptions)
-        signalCounterParty(body.details.pricingDetails)
-        signalShippingCompany(body.details.shippingOptions)
+        signalCounterParty(body.hedging_party)
+        signalPricingHedgingStatus(body.hedging_status)
+        signalWarehouseStatus(body.warehouse_status)
+        signalShippingCompany(body.shipping_company)
         signalLender(body.lenders)
         hendelNext()
     }
@@ -1096,7 +1119,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                             )
                                         }
                                     />
-                                    {error?.pricingCounterParty && (
+                                    {error?.borrower_Applicant && (
                                         <span
                                             style={{
                                                 color: "#da251e",
@@ -1104,7 +1127,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                                 textAlign: "start",
                                             }}
                                         >
-                                            {error?.pricingCounterParty}
+                                            {error?.borrower_Applicant}
                                         </span>
                                     )}
                                 </Col>
@@ -1139,7 +1162,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                             )
                                         }
                                     />
-                                    {error?.pricingCounterParty && (
+                                    {error?.lenders && (
                                         <span
                                             style={{
                                                 color: "#da251e",
@@ -1147,7 +1170,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                                 textAlign: "start",
                                             }}
                                         >
-                                            {error?.pricingCounterParty}
+                                            {error?.lenders}
                                         </span>
                                     )}
                                 </Col>
@@ -1687,11 +1710,13 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                         <Autocomplete
                                             label='Shipping Company'
                                             id='disable-clearable'
-                                            onChange={(e, newVal) =>
+                                            onChange={(e, newVal) => {
                                                 setShippingOptions({
                                                     ...shippingOptions,
                                                     shippingCompany: newVal.value,
-                                                })
+                                                });
+                                                setShippingCompany(newVal.label)
+                                            }
                                             }
                                             getOptionLabel={(option) => option.label || ""}
                                             options={shippingCompanyOption}
@@ -2127,11 +2152,13 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                         <Autocomplete
                                             label='Warehouse required?'
                                             id='disable-clearable'
-                                            onChange={(e, newVal) =>
+                                            onChange={(e, newVal) => {
                                                 setShippingOptions({
                                                     ...shippingOptions,
                                                     warehouseRequired: newVal.value,
                                                 })
+                                                setWarehouseStatus(newVal.value)
+                                                }
                                             }
                                             getOptionLabel={(option) => option.label || ""}
                                             options={warehouseRequiredOptions}
@@ -2541,7 +2568,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                         lg={
                                             pricingDetails.pricingType === "Firm fixed price"
                                                 ? 3
-                                                : 4 || pricingDetails.pricingHedgeingStatus === "Yes"
+                                                : 4 || pricingDetails.pricingHedgingStatus === "Yes"
                                                     ? 3
                                                     : 4
                                         }
@@ -2627,9 +2654,9 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                                     variant='standard'
                                                     color='warning'
                                                     // value={selectedProduct && selectedProduct}
-                                                    value={selectedProduct && selectedProduct}
-                                                    onChange={(e) => handleChnage(e, "pricingUnit", "pricingDetails")}
-                                                    disabled
+                                                    value={productDetails.unit}
+                                                    onChange={(e) => handleChnage(e, "unit", "productDetails")}
+                                                    disabled={true}
                                                 />
                                             </Col>
                                             <Col
@@ -2668,7 +2695,7 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                     )}
                                     {pricingDetails.pricingType === "Price to be fixed" && (
                                         <>
-                                            <Col lg={pricingDetails.pricingHedgeingStatus ? 3 : 4}>
+                                            <Col lg={pricingDetails.pricingHedgingStatus ? 3 : 4}>
                                                 <Autocomplete
                                                     label='Pricing formula'
                                                     id='disable-clearable'
@@ -2709,15 +2736,17 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                                     </span>
                                                 )}
                                             </Col>
-                                            <Col lg={pricingDetails.pricingHedgeingStatus ? 3 : 4}>
+                                            <Col lg={pricingDetails.pricingHedgingStatus ? 3 : 4}>
                                                 <Autocomplete
                                                     label='Pricing Hedging status'
                                                     id='disable-clearable'
-                                                    onChange={(e, newVal) =>
+                                                    onChange={(e, newVal) => {
                                                         setPricingDetails({
                                                             ...pricingDetails,
-                                                            pricingHedgeingStatus: newVal.value,
+                                                            pricingHedgingStatus: newVal.value,
                                                         })
+                                                        setHedgingStatus(newVal.value)
+                                                    }
                                                     }
                                                     getOptionLabel={(option) => option.label || ""}
                                                     options={warehouseRequiredOptions}
@@ -2732,15 +2761,15 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                                     disabled={isView}
                                                     value={
                                                         ((warehouseRequiredOptions.length > 0 &&
-                                                            pricingDetails.pricingHedgeingStatus === true) ||
-                                                            pricingDetails.pricingHedgeingStatus === false) && Array.isArray(warehouseRequiredOptions) ?
+                                                            pricingDetails.pricingHedgingStatus === true) ||
+                                                            pricingDetails.pricingHedgingStatus === false) ?
                                                             warehouseRequiredOptions.find(
                                                                 (ele) =>
-                                                                    ele.value === pricingDetails.pricingHedgeingStatus
+                                                                    ele.value === pricingDetails.pricingHedgingStatus
                                                             ) : warehouseRequiredOptions === ''
                                                     }
                                                 />
-                                                {error?.pricingHedgeingStatus && (
+                                                {error?.pricingHedgingStatus && (
                                                     <span
                                                         style={{
                                                             color: "#da251e",
@@ -2748,11 +2777,11 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                                             textAlign: "start",
                                                         }}
                                                     >
-                                                        {error?.pricingHedgeingStatus}
+                                                        {error?.pricingHedgingStatus}
                                                     </span>
                                                 )}
                                             </Col>
-                                            {pricingDetails.pricingHedgeingStatus && (
+                                            {pricingDetails.pricingHedgingStatus && (
                                                 <>
                                                     <Col lg={3}>
                                                         <Autocomplete
@@ -2801,11 +2830,13 @@ const DetailsTransaction = ({ hendelNext, onHide, show, transactionType, signalC
                                                             <Autocomplete
                                                                 label='Counter party'
                                                                 id='disable-clearable'
-                                                                onChange={(e, newVal) =>
+                                                                onChange={(e, newVal) => {
                                                                     setPricingDetails({
                                                                         ...pricingDetails,
                                                                         pricingCounterParty: newVal.value,
-                                                                    })
+                                                                    });
+                                                                    setHedgingParty(newVal.label)
+                                                                 }
                                                                 }
                                                                 getOptionLabel={(option) => option.label || ""}
                                                                 options={counterPartyOption}

@@ -1,7 +1,7 @@
 import { TextField } from '@material-ui/core'
 import MaterialTable from 'material-table'
 import { DropzoneArea } from 'material-ui-dropzone'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useLocation, useNavigate } from 'react-router-dom'
 import PartiesEditModal from '../../component/Modal/PartiesEditModal'
@@ -12,10 +12,7 @@ import { transactionDataAction } from '../../redux/actions/transactionDataAction
 import { MdOutlineDeleteOutline } from 'react-icons/md'
 import { entityGetAction } from '../../redux/actions/entityAction'
 
-const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingCompany, getCounterParty, getWarehouseCompany, getLender, getBorrower }) => {
-    console.log(getWarehouseCompany)
-    console.log(getCounterParty)
-    console.log(getShippingCompany)
+const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingCompany, getCounterParty, pricingHedgingStatus, getWarehouseCompany, warehouseStatus, getLender, getBorrower }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [showEditModal, setShowEditModal] = useState(false)
@@ -33,6 +30,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
     const [error, setError] = useState({})
     const [names, setNames] = useState([])
     const [buyers, setBuyer] = useState([])
+    const [partiesData, setpartiesData] = useState([])
     const nameOption = useSelector(state => state.entityData.entity)
     const [keyParties, setkeyParties] = useState([{
         'party_relation': '', 'buyer': '', 'shipper': '', 'upload_evidence': ''
@@ -102,10 +100,11 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
             setEditId(getTransactionByIdData?.data?.keyParties[0]?._id)
             setBorrower_Applicant(getLender.borrower_Applicant)
             setLenders(getBorrower.lenders)
-            setWarehouseComp(getWarehouseCompany?.warehouses[0]?.warehouseCompany?.label)
-            setCounterPart(getTransactionByIdData.data?.details?.pricingDetails
+            // setWarehouseComp(getWarehouseCompany?.warehouses[0]?.warehouseCompany?.label)
+            
+            setCounterPart(getTransactionByIdData?.data?.details?.pricingDetails
                 ?.pricingCounterParty?.details.name)
-            setShippingComp(getTransactionByIdData.data?.details?.shippingOptions
+            setShippingComp(getTransactionByIdData?.data?.details?.shippingOptions
                 ?.shippingCompany?.details.name)
             // setCounterPart(getCounterParty?.pricingCounterParty?.details?.name)
             // setShippingComp(getShippingCompany?.shippingCompany?.details?.name)
@@ -114,7 +113,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
                 // console.log('keyparties at useEffect', keyParties);
                 setkeyParties(getTransactionByIdData.data?.keyParties[0].relatedParties);
 
-                console.log('relatedparties from database', getTransactionByIdData.data?.keyParties[0].relatedParties);
+                console.log('relatedparties from database, new edition', getTransactionByIdData.data);
                 setEditMode(true);
             }
             console.log('CUNTERPARTY', getCounterParty?.pricingCounterParty?.details?.name)
@@ -145,6 +144,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
     }
 
     const handleParties = (e, newValue, ind, type) => {
+        console.log(newValue, 'fund mw')
         let temp = keyParties;
         let tempRelatedPartyDetails = relatedPartyDetails;
         if (temp[ind] == undefined) {
@@ -155,7 +155,7 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
                 'party_relation': '', 'buyer': '', 'shipper': '', 'upload_evidence': ''
             }];
         }
-        var temp_name = (newValue.details?.name) ? newValue.details?.name : newValue.details?.givenName;
+        var temp_name = newValue
         if (type == "buyer") {
             if (temp[ind].shipper !== temp_name) {
                 if (temp[ind] != undefined && temp[ind].buyer != undefined) {
@@ -256,10 +256,11 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
             },
             type: transactionType
         }
+        
         dispatch(transactionDataAction(body))
         hendelNext()
     }
-
+    console.log('TAbLE dATa', tableData)
     useEffect(() => {
         let buyer_arr = [];
         let warehouses = [];
@@ -319,8 +320,26 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
         }
 
     }
-
-    const buyer_data_loop = [0];
+    const tdata = []
+    tableData.map((item) => {
+        tdata.push(item?.name?.label)
+    })
+const warehouseCo = getWarehouseCompany.warehouses[0]?.warehouseCompany?.label
+    const AddUpParties = useCallback(() => {
+        const storeData = [
+            getBorrower,
+            getLender,
+            getShippingCompany,
+            warehouseCo,
+            getCounterParty,
+            ...tdata,
+        ]
+        setpartiesData(storeData);
+    }, [tableData])
+console.log('warehouse company', getWarehouseCompany.warehouses[0]?.warehouseCompany?.label)
+    useEffect(() => {
+        AddUpParties()
+    }, [AddUpParties])
 
     return (
         <>
@@ -336,8 +355,6 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
                             variant='standard'
                             color='warning'
                             name='borrower_Applicant'
-
-                            // onChange={(e) => setBorrower_Applicant(e.target.value)}
                             value={getBorrower}
                             disabled={true}
                         />
@@ -350,8 +367,6 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
                             variant='standard'
                             color='warning'
                             name='lenders'
-
-                            // onChange={(e) => setLenders(e.target.value)}
                             value={getLender}
                             disabled={true}
                         />
@@ -364,43 +379,39 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
                             variant='standard'
                             color='warning'
                             name='lenders'
-
-                            // onChange={(e) => setLenders(e.target.value)}
-                            value={shippingComp}
+                            value={getShippingCompany}
                             disabled={true}
                         />
                     </Col>
                 </Row>
-                <Row>
+                {warehouseStatus && <Row>
                     <Col lg={12} className="mb-4">
                         <TextField
                             label='Warehouse Company'
                             variant='standard'
                             color='warning'
                             name='warehouse company'
-
-                            // onChange={(e) => setBorrower_Applicant(e.target.value)}
-                            value={warehouseComp}
+                            value={warehouseCo}
                             disabled={true}
                         />
                     </Col>
-                </Row>
-                <Row>
+                </Row>}
+                {pricingHedgingStatus && <Row>
                     <Col lg={12} className="mb-4">
                         <TextField
                             label='Hedging Counterparty'
                             variant='standard'
                             color='warning'
                             name='Counterparty'
-
-                            // onChange={(e) => setBorrower_Applicant(e.target.value)}
-                            value={counterPart}
+                            value={getCounterParty}
                             disabled={true}
                         />
                     </Col>
-                </Row>
+                </Row>}
 
-
+                <div className='mb-3 d-flex justify-content-between align-items-center'>
+                    <h4>Key Parties</h4>
+                </div>
                 <MaterialTable
                     title=""
                     columns={[
@@ -469,94 +480,48 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
                             <Row key={index}>
                                 <>
 
-                                    {/* <Col lg={3}>
-                                            <div className='d-flex ms-4'>
-                                                <img src='../../../assets/img/about/Tag.png' style={{ "height": "30px", "top": "22px", "position": "relative" }} />
-                                                <Autocomplete
-                                                    className='ms-3 mb-3 w-100'
-                                                    options={names}
-                                                    getOptionLabel={(option) => option.label || ""}
-                                                    id={"disable-clearable-buyer" + ind}
-                                                    label="Buyer"
-                                                    renderInput={(params) => (
-                                                        <TextField {...params} label="Party 1" variant="standard" />
-                                                    )}
-                                                    defaultValue={relatedParties.buyer}
-                                                    getOptionSelected={(option) => option.label === 'test'}
-                                                    onChange={(event, newValue) => handleBuyer(event, newValue, ind)}
-                                                    disableClearable
-                                                />
-                                            </div>
-                                        </Col> */}
                                     <Col lg={3}>
                                         <Autocomplete
-                                            options={names}
-                                            getOptionLabel={(option) => (option.details?.name)}
+                                            options={partiesData}
+                                            getOptionLabel={(option) => option || ""}
                                             id={"disable-clearable-buyer-" + index}
                                             label="Party"
+                                            defaultValue={party.buyer}
                                             renderInput={(params) => (
                                                 <TextField {...params} label="Party 1" variant="standard" />
                                             )}
                                             onChange={(event, newValue) => {
-                                                console.log('test1');
-                                                // names.forEach((ele) => { 
-                                                //     console.log(ele.details.name);
-                                                //     console.log('hurre',party.buyer==ele.details.name);
-                                                console.log(party.buyer);
-                                                // })
-                                                // console.log(names.find((ele) => ele.details.name == party.buyer))
-
                                                 handleParties(event, newValue, index, 'buyer');
                                             }}
                                             disabled={isView}
-                                            value={names.find((ele) => ele.details.name === party.buyer)}
+                                            value={(partiesData && party.buyer) && partiesData.find((ele) => ele === party?.buyer)}
                                             disableClearable
                                         />
                                         {error && error?.buyer && <span style={{ color: 'red' }}>{error?.buyer}</span>}
                                     </Col>
 
+
                                     <Col lg={3}>
                                         <Autocomplete
-                                            options={names}
-                                            getOptionLabel={(option) => (option.details?.name)}
+                                            options={partiesData}
+                                            getOptionLabel={(option) => option || ""}
                                             id={"disable-clearable-shipper-" + index}
                                             label="Party"
+                                            defaultValue={party.shipper}
                                             renderInput={(params) => (
                                                 <TextField {...params} label="Party 2" variant="standard" />
                                             )}
                                             onChange={(event, newValue) => {
                                                 handleParties(event, newValue, index, 'shipper');
+                                                console.log(party.shipper, "Check")
                                             }}
                                             disabled={isView}
-                                            value={(names && party.shipper) && names.find((ele) => ele.details.name === party.shipper)}
+                                            value={(partiesData && party.shipper) && partiesData.find((ele) => ele === party?.shipper)}
                                             disableClearable
                                         />
                                         {error && error?.shipper && <span style={{ color: 'red' }}>{error?.shipper}</span>}
                                     </Col>
-
-                                    {/* {warehouses.map((element) => ( */}
-
-                                    {/* <Col lg={3}>
-                                            <><div className='d-flex'>
-                                                <img src='../../../assets/img/about/Deliver.png' style={{ "height": "30px", "top": "22px", "position": "relative" }} />
-                                                <Autocomplete
-                                                    className='ms-3 mb-3 w-100'
-                                                    options={warehouses}
-                                                    getOptionLabel={(option) => option.name}
-                                                    id={"disable-clearable-shipper-" + ind}
-                                                    label="Shipper"
-                                                    renderInput={(params) => (
-                                                        <TextField {...params} label="Party 2" variant="standard" />
-                                                    )}
-                                                    defaultValue={relatedParties.shipper}
-                                                    getOptionSelected={(option) => option.name === 'test'}
-                                                    onChange={(event, newValue) => handleShipper(event, newValue, ind)}
-                                                    disableClearable
-                                                />
-                                            </div></>
-                                                        
-
-                                        </Col> */}
+                                 
                                     <Col lg={4}>
                                         <div className='d-flex align-items-center Related_parties'>
                                             <p className='mb-0 title-color'>Relation</p>
@@ -600,23 +565,10 @@ const KeyParties = ({ hendelCancel, hendelNext, transactionType, getShippingComp
                                         {error && error?.upload_evidence && <span style={{ color: 'red' }}>{error?.upload_evidence}</span>}
                                     </Col>}
 
-                                    {/* <Col lg={2}>
-                                        <div className=''>
-                                    <MdOutlineDeleteOutline onClick={() => handleRemoveParty(index)} className='cursor-pointer' size={30} />
-                                    </div> 
-                                        </Col> */}
-
                                 </>
-                                {/* <div className='d-flex justify-content-end '>
-                                    <MdOutlineDeleteOutline className='mb-5' size={30} />
-                                    </div> */}
                             </Row>
                         ))}
                     </>
-
-
-
-
                 </div>
             </div>
             <div className='footer_'>

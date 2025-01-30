@@ -49,7 +49,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "awssync": "aws s3 sync ./build 's3://oramsys.com/'",
     "build": "react-scripts build",
     "test": "react-scripts test",
